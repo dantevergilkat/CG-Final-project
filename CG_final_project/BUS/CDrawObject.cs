@@ -107,12 +107,12 @@ namespace BUS
 		public void drawCylinderWithTriangleBottom(OpenGL gl) {
 			// Ve hinh tru co day la tam giac deu voi canh a tuy y
 			
-			float a = 2.0f;
+			float a = 4.0f;
 			float h = 5.0f;
 
 			gl.Begin(OpenGL.GL_TRIANGLES);
 			// Ve day ABC
-			gl.Color(0.0f, 1.0f, 0.0f); // Blue
+			gl.Color(0.0f, 1.0f, 0.0f); // Green
 			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(a, 0.0f, 0.0f);
 			gl.Vertex(a / 2, 0.0f, a);
@@ -141,6 +141,17 @@ namespace BUS
 			gl.Vertex(0.0f, h, 0.0f);
 			gl.Vertex(a, h, 0.0f);
 			gl.Vertex(a, 0.0f, 0.0f);
+			gl.End();
+			gl.Flush();
+
+			// Ve day tren A'B'C'
+			gl.Begin(OpenGL.GL_TRIANGLES);
+			gl.Color(0.0f, 1.0f, 0.0f); // Green
+			gl.Vertex(0.0f, h, 0.0f);
+			gl.Vertex(a, h, 0.0f);
+			gl.Vertex(a / 2, h, a);
+			gl.End();
+			gl.Flush();
 		}
 	}
 }
