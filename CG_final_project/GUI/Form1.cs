@@ -8,12 +8,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
+using GlmNet;
 using BUS;
 
 namespace GUI
 {
 	public partial class Form1 : Form
 	{
+        /*static vec4 vec1 = new vec4(1, 2, 3, 4);
+        static vec4 vec2 = new vec4(1, 2, 3, 4);
+        static vec4 vec3 = new vec4(1, 2, 3, 4);
+        static vec4 vec4 = new vec4(1, 2, 3, 4);
+        static vec4[] vector = new vec4[4] { vec1, vec2, vec3, vec4 };
+        static mat4 matrix1 = new mat4(vector);
+        static mat4 matrix2 = new mat4();
+        mat4 matrix3 = matrix1;*/
+
         // camera position
         double rotate_x = -4;
         double rotate_y = 4;
@@ -37,7 +48,7 @@ namespace GUI
             gl.MatrixMode(OpenGL.GL_MODELVIEW);
             gl.LoadIdentity();
             gl.LookAt(rotate_x, rotate_y, rotate_z, // camera position (-4,4,-4)
-                      0, 0, 0, // look at
+                      1, 0, 1, // look at
                       0, 1, 0); // vector up
 
 			// Draw a coloured cube
@@ -98,15 +109,21 @@ namespace GUI
             {
                 double tmp_x = rotate_x;
                 double tmp_z = rotate_z;
-                rotate_x = Math.Cos(0.1) * tmp_x + Math.Sin(0.1) * tmp_z;
-                rotate_z = Math.Sin(0.1) * (-1) * tmp_x + Math.Cos(0.1) * tmp_z;
+                //rotate_x = Math.Cos(0.1) * tmp_x + Math.Sin(0.1) * tmp_z;
+                //rotate_z = Math.Sin(0.1) * (-1) * tmp_x + Math.Cos(0.1) * tmp_z;
+                double center_x = 1;
+                double center_z = 1;
+                rotate_x = Math.Cos(-0.1) * tmp_x + Math.Sin(-0.1) * tmp_z * (-1) - Math.Cos(-0.1) * center_x + Math.Sin(-0.1) * center_z + center_x;
+                rotate_z = Math.Sin(-0.1) * tmp_x + Math.Cos(-0.1) * tmp_z - Math.Sin(-0.1) * center_x - Math.Cos(-0.1) * center_z + center_z;
             }
             else if (e.KeyValue == 65)
             {
                 double tmp_x = rotate_x;
                 double tmp_z = rotate_z;
-                rotate_x = Math.Cos(-0.1) * tmp_x + Math.Sin(-0.1) * tmp_z;
-                rotate_z = Math.Sin(-0.1) * (-1) * tmp_x + Math.Cos(-0.1) * tmp_z;
+                double center_x = 1;
+                double center_z = 1;
+                rotate_x = Math.Cos(0.1) * tmp_x + Math.Sin(0.1) * tmp_z * (-1)- Math.Cos(0.1) * center_x + Math.Sin(0.1) * center_z + center_x;
+                rotate_z = Math.Sin(0.1) * tmp_x + Math.Cos(0.1) * tmp_z- Math.Sin(0.1) * center_x - Math.Cos(0.1) * center_z + center_z;
             }
 
         }
