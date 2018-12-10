@@ -38,11 +38,14 @@
 			this.bt_Move = new System.Windows.Forms.Button();
 			this.bt_Select = new System.Windows.Forms.Button();
 			this.bt_Prism = new System.Windows.Forms.Button();
+			this.imgList_icon_object = new System.Windows.Forms.ImageList(this.components);
 			this.bt_Pyramid = new System.Windows.Forms.Button();
 			this.bt_Cube = new System.Windows.Forms.Button();
 			this.lstBox_SampleScene = new System.Windows.Forms.ListBox();
 			this.lb_SampleScene = new System.Windows.Forms.Label();
-			this.imgList_icon_object = new System.Windows.Forms.ImageList(this.components);
+			this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+			this.bt_Palette = new System.Windows.Forms.Button();
+			this.bt_Color = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
 			this.pnl_Tool_bar.SuspendLayout();
 			this.SuspendLayout();
@@ -64,6 +67,8 @@
 			// 
 			// pnl_Tool_bar
 			// 
+			this.pnl_Tool_bar.Controls.Add(this.bt_Color);
+			this.pnl_Tool_bar.Controls.Add(this.bt_Palette);
 			this.pnl_Tool_bar.Controls.Add(this.bt_Scale);
 			this.pnl_Tool_bar.Controls.Add(this.bt_Rotate);
 			this.pnl_Tool_bar.Controls.Add(this.bt_Move);
@@ -138,6 +143,14 @@
 			this.bt_Prism.UseVisualStyleBackColor = true;
 			this.bt_Prism.Click += new System.EventHandler(this.bt_Prism_Click);
 			// 
+			// imgList_icon_object
+			// 
+			this.imgList_icon_object.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgList_icon_object.ImageStream")));
+			this.imgList_icon_object.TransparentColor = System.Drawing.Color.Transparent;
+			this.imgList_icon_object.Images.SetKeyName(0, "clipart161515.png");
+			this.imgList_icon_object.Images.SetKeyName(1, "clipart166330.png");
+			this.imgList_icon_object.Images.SetKeyName(2, "clipart466993.png");
+			// 
 			// bt_Pyramid
 			// 
 			this.bt_Pyramid.ImageIndex = 0;
@@ -167,6 +180,7 @@
 			this.lstBox_SampleScene.Name = "lstBox_SampleScene";
 			this.lstBox_SampleScene.Size = new System.Drawing.Size(166, 212);
 			this.lstBox_SampleScene.TabIndex = 3;
+			this.lstBox_SampleScene.SelectedIndexChanged += new System.EventHandler(this.lstBox_SampleScene_SelectedIndexChanged);
 			// 
 			// lb_SampleScene
 			// 
@@ -177,13 +191,26 @@
 			this.lb_SampleScene.TabIndex = 4;
 			this.lb_SampleScene.Text = "Sample scene";
 			// 
-			// imgList_icon_object
+			// bt_Palette
 			// 
-			this.imgList_icon_object.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgList_icon_object.ImageStream")));
-			this.imgList_icon_object.TransparentColor = System.Drawing.Color.Transparent;
-			this.imgList_icon_object.Images.SetKeyName(0, "clipart161515.png");
-			this.imgList_icon_object.Images.SetKeyName(1, "clipart166330.png");
-			this.imgList_icon_object.Images.SetKeyName(2, "clipart466993.png");
+			this.bt_Palette.ForeColor = System.Drawing.SystemColors.Control;
+			this.bt_Palette.Image = ((System.Drawing.Image)(resources.GetObject("bt_Palette.Image")));
+			this.bt_Palette.Location = new System.Drawing.Point(640, 25);
+			this.bt_Palette.Name = "bt_Palette";
+			this.bt_Palette.Size = new System.Drawing.Size(62, 62);
+			this.bt_Palette.TabIndex = 7;
+			this.bt_Palette.UseVisualStyleBackColor = true;
+			this.bt_Palette.Click += new System.EventHandler(this.bt_Palette_Click);
+			// 
+			// bt_Color
+			// 
+			this.bt_Color.BackColor = System.Drawing.Color.White;
+			this.bt_Color.Location = new System.Drawing.Point(579, 34);
+			this.bt_Color.Name = "bt_Color";
+			this.bt_Color.Size = new System.Drawing.Size(45, 45);
+			this.bt_Color.TabIndex = 8;
+			this.bt_Color.UseVisualStyleBackColor = false;
+			this.bt_Color.Click += new System.EventHandler(this.bt_Color_Click);
 			// 
 			// Form1
 			// 
@@ -219,6 +246,9 @@
 		private System.Windows.Forms.Button bt_Move;
 		private System.Windows.Forms.Button bt_Select;
 		private System.Windows.Forms.ImageList imgList_icon_object;
+		private System.Windows.Forms.Button bt_Palette;
+		private System.Windows.Forms.ColorDialog colorDialog1;
+		private System.Windows.Forms.Button bt_Color;
 	}
 }
 

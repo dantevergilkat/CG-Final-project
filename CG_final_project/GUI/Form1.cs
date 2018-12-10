@@ -18,7 +18,10 @@ namespace GUI
 		CDrawObject drObj = new CDrawObject();
 		TypeObject currentType;
 		List<String> listObjName = new List<String>(); // Bien chua ten cac doi tuong da ve
-		
+		int indexCurrentObj = -1; // Bien giu index cua doi tuong nguoi dung chon
+		Color currentColor = Color.White; // Mau dung hien tai
+		bool isChangedColor = false; // Su dung de doi mau obj khi da selected
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -30,8 +33,16 @@ namespace GUI
 			// Clear vung nho dem
 			gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
 
+			// Kiem tra khi nguoi dung select 1 doi tuong va co thay doi mau to khong
+			if (isChangedColor)
+			{
+				// Doi mau nguoi chung luc click vao listbox
+				drObj.setColorOfOneObj(indexCurrentObj, currentColor);
+				isChangedColor = false; // reset lai
+			}
+
 			// Draw object
-			drObj.draw(gl);
+			drObj.draw(gl, indexCurrentObj);
 
 		
 		}
@@ -75,28 +86,61 @@ namespace GUI
 		private void bt_Cube_Click(object sender, EventArgs e)
 		{
 			currentType = TypeObject.CUBE;
-			drObj.addObj(currentType); // Them object vao list luu tru
+			drObj.addObj(currentType, currentColor); // Them object vao list luu tru
 			int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Cube " + count.ToString()); // Them vao list quan ly
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
+			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
+			indexCurrentObj = count; // Luu index cua Obj vua moi ve
 		}
 
 		private void bt_Pyramid_Click(object sender, EventArgs e)
 		{
 			currentType = TypeObject.SQUARE_PYRAMID;
-			drObj.addObj(currentType); // Them object vao list luu tru
+			drObj.addObj(currentType, currentColor); // Them object vao list luu tru
 			int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Pyramid " + count.ToString()); // Them vao list quan ly
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
+			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
+			indexCurrentObj = count; // Luu index cua Obj vua moi ve
 		}
 
 		private void bt_Prism_Click(object sender, EventArgs e)
 		{
 			currentType = TypeObject.TRIANGULAR_PRISM;
-			drObj.addObj(currentType); // Them object vao list luu tru
+			drObj.addObj(currentType, currentColor); // Them object vao list luu tru
 			int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Prism " + count.ToString()); // Them vao list quan ly
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
+			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
+			indexCurrentObj = count; // Luu index cua Obj vua moi ve
+		}
+
+		private void lstBox_SampleScene_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			// Lay index nguoi dung chon
+			indexCurrentObj = lstBox_SampleScene.SelectedIndex;
+		}
+
+		private void bt_Palette_Click(object sender, EventArgs e)
+		{
+			if (colorDialog1.ShowDialog() == DialogResult.OK) {
+				currentColor = colorDialog1.Color;
+				bt_Color.BackColor = currentColor;
+
+				if (indexCurrentObj != -1) {
+					isChangedColor = true;
+				}
+			}
+		}
+
+		private void bt_Color_Click(object sender, EventArgs e)
+		{
+			currentColor = bt_Color.BackColor;
+			if (indexCurrentObj != -1)
+			{
+				isChangedColor = true;
+			}
 		}
 	}
 }
