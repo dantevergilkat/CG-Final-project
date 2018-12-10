@@ -8,10 +8,40 @@ using System.Threading.Tasks;
 
 namespace BUS
 {
-	public class CDrawObject
+	// Dinh nghia Enum
+	public enum TypeObject
 	{
-		
-		public void drawColouredCube(OpenGL gl)
+		CUBE,
+		SQUARE_PYRAMID,
+		TRIANGULAR_PRISM
+	}
+
+	// Bass class: Object
+	public abstract class CObject
+	{
+		protected string name;
+		public abstract string Name
+		{
+			get; set;
+		}
+
+		public abstract void draw(OpenGL gl);
+
+		public CObject()
+		{
+		}
+	}
+
+	// Class: Hinh lap phuong
+	public class CCube : CObject
+	{
+		public override string Name
+		{
+			get { return "Cube"; }
+			set { name = value; }
+		}
+
+		public override void draw(OpenGL gl)
 		{
 			// Ve hinh lap phuong voi canh a bat ky
 			float a = 2.0f;
@@ -57,16 +87,31 @@ namespace BUS
 			gl.Flush();
 		}
 
-		// Ve hinh chop, day la hinh vuong
-		public void drawPyramidWithSpareBottom(OpenGL gl) {
+		public CCube()
+		{
+			name = "Cube";
+		}
+	}
+
+	// Class: Hinh cho co day la hinh vuong
+	public class CSquarePyramid : CObject
+	{
+		public override string Name
+		{
+			get { return "Square pyramid"; }
+			set { name = value; }
+		}
+
+		public override void draw(OpenGL gl)
+		{
 			float a = 2.0f;
-			// Ve hinh chop day hinh vuong voi dinh S tuy y va canh day la a
-			// Gia su S(10, 6, 4)
-			float h = 5;
+			// Ve hinh chop deu day hinh vuong voi dinh S tuy y va canh day la a
+			float h = 5.0f;
 
 			// Ve day
 			gl.Begin(OpenGL.GL_QUADS);
 			gl.Color(0.0f, 1.0f, 0.0f); // Blue
+			// Ve day ABCD
 			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(a, 0.0f, 0.0f);
 			gl.Vertex(a, 0.0f, a);
@@ -78,35 +123,50 @@ namespace BUS
 			gl.Begin(OpenGL.GL_TRIANGLES);
 			// Ve mat ben trai SAB
 			gl.Color(1.0f, 0.5f, 0.0f);    // Color Orange
-			gl.Vertex(3.0f, 6.0f, 2.0f);
+			gl.Vertex(a/2, h, a/2);
 			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(0.0f, 0.0f, a);
 
 			// Ve mat giua SBC
 			gl.Color(1.0f, 0.0f, 0.0f);    // Color Red   
-			gl.Vertex(3.0f, 6.0f, 2.0f);
+			gl.Vertex(a / 2, h, a / 2);
 			gl.Vertex(0.0f, 0.0f, a);
 			gl.Vertex(a, 0.0f, a);
 
 			// Ve mat ben phai SCD
 			gl.Color(1.0f, 1.0f, 0.0f);    // Color Yellow
-			gl.Vertex(3.0f, 6.0f, 2.0f);
+			gl.Vertex(a / 2, h, a / 2);
 			gl.Vertex(a, 0.0f, a);
 			gl.Vertex(a, 0.0f, 0.0f);
 
 			// Ve mat sau SAD
 			gl.Color(1.0f, 0.0f, 1.0f);    // Color Violet
-			gl.Vertex(3.0f, 6.0f, 2.0f);
+			gl.Vertex(a / 2, h, a / 2);
 			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(a, 0.0f, 0.0f);
 
 			gl.End();
 			gl.Flush();
 		}
+		public CSquarePyramid()
+		{
+			name = "Square pyramid";
+		}
+	}
 
-		public void drawCylinderWithTriangleBottom(OpenGL gl) {
+	// Class: Lang tru co day la tam giac deu
+	public class CTriangularPrism : CObject
+	{
+		public override string Name
+		{
+			get { return "Triangular prism"; }
+			set { name = value; }
+		}
+
+		public override void draw(OpenGL gl)
+		{
 			// Ve hinh tru co day la tam giac deu voi canh a tuy y
-			
+
 			float a = 4.0f;
 			float h = 5.0f;
 
@@ -153,5 +213,71 @@ namespace BUS
 			gl.End();
 			gl.Flush();
 		}
+
+		public CTriangularPrism()
+		{
+			name = "Triangular prism";
+		}
 	}
+
+	public class CListObject
+	{
+		private List<CObject> lst = new List<CObject>();
+
+		// Them mot CObject vao list
+		public void add(CObject src)
+		{
+			lst.Add(src);
+		}
+
+		// Ve cho cac doi tuong trong list
+		public void draw(OpenGL gl)
+		{
+			foreach (var obj in lst)
+			{
+				obj.draw(gl);
+			}
+		}
+
+		public int getLength() {
+			return lst.Count();
+		}
+	}
+
+	public class CDrawObject
+	{
+		private CListObject lstObj = new CListObject();
+
+		public void draw(OpenGL gl)
+		{
+			lstObj.draw(gl);
+		}
+
+		public void addObj(TypeObject type)
+		{
+			CObject obj = null;
+			switch (type)
+			{
+				case TypeObject.CUBE:
+					obj = new CCube();
+					break;
+				case TypeObject.SQUARE_PYRAMID:
+					obj = new CSquarePyramid();
+					break;
+				case TypeObject.TRIANGULAR_PRISM:
+					obj = new CTriangularPrism();
+					break;
+			}
+			// Them obj nay vao lstObj
+			lstObj.add(obj);
+		}
+
+		public int getLength() {
+			return lstObj.getLength();
+		}
+
+	}
+
+
+
 }

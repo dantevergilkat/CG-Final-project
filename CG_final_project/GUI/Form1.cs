@@ -16,6 +16,8 @@ namespace GUI
 	{
 		// Khoi tao doi tuong lop CDrawObject de ve
 		CDrawObject drObj = new CDrawObject();
+		TypeObject currentType;
+		
 		public Form1()
 		{
 			InitializeComponent();
@@ -27,14 +29,10 @@ namespace GUI
 			// Clear vung nho dem
 			gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
 
-			// Draw a coloured cube
-			//drObj.drawColouredCube(gl);
+			// Draw object
+			drObj.draw(gl);
 
-			// Draw pyramid with square bottom
-			//drObj.drawPyramidWithSpareBottom(gl);
-
-			// Draw cylinder with triangle bottom
-			drObj.drawCylinderWithTriangleBottom(gl);
+		
 		}
 
 		private void openGLControl1_OpenGLInitialized(object sender, EventArgs e)
@@ -71,6 +69,24 @@ namespace GUI
 				0, 0, 0,
 				0, 1, 0);
 
+		}
+
+		private void bt_Cube_Click(object sender, EventArgs e)
+		{
+			currentType = TypeObject.CUBE;
+			drObj.addObj(currentType); // Them object vao list luu tru
+		}
+
+		private void bt_Pyramid_Click(object sender, EventArgs e)
+		{
+			currentType = TypeObject.SQUARE_PYRAMID;
+			drObj.addObj(currentType); // Them object vao list luu tru
+		}
+
+		private void bt_Prism_Click(object sender, EventArgs e)
+		{
+			currentType = TypeObject.TRIANGULAR_PRISM;
+			drObj.addObj(currentType); // Them object vao list luu tru
 		}
 	}
 }
