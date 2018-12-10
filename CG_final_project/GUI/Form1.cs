@@ -17,6 +17,7 @@ namespace GUI
 		// Khoi tao doi tuong lop CDrawObject de ve
 		CDrawObject drObj = new CDrawObject();
 		TypeObject currentType;
+		List<String> listObjName = new List<String>(); // Bien chua ten cac doi tuong da ve
 		
 		public Form1()
 		{
@@ -75,18 +76,27 @@ namespace GUI
 		{
 			currentType = TypeObject.CUBE;
 			drObj.addObj(currentType); // Them object vao list luu tru
+			int count = listObjName.Count(); // Lay so phan tu hien tai
+			listObjName.Add("Cube " + count.ToString()); // Them vao list quan ly
+			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
 		}
 
 		private void bt_Pyramid_Click(object sender, EventArgs e)
 		{
 			currentType = TypeObject.SQUARE_PYRAMID;
 			drObj.addObj(currentType); // Them object vao list luu tru
+			int count = listObjName.Count(); // Lay so phan tu hien tai
+			listObjName.Add("Pyramid " + count.ToString()); // Them vao list quan ly
+			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
 		}
 
 		private void bt_Prism_Click(object sender, EventArgs e)
 		{
 			currentType = TypeObject.TRIANGULAR_PRISM;
 			drObj.addObj(currentType); // Them object vao list luu tru
+			int count = listObjName.Count(); // Lay so phan tu hien tai
+			listObjName.Add("Prism " + count.ToString()); // Them vao list quan ly
+			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
 		}
 	}
 }

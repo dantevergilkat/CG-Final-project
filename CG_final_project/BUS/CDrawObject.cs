@@ -19,8 +19,8 @@ namespace BUS
 	// Bass class: Object
 	public abstract class CObject
 	{
-		protected string name;
-		public abstract string Name
+		protected String name;
+		public abstract String Name
 		{
 			get; set;
 		}
@@ -35,7 +35,7 @@ namespace BUS
 	// Class: Hinh lap phuong
 	public class CCube : CObject
 	{
-		public override string Name
+		public override String Name
 		{
 			get { return "Cube"; }
 			set { name = value; }
@@ -96,7 +96,7 @@ namespace BUS
 	// Class: Hinh cho co day la hinh vuong
 	public class CSquarePyramid : CObject
 	{
-		public override string Name
+		public override String Name
 		{
 			get { return "Square pyramid"; }
 			set { name = value; }
@@ -157,7 +157,7 @@ namespace BUS
 	// Class: Lang tru co day la tam giac deu
 	public class CTriangularPrism : CObject
 	{
-		public override string Name
+		public override String Name
 		{
 			get { return "Triangular prism"; }
 			set { name = value; }
