@@ -1,6 +1,7 @@
 ﻿using SharpGL;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,46 +9,142 @@ using System.Threading.Tasks;
 
 namespace BUS
 {
-	public class CDrawObject
+	// Dinh nghia Enum
+	public enum TypeObject
 	{
-		
-		public void drawColouredCube(OpenGL gl)
+		CUBE,
+		SQUARE_PYRAMID,
+		TRIANGULAR_PRISM
+	}
+
+	// Bass class: Object
+	public abstract class CObject
+	{
+		protected String name;
+		protected Color colorUse; // Mau su dung
+		public abstract String Name
+		{
+			get; set;
+		}
+
+		public Color ColorUse {
+			get { return colorUse; }
+			set { colorUse = value; }
+		}
+
+		public abstract void drawBorder(OpenGL gl, bool isSelected);
+
+		public abstract void draw(OpenGL gl, bool isSelected = false);
+
+		public CObject()
+		{
+			colorUse = Color.White; // Mac dinh la mau trang
+		}
+	}
+
+	// Class: Hinh lap phuong
+	public class CCube : CObject
+	{
+		public override String Name
+		{
+			get { return "Cube"; }
+			set { name = value; }
+		}
+
+		public override void drawBorder(OpenGL gl, bool isSelected)
+		{
+			float a = 2.0f;
+			if (isSelected)
+			{ // Neu selected
+			  // Duong vien mau cam dam
+				gl.Color(255 / 255.0f, 128 / 255.0, 0);
+			}
+			else
+				gl.Color(224 / 255.0f, 224 / 255.0f, 224 / 255.0f);
+			gl.LineWidth(3);
+
+			// Ve bien
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Top)
+			gl.Vertex(a, 0.0f, 0.0f);    // Top Left Of The Quad (Top)
+			gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Top)
+			gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Top)
+			gl.End();
+			gl.Flush();
+
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Bottom)
+			gl.Vertex(0.0f, a, 0.0f);    // Top Left Of The Quad (Bottom)
+			gl.Vertex(a, a, 0.0f);    // Bottom Left Of The Quad (Bottom)
+			gl.Vertex(a, 0.0f, 0.0f);    // Bottom Right Of The Quad (Bottom)
+			gl.End();
+			gl.Flush();
+
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Front)
+			gl.Vertex(0.0f, a, 0.0f);    // Top Left Of The Quad (Front)
+			gl.Vertex(0.0f, a, a);    // Bottom Left Of The Quad (Front)
+			gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Front)
+			gl.End();
+			gl.Flush();
+
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Vertex(0.0f, a, a);    // Top Right Of The Quad (Back)
+			gl.Vertex(a, a, a);    // Top Left Of The Quad (Back)
+			gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Back)
+			gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Back)
+			gl.End();
+			gl.Flush();
+
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Vertex(a, a, a);    // Top Right Of The Quad (Left)
+			gl.Vertex(a, a, 0.0f);    // Top Left Of The Quad (Left)
+			gl.Vertex(a, 0.0f, 0.0f);    // Bottom Left Of The Quad (Left)
+			gl.Vertex(a, 0.0f, a);    // Bottom Right Of The Quad (Left)
+			gl.End();
+			gl.Flush();
+
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Vertex(0.0f, a, 0.0f);    // Top Right Of The Quad (Right)
+			gl.Vertex(a, a, 0.0f);    // Top Left Of The Quad (Right)
+			gl.Vertex(a, a, a);    // Bottom Left Of The Quad (Right)
+			gl.Vertex(0.0f, a, a);    // Bottom 
+			gl.End();
+			gl.Flush();
+			gl.LineWidth(1);
+		}
+
+		public override void draw(OpenGL gl, bool isSelected = false)
 		{
 			// Ve hinh lap phuong voi canh a bat ky
 			float a = 2.0f;
+			gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
 			gl.Begin(OpenGL.GL_QUADS);
-
-			gl.Color(0.0f, 1.0f, 0.0f);    // Color Blue
 			gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Top)
 			gl.Vertex(a, 0.0f, 0.0f);    // Top Left Of The Quad (Top)
 			gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Top)
 			gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Top)
 
-			gl.Color(1.0f, 0.5f, 0.0f);    // Color Orange
 			gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Bottom)
 			gl.Vertex(0.0f, a, 0.0f);    // Top Left Of The Quad (Bottom)
 			gl.Vertex(a, a, 0.0f);    // Bottom Left Of The Quad (Bottom)
 			gl.Vertex(a, 0.0f, 0.0f);    // Bottom Right Of The Quad (Bottom)
 
-			gl.Color(1.0f, 0.0f, 0.0f);    // Color Red    
 			gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Front)
 			gl.Vertex(0.0f, a, 0.0f);    // Top Left Of The Quad (Front)
 			gl.Vertex(0.0f, a, a);    // Bottom Left Of The Quad (Front)
 			gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Front)
 
-			gl.Color(1.0f, 1.0f, 0.0f);    // Color Yellow
 			gl.Vertex(0.0f, a, a);    // Top Right Of The Quad (Back)
 			gl.Vertex(a, a, a);    // Top Left Of The Quad (Back)
 			gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Back)
 			gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Back)
 
-			gl.Color(0.0f, 0.0f, 1.0f);    // Color Blue
 			gl.Vertex(a, a, a);    // Top Right Of The Quad (Left)
 			gl.Vertex(a, a, 0.0f);    // Top Left Of The Quad (Left)
 			gl.Vertex(a, 0.0f, 0.0f);    // Bottom Left Of The Quad (Left)
 			gl.Vertex(a, 0.0f, a);    // Bottom Right Of The Quad (Left)
 
-			gl.Color(1.0f, 0.0f, 1.0f);    // Color Violet
 			gl.Vertex(0.0f, a, 0.0f);    // Top Right Of The Quad (Right)
 			gl.Vertex(a, a, 0.0f);    // Top Left Of The Quad (Right)
 			gl.Vertex(a, a, a);    // Bottom Left Of The Quad (Right)
@@ -55,18 +152,94 @@ namespace BUS
 
 			gl.End();
 			gl.Flush();
+
+			drawBorder(gl, isSelected);
 		}
 
-		// Ve hinh chop, day la hinh vuong
-		public void drawPyramidWithSpareBottom(OpenGL gl) {
+		public CCube() : base()
+		{
+			name = "Cube";
+		}
+	}
+
+	// Class: Hinh cho co day la hinh vuong
+	public class CSquarePyramid : CObject
+	{
+		public override String Name
+		{
+			get { return "Square pyramid"; }
+			set { name = value; }
+		}
+
+		public override void drawBorder(OpenGL gl, bool isSelected)
+		{
 			float a = 2.0f;
-			// Ve hinh chop day hinh vuong voi dinh S tuy y va canh day la a
-			// Gia su S(10, 6, 4)
-			float h = 5;
+			float h = 5.0f;
+
+			if (isSelected)
+			{ // Neu selected
+			  // Duong vien mau cam dam
+				gl.Color(255 / 255.0f, 128 / 255.0, 0);
+			}
+			else
+				gl.Color(224 / 255.0f, 224/255.0f, 224/255.0f);
+			gl.LineWidth(3);
+			// Ve bien
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			// Ve day ABCD
+			gl.Vertex(0.0f, 0.0f, 0.0f);
+			gl.Vertex(a, 0.0f, 0.0f);
+			gl.Vertex(a, 0.0f, a);
+			gl.Vertex(0.0f, 0.0f, a);
+			gl.End();
+			gl.Flush();
+
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Vertex(a / 2, h, a / 2);
+			gl.Vertex(0.0f, 0.0f, 0.0f);
+			gl.Vertex(0.0f, 0.0f, a);
+			gl.End();
+			gl.Flush();
+
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Vertex(a / 2, h, a / 2);
+			gl.Vertex(0.0f, 0.0f, a);
+			gl.Vertex(a, 0.0f, a);
+			gl.End();
+			gl.Flush();
+
+
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Vertex(a / 2, h, a / 2);
+			gl.Vertex(a, 0.0f, a);
+			gl.Vertex(a, 0.0f, 0.0f);
+			gl.End();
+			gl.Flush();
+
+
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			// Ve mat sau SAD
+			gl.Vertex(a / 2, h, a / 2);
+			gl.Vertex(0.0f, 0.0f, 0.0f);
+			gl.Vertex(a, 0.0f, 0.0f);
+			gl.End();
+			gl.Flush();
+
+			gl.PointSize(1.0f);
+
+		}
+
+
+		public override void draw(OpenGL gl, bool isSelected = false)
+		{
+			float a = 2.0f;
+			// Ve hinh chop deu day hinh vuong voi dinh S tuy y va canh day la a
+			float h = 5.0f;
+			gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
 
 			// Ve day
 			gl.Begin(OpenGL.GL_QUADS);
-			gl.Color(0.0f, 1.0f, 0.0f); // Blue
+			// Ve day ABCD
 			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(a, 0.0f, 0.0f);
 			gl.Vertex(a, 0.0f, a);
@@ -77,42 +250,118 @@ namespace BUS
 			// Ve 4 mat ben
 			gl.Begin(OpenGL.GL_TRIANGLES);
 			// Ve mat ben trai SAB
-			gl.Color(1.0f, 0.5f, 0.0f);    // Color Orange
-			gl.Vertex(3.0f, 6.0f, 2.0f);
+			gl.Vertex(a/2, h, a/2);
 			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(0.0f, 0.0f, a);
 
 			// Ve mat giua SBC
-			gl.Color(1.0f, 0.0f, 0.0f);    // Color Red   
-			gl.Vertex(3.0f, 6.0f, 2.0f);
+			gl.Vertex(a / 2, h, a / 2);
 			gl.Vertex(0.0f, 0.0f, a);
 			gl.Vertex(a, 0.0f, a);
 
 			// Ve mat ben phai SCD
-			gl.Color(1.0f, 1.0f, 0.0f);    // Color Yellow
-			gl.Vertex(3.0f, 6.0f, 2.0f);
+			gl.Vertex(a / 2, h, a / 2);
 			gl.Vertex(a, 0.0f, a);
 			gl.Vertex(a, 0.0f, 0.0f);
 
 			// Ve mat sau SAD
-			gl.Color(1.0f, 0.0f, 1.0f);    // Color Violet
-			gl.Vertex(3.0f, 6.0f, 2.0f);
+			gl.Vertex(a / 2, h, a / 2);
 			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(a, 0.0f, 0.0f);
 
 			gl.End();
 			gl.Flush();
+
+			drawBorder(gl, isSelected);
+		}
+		public CSquarePyramid() : base()
+		{
+			name = "Square pyramid";
+			
+		}
+	}
+
+	// Class: Lang tru co day la tam giac deu
+	public class CTriangularPrism : CObject
+	{
+		public override String Name
+		{
+			get { return "Triangular prism"; }
+			set { name = value; }
 		}
 
-		public void drawCylinderWithTriangleBottom(OpenGL gl) {
-			// Ve hinh tru co day la tam giac deu voi canh a tuy y
-			
+		public override void drawBorder(OpenGL gl, bool isSelected)
+		{
 			float a = 4.0f;
 			float h = 5.0f;
 
+			if (isSelected)
+			{ // Neu selected
+			  // Duong vien mau cam dam
+				gl.Color(255 / 255.0f, 128 / 255.0, 0);
+			}
+			else
+				gl.Color(224 / 255.0f, 224 / 255.0f, 224 / 255.0f);
+			gl.LineWidth(3);
+
+			// Ve bien
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			// Ve day ABC
+			gl.Vertex(0.0f, 0.0f, 0.0f);
+			gl.Vertex(a, 0.0f, 0.0f);
+			gl.Vertex(a / 2, 0.0f, a);
+			gl.End();
+			gl.Flush();
+
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			// Ve mat ben thu nhat AA'C'C
+			gl.Vertex(0.0f, 0.0f, 0.0f);
+			gl.Vertex(0.0f, h, 0.0f);
+			gl.Vertex(a / 2, h, a);
+			gl.Vertex(a / 2, 0.0f, a);
+			gl.End();
+			gl.Flush();
+
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			// Ve mat ben thu hai CC'B'B
+			gl.Vertex(a / 2, 0.0f, a);
+			gl.Vertex(a / 2, h, a);
+			gl.Vertex(a, h, 0.0f);
+			gl.Vertex(a, 0.0f, 0.0f);
+			gl.End();
+			gl.Flush();
+
+
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			// Ve mat sau AA'B'B
+			gl.Vertex(0.0f, 0.0f, 0.0f);
+			gl.Vertex(0.0f, h, 0.0f);
+			gl.Vertex(a, h, 0.0f);
+			gl.Vertex(a, 0.0f, 0.0f);
+			gl.End();
+			gl.Flush();
+
+
+			gl.Begin(OpenGL.GL_LINE_STRIP);
+			// Ve day tren A'B'C'
+			gl.Vertex(0.0f, h, 0.0f);
+			gl.Vertex(a, h, 0.0f);
+			gl.Vertex(a / 2, h, a);
+			gl.End();
+			gl.Flush();
+			gl.LineWidth(1);
+		}
+
+
+		public override void draw(OpenGL gl, bool isSelected = false)
+		{
+			// Ve hinh tru co day la tam giac deu voi canh a tuy y
+			float a = 4.0f;
+			float h = 5.0f;
+
+			gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
 			gl.Begin(OpenGL.GL_TRIANGLES);
 			// Ve day ABC
-			gl.Color(0.0f, 1.0f, 0.0f); // Green
 			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(a, 0.0f, 0.0f);
 			gl.Vertex(a / 2, 0.0f, a);
@@ -122,21 +371,18 @@ namespace BUS
 			// Ve cac mat ben
 			gl.Begin(OpenGL.GL_QUADS);
 			// Ve mat ben thu nhat AA'C'C
-			gl.Color(1.0f, 0.5f, 0.0f);    // Color Orange
 			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(0.0f, h, 0.0f);
 			gl.Vertex(a / 2, h, a);
 			gl.Vertex(a / 2, 0.0f, a);
 
 			// Ve mat ben thu hai CC'B'B
-			gl.Color(1.0f, 0.0f, 0.0f);    // Color Red  
 			gl.Vertex(a / 2, 0.0f, a);
 			gl.Vertex(a / 2, h, a);
 			gl.Vertex(a, h, 0.0f);
 			gl.Vertex(a, 0.0f, 0.0f);
 
 			// Ve mat sau AA'B'B
-			gl.Color(1.0f, 1.0f, 0.0f);    // Color Yellow
 			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(0.0f, h, 0.0f);
 			gl.Vertex(a, h, 0.0f);
@@ -146,12 +392,347 @@ namespace BUS
 
 			// Ve day tren A'B'C'
 			gl.Begin(OpenGL.GL_TRIANGLES);
-			gl.Color(0.0f, 1.0f, 0.0f); // Green
 			gl.Vertex(0.0f, h, 0.0f);
 			gl.Vertex(a, h, 0.0f);
 			gl.Vertex(a / 2, h, a);
 			gl.End();
 			gl.Flush();
+
+			// Ve bien
+			drawBorder(gl, isSelected);
+		}
+
+		public CTriangularPrism() : base()
+		{
+			name = "Triangular prism";
 		}
 	}
+
+	public class CListObject
+	{
+		private List<CObject> lst = new List<CObject>();
+
+
+		// Them mot CObject vao list
+		public void add(CObject src)
+		{
+			lst.Add(src);
+		}
+
+		// Ve cho cac doi tuong trong list
+		public void draw(OpenGL gl)
+		{
+			foreach (var obj in lst)
+			{
+				obj.draw(gl);
+			}
+		}
+
+		public void draw(OpenGL gl, int idxSelected) {
+
+			for(int i = 0; i < lst.Count(); i++)
+			{
+				if (i != idxSelected)
+					lst[i].draw(gl);
+				else // Neu nguoi dung dang select thi se ve vien dam
+					lst[i].draw(gl, true);
+			}
+		}
+
+		public int getLength() {
+			return lst.Count();
+		}
+
+		public void setColorOfOneObj(int idx, Color color) {
+			lst[idx].ColorUse = color;
+		}
+
+	}
+
+	public class CDrawObject
+	{
+		private CListObject lstObj = new CListObject();
+
+		public void draw(OpenGL gl)
+		{
+			lstObj.draw(gl);
+		}
+
+		public void draw(OpenGL gl, int idxSelected) {
+			lstObj.draw(gl, idxSelected);
+		}
+
+		public void addObj(TypeObject type, Color color)
+		{
+			CObject obj = null;
+			switch (type)
+			{
+				case TypeObject.CUBE:
+					obj = new CCube();
+					break;
+				case TypeObject.SQUARE_PYRAMID:
+					obj = new CSquarePyramid();
+					break;
+				case TypeObject.TRIANGULAR_PRISM:
+					obj = new CTriangularPrism();
+					break;
+			}
+
+			obj.ColorUse = color;
+			// Them obj nay vao lstObj
+			lstObj.add(obj);
+		}
+
+		public int getLength() {
+			return lstObj.getLength();
+		}
+
+		public void setColorOfOneObj(int idx, Color color) {
+			lstObj.setColorOfOneObj(idx, color);
+		}
+
+	}
+    class MatrixManipulation
+    {
+        private double[,] matrixMult(double[,] mat1, double[,] mat2, int m, int n, int p) // Nhan 2 ma tran
+        {
+            double[,] retMat = new double[m, p];
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < p; j++)
+                {
+                    retMat[i, j] = mat1[i, 0] * mat2[0, j] + mat1[i, 1] * mat2[1, j] + mat1[i, 2] * mat2[2, j] + mat1[i, 3] * mat2[3, j];
+                }
+            }
+            return retMat;
+        }
+        public double[] verticeRotate(double[] sPoint, double[] ePoint, double angle, double x, double y, double z) // xoay diem (x, y, z) quanh vecto co diem dau la sPoint, diem cuoi la ePoint
+        { // return a list of new x, y, z
+            // return vertice
+            double[] ret = new double[3];
+            // create vector from given start point and end point
+            double x1 = sPoint[0], y1 = sPoint[1], z1 = sPoint[2];
+            double[] vec = new double[3] { ePoint[0] - sPoint[0], ePoint[1] - sPoint[1], ePoint[2] - sPoint[2] };
+            double vec_magnitude = Math.Sqrt(Math.Pow(vec[0], 2) + Math.Pow(vec[1], 2) + Math.Pow(vec[2], 2));
+            double kx = vec[0] / vec_magnitude, ky = vec[1] / vec_magnitude, kz = vec[2] / vec_magnitude;
+            double d = Math.Sqrt(Math.Pow(ky, 2) + Math.Pow(kz, 2));
+            double radian = (Math.PI / 180) * angle;
+
+            double[,] rev_tr = new double[4, 4]
+            {
+                {1, 0, 0, x1},
+                {0, 1, 0, y1},
+                {0, 0, 1, z1},
+                {0, 0, 0, 1}
+            };
+            double[,] rev_rot_a = new double[4, 4]
+            {
+                {1, 0, 0, 0},
+                {0, kz/d, (-1)*ky/d, 0},
+                {0, ky/d, kz/d, 0},
+                {0, 0, 0, 1}
+            };
+            double[,] rev_rot_b = new double[4, 4]
+            {
+                {d, 0, kx, 0},
+                {0, 1, 0, 0},
+                {(-1)*kx, 0, d, 0},
+                {0, 0, 0, 1}
+            };
+            double[,] rot = new double[4, 4]
+            {
+                {Math.Cos(radian), Math.Sin(radian), 0, 0 },
+                {(-1)*Math.Sin(radian), Math.Cos(radian), 0, 0 },
+                {0, 0, 1, 0 },
+                {0, 0, 0, 1}
+            };
+            double[,] rot_b = new double[4, 4]
+            {
+                {d, 0, (-1)*kx, 0 },
+                {0, 1, 0, 0 },
+                {kx, 0, d, 0 },
+                {0, 0, 0, 1 }
+            };
+            double[,] rot_a = new double[4, 4]
+            {
+                {1, 0, 0, 0 },
+                {0, kz/d, ky/d, 0 },
+                {0, (-1)*ky/d, kz/d, 0 },
+                {0, 0, 0, 1 }
+            };
+            double[,] tr = new double[4, 4]
+            {
+                {1, 0, 0, (-1)*x1 },
+                {0, 1, 0, (-1)*y1 },
+                {0, 0, 1, (-1)*z1 },
+                {0, 0, 0, 1 }
+            };
+            double[,] tmp = new double[4, 4];
+            tmp = matrixMult(rev_tr, rev_rot_a, 4, 4, 4);
+            tmp = matrixMult(tmp, rev_rot_b, 4, 4, 4);
+            tmp = matrixMult(tmp, rot, 4, 4, 4);
+            tmp = matrixMult(tmp, rot_b, 4, 4, 4);
+            tmp = matrixMult(tmp, rot_a, 4, 4, 4);
+            tmp = matrixMult(tmp, tr, 4, 4, 4);
+
+            double[,] verticeVec = new double[4, 1] { { x }, { y }, { z }, { 1 } };
+            tmp = matrixMult(tmp, verticeVec, 4, 4, 1);
+            ret[0] = tmp[0, 0];
+            ret[1] = tmp[1, 0];
+            ret[2] = tmp[2, 0];
+            return ret;
+        }
+    }
+    //==============================================================CAMERA===============================================================================
+    public class CameraRotation
+    {
+        // camera position
+        private double x = -4;
+        private double y = 4;
+        private double z = -4;
+        // view point
+        private double v_x = 1;
+        private double v_y = 0;
+        private double v_z = 1;
+        // vector up
+        private double u_x = 0;
+        private double u_y = 1;
+        private double u_z = 0;
+        // ePoint of perpendicular vector
+        private double p_x = 0;
+        private double p_y = 0;
+        private double p_z = 2;
+
+        // flag for checking when we need to change y of vector up 
+        private int flag1 = 0;
+        private int flag2 = 0;
+
+        // Khai bao de su dung ham rotate
+        private MatrixManipulation matManip = new MatrixManipulation();
+
+        public double getX()
+        {
+            return x;
+        }
+        public double getY()
+        {
+            return y;
+        }
+        public double getZ()
+        {
+            return z;
+        }
+        public double getV_X()
+        {
+            return v_x;
+        }
+        public double getV_Y()
+        {
+            return v_y;
+        }
+        public double getV_Z()
+        {
+            return v_z;
+        }
+        public double getU_X()
+        {
+            return u_x;
+        }
+        public double getU_Y()
+        {
+            return u_y;
+        }
+        public double getU_Z()
+        {
+            return u_z;
+        }
+        public void leftRotate()
+        {
+            //int[] newPos = new int[3];
+            double[] sPoint = new double[3] { v_x, v_y, v_z };
+            double[] ePoint = new double[3] { v_x, 1, v_z };
+            double[] p_ePoint = new double[3] { p_x, p_y, p_z };
+
+            double[] newVertice = new double[3];
+            double[] p_newVertice = new double[3];
+
+            newVertice = matManip.verticeRotate(sPoint, ePoint, 1, x, y, z);
+            p_newVertice = matManip.verticeRotate(sPoint, ePoint, 1, p_x, p_y, p_z);
+
+            x = newVertice[0];
+            y = newVertice[1];
+            z = newVertice[2];
+
+            p_x = p_newVertice[0];
+            p_y = p_newVertice[1];
+            p_z = p_newVertice[2];
+        }
+        public void rightRotate()
+        {
+            double[] sPoint = new double[3] { v_x, v_y, v_z };
+            double[] ePoint = new double[3] { v_x, 1, v_z };
+            double[] p_ePoint = new double[3] { p_x, p_y, p_z };
+
+            double[] newVertice = new double[3];
+            double[] p_newVertice = new double[3];
+
+            newVertice = matManip.verticeRotate(sPoint, ePoint, -1, x, y, z);
+            p_newVertice = matManip.verticeRotate(sPoint, ePoint, -1, p_x, p_y, p_z);
+
+            x = newVertice[0];
+            y = newVertice[1];
+            z = newVertice[2];
+
+            p_x = p_newVertice[0];
+            p_y = p_newVertice[1];
+            p_z = p_newVertice[2];
+        }
+        public void downRotate()
+        {
+            double[] sPoint = new double[3] { v_x, v_y, v_z };
+            double[] ePoint = new double[3] { p_x, p_y, p_z };
+            double[] newVertice = new double[3];
+            newVertice = matManip.verticeRotate(sPoint, ePoint, -0.5, x, y, z);//-0.5
+            double dist = Math.Sqrt(Math.Pow(newVertice[0] - v_x, 2) + Math.Pow(newVertice[2] - v_z, 2));
+            if (dist < 0.04 && flag1 == 0)//0.04
+            {
+                if ((newVertice[1] < 0 && newVertice[1] < y) || (newVertice[1] > 0 && newVertice[1] > y))
+                {
+                    flag1 = 5;
+                    u_y = -1 * u_y;
+                }
+            }
+            if (flag1 > 0)
+                flag1--;
+            x = newVertice[0];
+            y = newVertice[1];
+            z = newVertice[2];
+
+        }
+        public void upRotate()
+        {
+            double[] sPoint = new double[3] { v_x, v_y, v_z };
+            double[] ePoint = new double[3] { p_x, p_y, p_z };
+            //double[] newVertice = new double[3];
+            double[] newVertice;
+            newVertice = matManip.verticeRotate(sPoint, ePoint, 0.5, x, y, z);//0.5
+            double dist = Math.Sqrt(Math.Pow(newVertice[0] - v_x, 2) + Math.Pow(newVertice[2] - v_z, 2));
+            if (dist < 0.1 && flag2 == 0)//0.1
+            {
+                if ((newVertice[1] < 0 && newVertice[1] > y) || (newVertice[1] > 0 && newVertice[1] < y))
+                {
+                    flag2 = 5;
+                    u_y = -1 * u_y;
+                }
+            }
+            if (flag2 > 0)
+                flag2--;
+            x = newVertice[0];
+            y = newVertice[1];
+            z = newVertice[2];
+        }
+    }
+
+
+
 }
