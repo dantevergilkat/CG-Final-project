@@ -21,31 +21,71 @@ namespace GUI
 		int indexCurrentObj = -1; // Bien giu index cua doi tuong nguoi dung chon
 		Color currentColor = Color.White; // Mau dung hien tai
 		bool isChangedColor = false; // Su dung de doi mau obj khi da selected
-
-		public Form1()
+        bool isTexture = false; // Bien kiem tra xem co su dung texture hay khong
+        string textureLink = ""; // Luu path dan toi file anh texture
+        public Form1()
 		{
 			InitializeComponent();
 		}
+        public void SystemDraw(OpenGL gl)
+        {
+            gl.ClearColor(0, 0, 0, 0);
+            gl.Enable(OpenGL.GL_SMOOTH_LINE_WIDTH_GRANULARITY);
+            gl.LineWidth(4);
+            // Ve Ox
+            gl.Color(102 / 255.0, 255 / 255.0, 51 / 255.0);
+            gl.Begin(OpenGL.GL_LINES);          
+            gl.Vertex(0, 0, 0);
+            gl.Vertex(10, 0, 0);         
+            gl.End();
+            gl.Begin(OpenGL.GL_TRIANGLES);
+            gl.Vertex(9, 0, 2);
+            gl.Vertex(9, 0, -2);
+            gl.Vertex(10, 0, 0);
+            gl.End();
 
-		private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
+            // Ve Oy
+            gl.Color(51 / 255.0, 153 / 255.0, 51 / 255.0);
+            gl.Begin(OpenGL.GL_LINES);            
+            gl.Vertex(0, 0, 0);
+            gl.Vertex(0, 10, 0);
+            gl.End();
+            gl.Begin(OpenGL.GL_TRIANGLES);
+            gl.Vertex(-2, 9, 0);
+            gl.Vertex(2, 9, 0);
+            gl.Vertex(0, 10, 0);
+            gl.End();
+
+            // Ve Oz
+            gl.Color(242 / 255.0, 236 / 255.0, 255 / 255.0);
+            gl.Begin(OpenGL.GL_LINES);
+            gl.Vertex(0, 0, 0);
+            gl.Vertex(0, 0, 10);
+            gl.End();
+            gl.Begin(OpenGL.GL_TRIANGLES);
+            gl.Vertex(2, 0, 9);
+            gl.Vertex(-2, 0, 9);
+            gl.Vertex(0, 0, 10);
+            gl.End();
+            gl.Flush();
+        }
+        private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
 		{
 			OpenGL gl = openGLControl1.OpenGL;
 			// Clear vung nho dem
 			gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
+            SystemDraw(gl);
 
-			// Kiem tra khi nguoi dung select 1 doi tuong va co thay doi mau to khong
-			if (isChangedColor)
+            // Kiem tra khi nguoi dung select 1 doi tuong va co thay doi mau to khong
+            if (isChangedColor)
 			{
 				// Doi mau nguoi chung luc click vao listbox
 				drObj.setColorOfOneObj(indexCurrentObj, currentColor);
 				isChangedColor = false; // reset lai
 			}
-
-			// Draw object
-			drObj.draw(gl, indexCurrentObj);
-
-		
-		}
+            // Draw object
+            drObj.draw(gl, indexCurrentObj,ref isTexture,ref textureLink);
+        }
 
 		private void openGLControl1_OpenGLInitialized(object sender, EventArgs e)
 		{
@@ -70,14 +110,14 @@ namespace GUI
 			// Nhan voi ma tran don vi
 			gl.LoadIdentity();
 			// Chieu phoi canh
-			gl.Perspective(60,
+			gl.Perspective(160,
 			openGLControl1.Width / openGLControl1.Height,
 				1.0, 20.0);
 	
 			//set ma tran model view
 			gl.MatrixMode(OpenGL.GL_MODELVIEW);
 			gl.LookAt(
-				5, 7, 6,
+				1, 2, 3,
 				0, 0, 0,
 				0, 1, 0);
 
@@ -86,7 +126,16 @@ namespace GUI
 		private void bt_Cube_Click(object sender, EventArgs e)
 		{
 			currentType = TypeObject.CUBE;
-			drObj.addObj(currentType, currentColor); // Them object vao list luu tru
+            if (isTexture == true)
+            {
+                drObj.addObj(currentType, currentColor,isTexture,textureLink); // Them object vao list luu tru
+                isTexture = false;
+                textureLink = "";
+            }
+            else
+            {
+                drObj.addObj(currentType, currentColor); // Them object vao list luu tru
+            }
 			int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Cube " + count.ToString()); // Them vao list quan ly
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
@@ -97,8 +146,17 @@ namespace GUI
 		private void bt_Pyramid_Click(object sender, EventArgs e)
 		{
 			currentType = TypeObject.SQUARE_PYRAMID;
-			drObj.addObj(currentType, currentColor); // Them object vao list luu tru
-			int count = listObjName.Count(); // Lay so phan tu hien tai
+            if (isTexture == true)
+            {
+                drObj.addObj(currentType, currentColor, isTexture, textureLink); // Them object vao list luu tru
+                isTexture = false;
+                textureLink = "";
+            }
+            else
+            {
+                drObj.addObj(currentType, currentColor); // Them object vao list luu tru
+            }
+            int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Pyramid " + count.ToString()); // Them vao list quan ly
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
 			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
@@ -108,8 +166,8 @@ namespace GUI
 		private void bt_Prism_Click(object sender, EventArgs e)
 		{
 			currentType = TypeObject.TRIANGULAR_PRISM;
-			drObj.addObj(currentType, currentColor); // Them object vao list luu tru
-			int count = listObjName.Count(); // Lay so phan tu hien tai
+            drObj.addObj(currentType, currentColor); // Them object vao list luu tru      
+            int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Prism " + count.ToString()); // Them vao list quan ly
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
 			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
@@ -142,5 +200,17 @@ namespace GUI
 				isChangedColor = true;
 			}
 		}
-	}
+
+        private void TextureButton_Click(object sender, EventArgs e)
+        {
+            isTexture = true;
+            OpenFileDialog myTextureLink = new OpenFileDialog();
+            if(myTextureLink.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                textureLink = myTextureLink.FileName;
+                textureLink = textureLink.Replace("\\","\\\\");
+                MessageBox.Show(textureLink);
+            }
+        }
+    }
 }
