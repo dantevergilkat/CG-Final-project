@@ -73,6 +73,7 @@
 			this.groupBox_Color = new System.Windows.Forms.GroupBox();
 			this.groupBox_SampleScenes = new System.Windows.Forms.GroupBox();
 			this.TextureButton = new System.Windows.Forms.Button();
+			this.label_Texture = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
 			this.pnl_Transform.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
@@ -513,13 +514,22 @@
 			// TextureButton
 			// 
 			this.TextureButton.Image = ((System.Drawing.Image)(resources.GetObject("TextureButton.Image")));
-			this.TextureButton.Location = new System.Drawing.Point(1077, 45);
+			this.TextureButton.Location = new System.Drawing.Point(1098, 41);
 			this.TextureButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.TextureButton.Name = "TextureButton";
-			this.TextureButton.Size = new System.Drawing.Size(56, 51);
+			this.TextureButton.Size = new System.Drawing.Size(60, 60);
 			this.TextureButton.TabIndex = 10;
 			this.TextureButton.UseVisualStyleBackColor = true;
 			this.TextureButton.Click += new System.EventHandler(this.TextureButton_Click);
+			// 
+			// label_Texture
+			// 
+			this.label_Texture.AutoSize = true;
+			this.label_Texture.Location = new System.Drawing.Point(1104, 108);
+			this.label_Texture.Name = "label_Texture";
+			this.label_Texture.Size = new System.Drawing.Size(43, 13);
+			this.label_Texture.TabIndex = 11;
+			this.label_Texture.Text = "Texture";
 			// 
 			// Form1
 			// 
@@ -527,6 +537,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(1370, 711);
+			this.Controls.Add(this.label_Texture);
 			this.Controls.Add(this.TextureButton);
 			this.Controls.Add(this.groupBox_SampleScenes);
 			this.Controls.Add(this.groupBox_Color);
@@ -596,6 +607,7 @@
 		private System.Windows.Forms.GroupBox groupBox_Color;
 		private System.Windows.Forms.GroupBox groupBox_SampleScenes;
         private System.Windows.Forms.Button TextureButton;
-    }
+		private System.Windows.Forms.Label label_Texture;
+	}
 }
 

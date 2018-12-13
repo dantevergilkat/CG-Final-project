@@ -223,16 +223,29 @@ namespace BUS
 		{
 			if(isTexture == false)
             {
-                // Thuc hien kiem tra xem co translate, rotate hay scale khong?
-                if (isTranslate())
-                {
-                    gl.PushMatrix();
-                    gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
-                }
+				// Thuc hien kiem tra xem co translate, rotate hay scale khong?
+				if (isTranslate())
+				{
+					gl.PushMatrix();
+					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
+				}
+				if (isRotate())
+				{
+					gl.PushMatrix();
+					// Tinh tien ve tam O
+					gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
+					gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
+					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
+				}
+				if (isScale())
+				{
+					gl.PushMatrix();
+					gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
+				}
 
 
-                // Ve hinh lap phuong voi canh a bat ky
-                float a = 1.0f;
+				// Ve hinh lap phuong voi canh a bat ky
+				float a = 1.0f;
                 gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
                 gl.Begin(OpenGL.GL_QUADS);
                 gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Top)
@@ -270,22 +283,39 @@ namespace BUS
                 // Ve bien
                 drawBorder(gl, isSelected);
 
-                if (isTranslate())
-                {
-                    gl.PopMatrix();
-                }
-            }
+				if (isTranslate())
+				{
+					gl.PopMatrix();
+				}
+				if (isRotate())
+					gl.PopMatrix();
+				if (isScale())
+					gl.PopMatrix();
+			}
             else
             {
-                // Thuc hien kiem tra xem co translate, rotate hay scale khong?
-                if (isTranslate())
-                {
-                    gl.PushMatrix();
-                    gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
-                }
+				// Thuc hien kiem tra xem co translate, rotate hay scale khong?
+				if (isTranslate())
+				{
+					gl.PushMatrix();
+					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
+				}
+				if (isRotate())
+				{
+					gl.PushMatrix();
+					// Tinh tien ve tam O
+					gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
+					gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
+					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
+				}
+				if (isScale())
+				{
+					gl.PushMatrix();
+					gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
+				}
 
-                // Enable texture
-                gl.Enable(OpenGL.GL_TEXTURE_2D);
+				// Enable texture
+				gl.Enable(OpenGL.GL_TEXTURE_2D);
                 // Create texture
                 Texture MyTexture = new Texture();
                 MyTexture.Create(gl, path);
@@ -333,7 +363,16 @@ namespace BUS
                 {
                     gl.PopMatrix();
                 }
+				if (isRotate())
+					gl.PopMatrix();
+				if (isScale())
+					gl.PopMatrix();
             }
+		}
+
+		public CCube() : base()
+		{
+			name = "Cube";
 		}
 
 		public CCube(bool texture = false, string texturePath = "") : base()
@@ -402,14 +441,27 @@ namespace BUS
 		{
 			if(isTexture == false)
             {
-                // Thuc hien kiem tra xem co translate, rotate hay scale khong?
-                if (isTranslate())
-                {
-                    gl.PushMatrix();
-                    gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
-                }
+				// Thuc hien kiem tra xem co translate, rotate hay scale khong?
+				if (isTranslate())
+				{
+					gl.PushMatrix();
+					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
+				}
+				if (isRotate())
+				{
+					gl.PushMatrix();
+					// Tinh tien ve tam O
+					gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
+					gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
+					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
+				}
+				if (isScale())
+				{
+					gl.PushMatrix();
+					gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
+				}
 
-                float a = 1.0f;
+				float a = 1.0f;
                 // Ve hinh chop deu day hinh vuong voi dinh S tuy y va canh day la a
                 float h = 1.0f;
                 gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
@@ -451,19 +503,37 @@ namespace BUS
 
                 drawBorder(gl, isSelected);
 
-                if (isTranslate())
-                    gl.PopMatrix();
-            }
+				if (isTranslate())
+					gl.PopMatrix();
+				if (isRotate())
+					gl.PopMatrix();
+				if (isScale())
+					gl.PopMatrix();
+
+			}
             else
             {
-                // Thuc hien kiem tra xem co translate, rotate hay scale khong?
-                if (isTranslate())
-                {
-                    gl.PushMatrix();
-                    gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
-                }
-                // Enable texture
-                gl.Enable(OpenGL.GL_TEXTURE_2D);
+				// Thuc hien kiem tra xem co translate, rotate hay scale khong?
+				if (isTranslate())
+				{
+					gl.PushMatrix();
+					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
+				}
+				if (isRotate())
+				{
+					gl.PushMatrix();
+					// Tinh tien ve tam O
+					gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
+					gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
+					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
+				}
+				if (isScale())
+				{
+					gl.PushMatrix();
+					gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
+				}
+				// Enable texture
+				gl.Enable(OpenGL.GL_TEXTURE_2D);
                 // Create texture
                 Texture MyTexture = new Texture();
                 MyTexture.Create(gl, path);
@@ -512,8 +582,18 @@ namespace BUS
 
                 if (isTranslate())
                     gl.PopMatrix();
+				if (isRotate())
+					gl.PopMatrix();
+				if (isScale())
+					gl.PopMatrix();
             }
 		}
+
+		public CSquarePyramid() : base()
+		{
+			name = "Square pyramid";
+		}
+
 		public CSquarePyramid(bool texture = false, string texturePath = "") : base()
 		{
             isTexture = texture;
