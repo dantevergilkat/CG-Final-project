@@ -21,8 +21,11 @@ namespace GUI
 
 	public partial class Form1 : Form
 	{
-		// Khoi tao doi tuong lop CDrawObject de ve
-		CDrawObject drObj = new CDrawObject();
+        bool isTexture = false; // Bien kiem tra xem co su dung texture hay khong
+        string textureLink = ""; // Luu path dan toi file anh texture
+        
+        // Khoi tao doi tuong lop CDrawObject de ve
+        CDrawObject drObj = new CDrawObject();
 		TypeObject currentType;
 		List<String> listObjName = new List<String>(); // Bien chua ten cac doi tuong da ve
 		int indexCurrentObj = -1; // Bien giu index cua doi tuong nguoi dung chon
@@ -47,13 +50,68 @@ namespace GUI
 			this.KeyPreview = true;
 			this.AcceptButton = bt_Enter;
 		}
+        public void SystemDraw(OpenGL gl)
+        {
+            gl.ClearColor(0, 0, 0, 0);
+            gl.Color(1.0, 1.0, 1.0);
+            gl.LineWidth(1.0f);
+            for (int i = -20; i <= 20; i++)
+            {
+                gl.Begin(OpenGL.GL_LINES);               
+                // Vẽ song song với Oz
+                gl.Vertex(i, 0,20);
+                gl.Vertex(i, 0,-20);
+                // Vẽ song song với Ox
+                gl.Vertex(-20, 0,i);
+                gl.Vertex(20, 0,i);
+                gl.End();
+            }
+            gl.Flush();
+            gl.LineWidth(4.0f);
+            // Ve Ox
+            gl.Color(102 / 255.0, 255 / 255.0, 51 / 255.0);
+            gl.Begin(OpenGL.GL_LINES);
+            gl.Vertex(0, 0, 0);
+            gl.Vertex(10, 0, 0);
+            gl.End();
+            gl.Begin(OpenGL.GL_TRIANGLES);
+            gl.Vertex(9, 0, 2);
+            gl.Vertex(9, 0, -2);
+            gl.Vertex(10, 0, 0);
+            gl.End();
 
-		private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
+            // Ve Oy
+            gl.Color(51 / 255.0, 153 / 255.0, 51 / 255.0);
+            gl.Begin(OpenGL.GL_LINES);
+            gl.Vertex(0, 0, 0);
+            gl.Vertex(0, 10, 0);
+            gl.End();
+            gl.Begin(OpenGL.GL_TRIANGLES);
+            gl.Vertex(-2, 9, 0);
+            gl.Vertex(2, 9, 0);
+            gl.Vertex(0, 10, 0);
+            gl.End();
+
+            // Ve Oz
+            gl.Color(242 / 255.0, 236 / 255.0, 255 / 255.0);
+            gl.Begin(OpenGL.GL_LINES);
+            gl.Vertex(0, 0, 0);
+            gl.Vertex(0, 0, 10);
+            gl.End();
+            gl.Begin(OpenGL.GL_TRIANGLES);
+            gl.Vertex(2, 0, 9);
+            gl.Vertex(-2, 0, 9);
+            gl.Vertex(0, 0, 10);
+            gl.End();
+            gl.Flush();
+        }
+        private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
 		{
 			OpenGL gl = openGLControl1.OpenGL;
 			// Clear vung nho dem
 			gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
 
+            SystemDraw(gl);
 			//=================================CAMERA ROTATION============================================
 			// Camera rotation
 			gl.MatrixMode(OpenGL.GL_MODELVIEW);
@@ -144,8 +202,17 @@ namespace GUI
 		private void bt_Cube_Click(object sender, EventArgs e)
 		{
 			currentType = TypeObject.CUBE;
-			drObj.addObj(currentType, currentColor); // Them object vao list luu tru
-			int count = listObjName.Count(); // Lay so phan tu hien tai
+            if (isTexture == true)
+            {
+                drObj.addObj(currentType, currentColor, isTexture, textureLink); // Them object vao list luu tru
+                isTexture = false;
+                textureLink = "";
+            }
+            else
+            {
+                drObj.addObj(currentType, currentColor); // Them object vao list luu tru
+            }
+            int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Cube " + count.ToString()); // Them vao list quan ly
 			listPos.Add(new Point3D()); // Them toa position cho obj nay
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
@@ -156,8 +223,17 @@ namespace GUI
 		private void bt_Pyramid_Click(object sender, EventArgs e)
 		{
 			currentType = TypeObject.SQUARE_PYRAMID;
-			drObj.addObj(currentType, currentColor); // Them object vao list luu tru
-			int count = listObjName.Count(); // Lay so phan tu hien tai
+            if (isTexture == true)
+            {
+                drObj.addObj(currentType, currentColor, isTexture, textureLink); // Them object vao list luu tru
+                isTexture = false;
+                textureLink = "";
+            }
+            else
+            {
+                drObj.addObj(currentType, currentColor); // Them object vao list luu tru
+            }
+            int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Pyramid " + count.ToString()); // Them vao list quan ly
 			listPos.Add(new Point3D()); // Them toa position cho obj nay
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
@@ -385,5 +461,16 @@ namespace GUI
 		{
 			isAffine = false;
 		}
-	}
+
+        private void TextureButton_Click(object sender, EventArgs e)
+        {
+            isTexture = true;
+            OpenFileDialog myTextureLink = new OpenFileDialog();
+            if (myTextureLink.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                textureLink = myTextureLink.FileName;
+                textureLink = textureLink.Replace("\\", "\\\\");
+            }
+        }
+    }
 }
