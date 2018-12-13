@@ -594,80 +594,171 @@ namespace BUS
 		}
 
 
+		// Class CTriangularPrism : CObject
 		public override void draw(OpenGL gl, bool isSelected = false)
 		{
-			// Thuc hien kiem tra xem co translate, rotate hay scale khong?
-			if (isTranslate())
+			if (isTexture == false)
 			{
-				gl.PushMatrix();
-				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
+				// Thuc hien kiem tra xem co translate, rotate hay scale khong?
+				if (isTranslate())
+				{
+					gl.PushMatrix();
+					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
+				}
+				if (isRotate())
+				{
+					gl.PushMatrix();
+					// Tinh tien ve tam O
+					gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
+					gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
+					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
+				}
+				if (isScale())
+				{
+					gl.PushMatrix();
+					gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
+				}
+
+				// Ve hinh tru co day la tam giac deu voi canh a tuy y
+				float a = 1.0f;
+				float h = 1.0f;
+
+				gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
+				gl.Begin(OpenGL.GL_TRIANGLES);
+				// Ve day ABC
+				gl.Vertex(0.0f, 0.0f, 0.0f);
+				gl.Vertex(a, 0.0f, 0.0f);
+				gl.Vertex(a / 2, 0.0f, a);
+				gl.End();
+				gl.Flush();
+
+				// Ve cac mat ben
+				gl.Begin(OpenGL.GL_QUADS);
+				// Ve mat ben thu nhat AA'C'C
+				gl.Vertex(0.0f, 0.0f, 0.0f);
+				gl.Vertex(0.0f, h, 0.0f);
+				gl.Vertex(a / 2, h, a);
+				gl.Vertex(a / 2, 0.0f, a);
+
+				// Ve mat ben thu hai CC'B'B
+				gl.Vertex(a / 2, 0.0f, a);
+				gl.Vertex(a / 2, h, a);
+				gl.Vertex(a, h, 0.0f);
+				gl.Vertex(a, 0.0f, 0.0f);
+
+				// Ve mat sau AA'B'B
+				gl.Vertex(0.0f, 0.0f, 0.0f);
+				gl.Vertex(0.0f, h, 0.0f);
+				gl.Vertex(a, h, 0.0f);
+				gl.Vertex(a, 0.0f, 0.0f);
+				gl.End();
+				gl.Flush();
+
+				// Ve day tren A'B'C'
+				gl.Begin(OpenGL.GL_TRIANGLES);
+				gl.Vertex(0.0f, h, 0.0f);
+				gl.Vertex(a, h, 0.0f);
+				gl.Vertex(a / 2, h, a);
+				gl.End();
+				gl.Flush();
+
+				// Ve bien
+				drawBorder(gl, isSelected);
+
+				if (isTranslate())
+					gl.PopMatrix();
+				if (isRotate())
+					gl.PopMatrix();
+				if (isScale())
+					gl.PopMatrix();
 			}
-			if (isRotate())
+			else
 			{
-				gl.PushMatrix();
-				// Tinh tien ve tam O
-				gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
-				gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
-				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
+				// Thuc hien kiem tra xem co translate, rotate hay scale khong?
+				if (isTranslate())
+				{
+					gl.PushMatrix();
+					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
+				}
+				if (isRotate())
+				{
+					gl.PushMatrix();
+					// Tinh tien ve tam O
+					gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
+					gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
+					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
+				}
+				if (isScale())
+				{
+					gl.PushMatrix();
+					gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
+				}
+				// Enable texture
+				gl.Enable(OpenGL.GL_TEXTURE_2D);
+				// Create texture
+				Texture MyTexture = new Texture();
+				MyTexture.Create(gl, path);
+				MyTexture.Bind(gl);
+				// Ve hinh tru co day la tam giac deu voi canh a tuy y
+				float a = 1.0f;
+				float h = 1.0f;
+
+				gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
+				gl.Begin(OpenGL.GL_TRIANGLES);
+				// Ve day ABC
+				gl.TexCoord(0f, 0f); gl.TexCoord(1f, 0f); gl.Vertex(0.0f, 0.0f, 0.0f);
+				gl.TexCoord(1f, 1f); gl.Vertex(a, 0.0f, 0.0f);
+				gl.TexCoord(0f, 1f); gl.Vertex(a / 2, 0.0f, a);
+				gl.End();
+				gl.Flush();
+
+				// Ve cac mat ben
+				gl.Begin(OpenGL.GL_QUADS);
+				// Ve mat ben thu nhat AA'C'C
+				gl.TexCoord(0f, 0f); gl.Vertex(0.0f, 0.0f, 0.0f);
+				gl.TexCoord(1f, 0f); gl.Vertex(0.0f, h, 0.0f);
+				gl.TexCoord(1f, 1f); gl.Vertex(a / 2, h, a);
+				gl.TexCoord(0f, 1f); gl.Vertex(a / 2, 0.0f, a);
+
+				// Ve mat ben thu hai CC'B'B
+				gl.TexCoord(0f, 0f); gl.Vertex(a / 2, 0.0f, a);
+				gl.TexCoord(1f, 0f); gl.Vertex(a / 2, h, a);
+				gl.TexCoord(1f, 1f); gl.Vertex(a, h, 0.0f);
+				gl.TexCoord(0f, 1f); gl.Vertex(a, 0.0f, 0.0f);
+
+				// Ve mat sau AA'B'B
+				gl.TexCoord(0f, 0f); gl.Vertex(0.0f, 0.0f, 0.0f);
+				gl.TexCoord(1f, 0f); gl.Vertex(0.0f, h, 0.0f);
+				gl.TexCoord(1f, 1f); gl.Vertex(a, h, 0.0f);
+				gl.TexCoord(0f, 1f); gl.Vertex(a, 0.0f, 0.0f);
+				gl.End();
+				gl.Flush();
+
+				// Ve day tren A'B'C'
+				gl.Begin(OpenGL.GL_TRIANGLES);
+				gl.TexCoord(0f, 0f); gl.TexCoord(1f, 0f); gl.Vertex(0.0f, h, 0.0f);
+				gl.TexCoord(1f, 1f); gl.Vertex(a, h, 0.0f);
+				gl.TexCoord(0f, 1f); gl.Vertex(a / 2, h, a);
+				gl.End();
+				gl.Flush();
+				gl.Disable(OpenGL.GL_TEXTURE_2D);
+				// Ve bien
+				drawBorder(gl, isSelected);
+
+				if (isTranslate())
+					gl.PopMatrix();
+				if (isRotate())
+					gl.PopMatrix();
+				if (isScale())
+					gl.PopMatrix();
 			}
-			if (isScale())
-			{
-				gl.PushMatrix();
-				gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
-			}
+		}
 
-			// Ve hinh tru co day la tam giac deu voi canh a tuy y
-			float a = 1.0f;
-			float h = 1.0f;
-
-			gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
-			gl.Begin(OpenGL.GL_TRIANGLES);
-			// Ve day ABC
-			gl.Vertex(0.0f, 0.0f, 0.0f);
-			gl.Vertex(a, 0.0f, 0.0f);
-			gl.Vertex(a / 2, 0.0f, a);
-			gl.End();
-			gl.Flush();
-
-			// Ve cac mat ben
-			gl.Begin(OpenGL.GL_QUADS);
-			// Ve mat ben thu nhat AA'C'C
-			gl.Vertex(0.0f, 0.0f, 0.0f);
-			gl.Vertex(0.0f, h, 0.0f);
-			gl.Vertex(a / 2, h, a);
-			gl.Vertex(a / 2, 0.0f, a);
-
-			// Ve mat ben thu hai CC'B'B
-			gl.Vertex(a / 2, 0.0f, a);
-			gl.Vertex(a / 2, h, a);
-			gl.Vertex(a, h, 0.0f);
-			gl.Vertex(a, 0.0f, 0.0f);
-
-			// Ve mat sau AA'B'B
-			gl.Vertex(0.0f, 0.0f, 0.0f);
-			gl.Vertex(0.0f, h, 0.0f);
-			gl.Vertex(a, h, 0.0f);
-			gl.Vertex(a, 0.0f, 0.0f);
-			gl.End();
-			gl.Flush();
-
-			// Ve day tren A'B'C'
-			gl.Begin(OpenGL.GL_TRIANGLES);
-			gl.Vertex(0.0f, h, 0.0f);
-			gl.Vertex(a, h, 0.0f);
-			gl.Vertex(a / 2, h, a);
-			gl.End();
-			gl.Flush();
-
-			// Ve bien
-			drawBorder(gl, isSelected);
-
-			if (isTranslate())
-				gl.PopMatrix();
-			if (isRotate())
-				gl.PopMatrix();
-			if (isScale())
-				gl.PopMatrix();
+		public CTriangularPrism(bool texture = false, string texturePath = "") : base()
+		{
+			isTexture = texture;
+			path = texturePath;
+			name = "Triangular prism";
 		}
 
 		public CTriangularPrism() : base()

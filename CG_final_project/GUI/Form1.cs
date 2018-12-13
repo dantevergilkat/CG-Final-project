@@ -251,10 +251,20 @@ namespace GUI
 
 		}
 
+		// Su kien nhan hinh lang tru
 		private void bt_Prism_Click(object sender, EventArgs e)
 		{
 			currentType = TypeObject.TRIANGULAR_PRISM;
-			drObj.addObj(currentType, currentColor); // Them object vao list luu tru
+			if (isTexture == true)
+			{
+				drObj.addObj(currentType, currentColor, isTexture, textureLink); // Them object vao list luu tru
+				isTexture = false;
+				textureLink = "";
+			}
+			else
+			{
+				drObj.addObj(currentType, currentColor); // Them object vao list luu tru
+			}
 			int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Prism " + count.ToString()); // Them vao list quan ly
 			listPos.Add(new Point3D()); // Them toa position cho obj nay
