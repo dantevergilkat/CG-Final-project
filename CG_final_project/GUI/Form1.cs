@@ -469,6 +469,116 @@ namespace GUI
 			isAffine = false;
 		}
 
+        
+
+        private void textBox_RotateX_Click(object sender, EventArgs e)
+        {
+            textBox_RotateX.SelectAll();
+        }
+
+        private void textBox_RotateY_Click(object sender, EventArgs e)
+        {
+            textBox_RotateY.SelectAll();
+        }
+
+        private void textBox_RotateZ_Click(object sender, EventArgs e)
+        {
+            textBox_RotateZ.SelectAll();
+        }
+
+        private void textBox_RotateX_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                isAffine = true;
+                currentAffine = AFFINE.ROTATE;
+            }
+        }
+
+        private void textBox_RotateY_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                isAffine = true;
+                currentAffine = AFFINE.ROTATE;
+            }
+        }
+
+        private void textBox_RotateZ_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                isAffine = true;
+                currentAffine = AFFINE.ROTATE;
+            }
+        }
+
+        private void textBox_ScaleX_Click(object sender, EventArgs e)
+        {
+            textBox_ScaleX.SelectAll();
+        }
+
+        private void textBox_ScaleY_Click(object sender, EventArgs e)
+        {
+            textBox_ScaleY.SelectAll();
+        }
+
+        private void textBox_ScaleZ_Click(object sender, EventArgs e)
+        {
+            textBox_ScaleZ.SelectAll();
+        }
+
+        private void textBox_ScaleX_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                isAffine = true;
+                currentAffine = AFFINE.SCALE;
+            }
+        }
+
+        private void textBox_ScaleY_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                isAffine = true;
+                currentAffine = AFFINE.SCALE;
+            }
+        }
+
+        private void textBox_ScaleZ_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                isAffine = true;
+                currentAffine = AFFINE.SCALE;
+            }
+        }
+
         private void TextureButton_Click(object sender, EventArgs e)
         {
             isTexture = true;
@@ -480,112 +590,6 @@ namespace GUI
             }
         }
     }
-		private void textBox_RotateX_Click(object sender, EventArgs e)
-		{
-			textBox_RotateX.SelectAll();
-		}
-
-		private void textBox_RotateY_Click(object sender, EventArgs e)
-		{
-			textBox_RotateY.SelectAll();
-		}
-
-		private void textBox_RotateZ_Click(object sender, EventArgs e)
-		{
-			textBox_RotateZ.SelectAll();
-		}
-
-		private void textBox_RotateX_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
-			{
-				e.Handled = true;
-			}
-			else
-			{
-				isAffine = true;
-				currentAffine = AFFINE.ROTATE;
-			}
-		}
-
-		private void textBox_RotateY_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
-			{
-				e.Handled = true;
-			}
-			else
-			{
-				isAffine = true;
-				currentAffine = AFFINE.ROTATE;
-			}
-		}
-
-		private void textBox_RotateZ_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
-			{
-				e.Handled = true;
-			}
-			else
-			{
-				isAffine = true;
-				currentAffine = AFFINE.ROTATE;
-			}
-		}
-
-		private void textBox_ScaleX_Click(object sender, EventArgs e)
-		{
-			textBox_ScaleX.SelectAll();
-		}
-
-		private void textBox_ScaleY_Click(object sender, EventArgs e)
-		{
-			textBox_ScaleY.SelectAll();
-		}
-
-		private void textBox_ScaleZ_Click(object sender, EventArgs e)
-		{
-			textBox_ScaleZ.SelectAll();
-		}
-
-		private void textBox_ScaleX_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
-			{
-				e.Handled = true;
-			}
-			else
-			{
-				isAffine = true;
-				currentAffine = AFFINE.SCALE;
-			}
-		}
-
-		private void textBox_ScaleY_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
-			{
-				e.Handled = true;
-			}
-			else
-			{
-				isAffine = true;
-				currentAffine = AFFINE.SCALE;
-			}
-		}
-
-		private void textBox_ScaleZ_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
-			{
-				e.Handled = true;
-			}
-			else
-			{
-				isAffine = true;
-				currentAffine = AFFINE.SCALE;
-			}
-		}
-	}
+		
+	
 }
