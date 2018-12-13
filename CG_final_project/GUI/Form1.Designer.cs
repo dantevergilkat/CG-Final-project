@@ -514,7 +514,7 @@
 			// TextureButton
 			// 
 			this.TextureButton.Image = ((System.Drawing.Image)(resources.GetObject("TextureButton.Image")));
-			this.TextureButton.Location = new System.Drawing.Point(1098, 41);
+			this.TextureButton.Location = new System.Drawing.Point(1076, 46);
 			this.TextureButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.TextureButton.Name = "TextureButton";
 			this.TextureButton.Size = new System.Drawing.Size(60, 60);
@@ -525,7 +525,7 @@
 			// label_Texture
 			// 
 			this.label_Texture.AutoSize = true;
-			this.label_Texture.Location = new System.Drawing.Point(1104, 108);
+			this.label_Texture.Location = new System.Drawing.Point(1082, 113);
 			this.label_Texture.Name = "label_Texture";
 			this.label_Texture.Size = new System.Drawing.Size(43, 13);
 			this.label_Texture.TabIndex = 11;

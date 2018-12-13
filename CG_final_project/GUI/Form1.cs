@@ -68,8 +68,9 @@ namespace GUI
             }
             gl.Flush();
             gl.LineWidth(4.0f);
+
             // Ve Ox
-            gl.Color(102 / 255.0, 255 / 255.0, 51 / 255.0);
+            gl.Color(255.0 / 255.0, 0.0, 0.0);
             gl.Begin(OpenGL.GL_LINES);
             gl.Vertex(0, 0, 0);
             gl.Vertex(10, 0, 0);
@@ -81,7 +82,7 @@ namespace GUI
             gl.End();
 
             // Ve Oy
-            gl.Color(51 / 255.0, 153 / 255.0, 51 / 255.0);
+            gl.Color(0.0f, 255.0 / 255.0, 0.0);
             gl.Begin(OpenGL.GL_LINES);
             gl.Vertex(0, 0, 0);
             gl.Vertex(0, 10, 0);
@@ -93,7 +94,7 @@ namespace GUI
             gl.End();
 
             // Ve Oz
-            gl.Color(242 / 255.0, 236 / 255.0, 255 / 255.0);
+            gl.Color(0.0f, 0.0f, 255.0 / 255.0);
             gl.Begin(OpenGL.GL_LINES);
             gl.Vertex(0, 0, 0);
             gl.Vertex(0, 0, 10);
