@@ -145,6 +145,7 @@ namespace GUI
 				drObj.setColorOfOneObj(indexCurrentObj, currentColor);
 				isChangedColor = false; // reset lai
 			}
+
 			if (isAffine)
 			{
 				switch (currentAffine)

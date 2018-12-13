@@ -41,31 +41,19 @@
 			this.bt_Cube = new System.Windows.Forms.Button();
 			this.lstBox_SampleScene = new System.Windows.Forms.ListBox();
 			this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-			this.pnl_Transform = new System.Windows.Forms.Panel();
-			this.label_Stop = new System.Windows.Forms.Label();
 			this.bt_Enter = new System.Windows.Forms.Button();
 			this.label7 = new System.Windows.Forms.Label();
 			this.label8 = new System.Windows.Forms.Label();
-			this.label9 = new System.Windows.Forms.Label();
 			this.textBox_ScaleZ = new System.Windows.Forms.TextBox();
 			this.textBox_ScaleY = new System.Windows.Forms.TextBox();
-			this.textBox_ScaleX = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
-			this.label6 = new System.Windows.Forms.Label();
 			this.textBox_RotateZ = new System.Windows.Forms.TextBox();
 			this.textBox_RotateY = new System.Windows.Forms.TextBox();
-			this.textBox_RotateX = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
 			this.textBox_PosZ = new System.Windows.Forms.TextBox();
 			this.textBox_PosY = new System.Windows.Forms.TextBox();
-			this.textBox_PosX = new System.Windows.Forms.TextBox();
-			this.lb_Scale = new System.Windows.Forms.Label();
-			this.lb_Rotation = new System.Windows.Forms.Label();
-			this.lb_Position = new System.Windows.Forms.Label();
-			this.lb_Transform = new System.Windows.Forms.Label();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,13 +61,25 @@
 			this.groupBox_Color = new System.Windows.Forms.GroupBox();
 			this.groupBox_SampleScenes = new System.Windows.Forms.GroupBox();
 			this.TextureButton = new System.Windows.Forms.Button();
-			this.label_Texture = new System.Windows.Forms.Label();
+			this.groupBox_Transform = new System.Windows.Forms.GroupBox();
+			this.label_Stop = new System.Windows.Forms.Label();
+			this.lb_Position = new System.Windows.Forms.Label();
+			this.lb_Rotation = new System.Windows.Forms.Label();
+			this.lb_Scale = new System.Windows.Forms.Label();
+			this.textBox_PosX = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.textBox_RotateX = new System.Windows.Forms.TextBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.textBox_ScaleX = new System.Windows.Forms.TextBox();
+			this.label9 = new System.Windows.Forms.Label();
+			this.groupBox_Texture = new System.Windows.Forms.GroupBox();
 			((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
-			this.pnl_Transform.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
 			this.groupBox_Objects.SuspendLayout();
 			this.groupBox_Color.SuspendLayout();
 			this.groupBox_SampleScenes.SuspendLayout();
+			this.groupBox_Transform.SuspendLayout();
+			this.groupBox_Texture.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// openGLControl1
@@ -124,7 +124,7 @@
 			// 
 			this.bt_Stop.ImageIndex = 4;
 			this.bt_Stop.ImageList = this.imgList_icon_affine;
-			this.bt_Stop.Location = new System.Drawing.Point(429, 19);
+			this.bt_Stop.Location = new System.Drawing.Point(442, 18);
 			this.bt_Stop.Name = "bt_Stop";
 			this.bt_Stop.Size = new System.Drawing.Size(50, 50);
 			this.bt_Stop.TabIndex = 3;
@@ -188,55 +188,13 @@
 			this.lstBox_SampleScene.FormattingEnabled = true;
 			this.lstBox_SampleScene.Location = new System.Drawing.Point(9, 21);
 			this.lstBox_SampleScene.Name = "lstBox_SampleScene";
-			this.lstBox_SampleScene.Size = new System.Drawing.Size(166, 238);
+			this.lstBox_SampleScene.Size = new System.Drawing.Size(166, 381);
 			this.lstBox_SampleScene.TabIndex = 3;
 			this.lstBox_SampleScene.SelectedIndexChanged += new System.EventHandler(this.lstBox_SampleScene_SelectedIndexChanged);
 			// 
-			// pnl_Transform
-			// 
-			this.pnl_Transform.Controls.Add(this.label_Stop);
-			this.pnl_Transform.Controls.Add(this.bt_Stop);
-			this.pnl_Transform.Controls.Add(this.bt_Enter);
-			this.pnl_Transform.Controls.Add(this.label7);
-			this.pnl_Transform.Controls.Add(this.label8);
-			this.pnl_Transform.Controls.Add(this.label9);
-			this.pnl_Transform.Controls.Add(this.textBox_ScaleZ);
-			this.pnl_Transform.Controls.Add(this.textBox_ScaleY);
-			this.pnl_Transform.Controls.Add(this.textBox_ScaleX);
-			this.pnl_Transform.Controls.Add(this.label4);
-			this.pnl_Transform.Controls.Add(this.label5);
-			this.pnl_Transform.Controls.Add(this.label6);
-			this.pnl_Transform.Controls.Add(this.textBox_RotateZ);
-			this.pnl_Transform.Controls.Add(this.textBox_RotateY);
-			this.pnl_Transform.Controls.Add(this.textBox_RotateX);
-			this.pnl_Transform.Controls.Add(this.label3);
-			this.pnl_Transform.Controls.Add(this.label2);
-			this.pnl_Transform.Controls.Add(this.label1);
-			this.pnl_Transform.Controls.Add(this.textBox_PosZ);
-			this.pnl_Transform.Controls.Add(this.textBox_PosY);
-			this.pnl_Transform.Controls.Add(this.textBox_PosX);
-			this.pnl_Transform.Controls.Add(this.lb_Scale);
-			this.pnl_Transform.Controls.Add(this.lb_Rotation);
-			this.pnl_Transform.Controls.Add(this.lb_Position);
-			this.pnl_Transform.Controls.Add(this.lb_Transform);
-			this.pnl_Transform.Location = new System.Drawing.Point(567, 27);
-			this.pnl_Transform.Name = "pnl_Transform";
-			this.pnl_Transform.Size = new System.Drawing.Size(504, 100);
-			this.pnl_Transform.TabIndex = 5;
-			// 
-			// label_Stop
-			// 
-			this.label_Stop.AutoSize = true;
-			this.label_Stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label_Stop.Location = new System.Drawing.Point(432, 73);
-			this.label_Stop.Name = "label_Stop";
-			this.label_Stop.Size = new System.Drawing.Size(43, 20);
-			this.label_Stop.TabIndex = 23;
-			this.label_Stop.Text = "Stop";
-			// 
 			// bt_Enter
 			// 
-			this.bt_Enter.Location = new System.Drawing.Point(352, 19);
+			this.bt_Enter.Location = new System.Drawing.Point(365, 18);
 			this.bt_Enter.Name = "bt_Enter";
 			this.bt_Enter.Size = new System.Drawing.Size(70, 75);
 			this.bt_Enter.TabIndex = 22;
@@ -247,7 +205,7 @@
 			// label7
 			// 
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(266, 77);
+			this.label7.Location = new System.Drawing.Point(279, 76);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(14, 13);
 			this.label7.TabIndex = 21;
@@ -256,24 +214,15 @@
 			// label8
 			// 
 			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(171, 76);
+			this.label8.Location = new System.Drawing.Point(184, 75);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(14, 13);
 			this.label8.TabIndex = 20;
 			this.label8.Text = "Y";
 			// 
-			// label9
-			// 
-			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(74, 76);
-			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(14, 13);
-			this.label9.TabIndex = 19;
-			this.label9.Text = "X";
-			// 
 			// textBox_ScaleZ
 			// 
-			this.textBox_ScaleZ.Location = new System.Drawing.Point(286, 73);
+			this.textBox_ScaleZ.Location = new System.Drawing.Point(299, 72);
 			this.textBox_ScaleZ.Name = "textBox_ScaleZ";
 			this.textBox_ScaleZ.Size = new System.Drawing.Size(57, 20);
 			this.textBox_ScaleZ.TabIndex = 18;
@@ -283,7 +232,7 @@
 			// 
 			// textBox_ScaleY
 			// 
-			this.textBox_ScaleY.Location = new System.Drawing.Point(191, 73);
+			this.textBox_ScaleY.Location = new System.Drawing.Point(204, 72);
 			this.textBox_ScaleY.Name = "textBox_ScaleY";
 			this.textBox_ScaleY.Size = new System.Drawing.Size(57, 20);
 			this.textBox_ScaleY.TabIndex = 17;
@@ -291,20 +240,10 @@
 			this.textBox_ScaleY.Click += new System.EventHandler(this.textBox_ScaleY_Click);
 			this.textBox_ScaleY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_ScaleY_KeyPress);
 			// 
-			// textBox_ScaleX
-			// 
-			this.textBox_ScaleX.Location = new System.Drawing.Point(94, 73);
-			this.textBox_ScaleX.Name = "textBox_ScaleX";
-			this.textBox_ScaleX.Size = new System.Drawing.Size(57, 20);
-			this.textBox_ScaleX.TabIndex = 16;
-			this.textBox_ScaleX.Text = "1";
-			this.textBox_ScaleX.Click += new System.EventHandler(this.textBox_ScaleX_Click);
-			this.textBox_ScaleX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_ScaleX_KeyPress);
-			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(266, 51);
+			this.label4.Location = new System.Drawing.Point(279, 50);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(14, 13);
 			this.label4.TabIndex = 15;
@@ -313,24 +252,15 @@
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(171, 50);
+			this.label5.Location = new System.Drawing.Point(184, 49);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(14, 13);
 			this.label5.TabIndex = 14;
 			this.label5.Text = "Y";
 			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(74, 50);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(14, 13);
-			this.label6.TabIndex = 13;
-			this.label6.Text = "X";
-			// 
 			// textBox_RotateZ
 			// 
-			this.textBox_RotateZ.Location = new System.Drawing.Point(286, 47);
+			this.textBox_RotateZ.Location = new System.Drawing.Point(299, 46);
 			this.textBox_RotateZ.Name = "textBox_RotateZ";
 			this.textBox_RotateZ.Size = new System.Drawing.Size(57, 20);
 			this.textBox_RotateZ.TabIndex = 12;
@@ -340,7 +270,7 @@
 			// 
 			// textBox_RotateY
 			// 
-			this.textBox_RotateY.Location = new System.Drawing.Point(191, 47);
+			this.textBox_RotateY.Location = new System.Drawing.Point(204, 46);
 			this.textBox_RotateY.Name = "textBox_RotateY";
 			this.textBox_RotateY.Size = new System.Drawing.Size(57, 20);
 			this.textBox_RotateY.TabIndex = 11;
@@ -348,20 +278,10 @@
 			this.textBox_RotateY.Click += new System.EventHandler(this.textBox_RotateY_Click);
 			this.textBox_RotateY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_RotateY_KeyPress);
 			// 
-			// textBox_RotateX
-			// 
-			this.textBox_RotateX.Location = new System.Drawing.Point(94, 47);
-			this.textBox_RotateX.Name = "textBox_RotateX";
-			this.textBox_RotateX.Size = new System.Drawing.Size(57, 20);
-			this.textBox_RotateX.TabIndex = 10;
-			this.textBox_RotateX.Text = "0";
-			this.textBox_RotateX.Click += new System.EventHandler(this.textBox_RotateX_Click);
-			this.textBox_RotateX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_RotateX_KeyPress);
-			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(266, 23);
+			this.label3.Location = new System.Drawing.Point(279, 22);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(14, 13);
 			this.label3.TabIndex = 9;
@@ -370,24 +290,15 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(171, 22);
+			this.label2.Location = new System.Drawing.Point(184, 21);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(14, 13);
 			this.label2.TabIndex = 8;
 			this.label2.Text = "Y";
 			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(74, 22);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(14, 13);
-			this.label1.TabIndex = 7;
-			this.label1.Text = "X";
-			// 
 			// textBox_PosZ
 			// 
-			this.textBox_PosZ.Location = new System.Drawing.Point(286, 19);
+			this.textBox_PosZ.Location = new System.Drawing.Point(299, 18);
 			this.textBox_PosZ.Name = "textBox_PosZ";
 			this.textBox_PosZ.Size = new System.Drawing.Size(57, 20);
 			this.textBox_PosZ.TabIndex = 6;
@@ -397,59 +308,13 @@
 			// 
 			// textBox_PosY
 			// 
-			this.textBox_PosY.Location = new System.Drawing.Point(191, 19);
+			this.textBox_PosY.Location = new System.Drawing.Point(204, 18);
 			this.textBox_PosY.Name = "textBox_PosY";
 			this.textBox_PosY.Size = new System.Drawing.Size(57, 20);
 			this.textBox_PosY.TabIndex = 5;
 			this.textBox_PosY.Text = "0";
 			this.textBox_PosY.Click += new System.EventHandler(this.textBox_PosY_Click);
 			this.textBox_PosY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_PosY_KeyPress);
-			// 
-			// textBox_PosX
-			// 
-			this.textBox_PosX.Location = new System.Drawing.Point(94, 19);
-			this.textBox_PosX.Name = "textBox_PosX";
-			this.textBox_PosX.Size = new System.Drawing.Size(57, 20);
-			this.textBox_PosX.TabIndex = 4;
-			this.textBox_PosX.Text = "0";
-			this.textBox_PosX.Click += new System.EventHandler(this.textBox_PosX_Click);
-			this.textBox_PosX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_PosX_KeyPress);
-			// 
-			// lb_Scale
-			// 
-			this.lb_Scale.AutoSize = true;
-			this.lb_Scale.Location = new System.Drawing.Point(13, 76);
-			this.lb_Scale.Name = "lb_Scale";
-			this.lb_Scale.Size = new System.Drawing.Size(34, 13);
-			this.lb_Scale.TabIndex = 3;
-			this.lb_Scale.Text = "Scale";
-			// 
-			// lb_Rotation
-			// 
-			this.lb_Rotation.AutoSize = true;
-			this.lb_Rotation.Location = new System.Drawing.Point(13, 51);
-			this.lb_Rotation.Name = "lb_Rotation";
-			this.lb_Rotation.Size = new System.Drawing.Size(47, 13);
-			this.lb_Rotation.TabIndex = 2;
-			this.lb_Rotation.Text = "Rotation";
-			// 
-			// lb_Position
-			// 
-			this.lb_Position.AutoSize = true;
-			this.lb_Position.Location = new System.Drawing.Point(13, 22);
-			this.lb_Position.Name = "lb_Position";
-			this.lb_Position.Size = new System.Drawing.Size(44, 13);
-			this.lb_Position.TabIndex = 1;
-			this.lb_Position.Text = "Position";
-			// 
-			// lb_Transform
-			// 
-			this.lb_Transform.AutoSize = true;
-			this.lb_Transform.Location = new System.Drawing.Point(3, 0);
-			this.lb_Transform.Name = "lb_Transform";
-			this.lb_Transform.Size = new System.Drawing.Size(54, 13);
-			this.lb_Transform.TabIndex = 0;
-			this.lb_Transform.Text = "Transform";
 			// 
 			// menuStrip1
 			// 
@@ -506,7 +371,7 @@
 			this.groupBox_SampleScenes.Controls.Add(this.lstBox_SampleScene);
 			this.groupBox_SampleScenes.Location = new System.Drawing.Point(1179, 27);
 			this.groupBox_SampleScenes.Name = "groupBox_SampleScenes";
-			this.groupBox_SampleScenes.Size = new System.Drawing.Size(187, 274);
+			this.groupBox_SampleScenes.Size = new System.Drawing.Size(187, 415);
 			this.groupBox_SampleScenes.TabIndex = 9;
 			this.groupBox_SampleScenes.TabStop = false;
 			this.groupBox_SampleScenes.Text = "Sample scenes";
@@ -514,22 +379,150 @@
 			// TextureButton
 			// 
 			this.TextureButton.Image = ((System.Drawing.Image)(resources.GetObject("TextureButton.Image")));
-			this.TextureButton.Location = new System.Drawing.Point(1076, 46);
+			this.TextureButton.Location = new System.Drawing.Point(16, 21);
 			this.TextureButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.TextureButton.Name = "TextureButton";
-			this.TextureButton.Size = new System.Drawing.Size(60, 60);
+			this.TextureButton.Size = new System.Drawing.Size(70, 70);
 			this.TextureButton.TabIndex = 10;
 			this.TextureButton.UseVisualStyleBackColor = true;
 			this.TextureButton.Click += new System.EventHandler(this.TextureButton_Click);
 			// 
-			// label_Texture
+			// groupBox_Transform
 			// 
-			this.label_Texture.AutoSize = true;
-			this.label_Texture.Location = new System.Drawing.Point(1082, 113);
-			this.label_Texture.Name = "label_Texture";
-			this.label_Texture.Size = new System.Drawing.Size(43, 13);
-			this.label_Texture.TabIndex = 11;
-			this.label_Texture.Text = "Texture";
+			this.groupBox_Transform.Controls.Add(this.label_Stop);
+			this.groupBox_Transform.Controls.Add(this.lb_Position);
+			this.groupBox_Transform.Controls.Add(this.bt_Stop);
+			this.groupBox_Transform.Controls.Add(this.bt_Enter);
+			this.groupBox_Transform.Controls.Add(this.lb_Rotation);
+			this.groupBox_Transform.Controls.Add(this.label7);
+			this.groupBox_Transform.Controls.Add(this.lb_Scale);
+			this.groupBox_Transform.Controls.Add(this.label8);
+			this.groupBox_Transform.Controls.Add(this.textBox_PosX);
+			this.groupBox_Transform.Controls.Add(this.label9);
+			this.groupBox_Transform.Controls.Add(this.textBox_PosY);
+			this.groupBox_Transform.Controls.Add(this.textBox_ScaleZ);
+			this.groupBox_Transform.Controls.Add(this.textBox_PosZ);
+			this.groupBox_Transform.Controls.Add(this.textBox_ScaleY);
+			this.groupBox_Transform.Controls.Add(this.label1);
+			this.groupBox_Transform.Controls.Add(this.textBox_ScaleX);
+			this.groupBox_Transform.Controls.Add(this.label2);
+			this.groupBox_Transform.Controls.Add(this.label4);
+			this.groupBox_Transform.Controls.Add(this.label3);
+			this.groupBox_Transform.Controls.Add(this.label5);
+			this.groupBox_Transform.Controls.Add(this.textBox_RotateX);
+			this.groupBox_Transform.Controls.Add(this.label6);
+			this.groupBox_Transform.Controls.Add(this.textBox_RotateY);
+			this.groupBox_Transform.Controls.Add(this.textBox_RotateZ);
+			this.groupBox_Transform.Location = new System.Drawing.Point(567, 27);
+			this.groupBox_Transform.Name = "groupBox_Transform";
+			this.groupBox_Transform.Size = new System.Drawing.Size(504, 100);
+			this.groupBox_Transform.TabIndex = 9;
+			this.groupBox_Transform.TabStop = false;
+			this.groupBox_Transform.Text = "Transform";
+			// 
+			// label_Stop
+			// 
+			this.label_Stop.AutoSize = true;
+			this.label_Stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label_Stop.Location = new System.Drawing.Point(445, 72);
+			this.label_Stop.Name = "label_Stop";
+			this.label_Stop.Size = new System.Drawing.Size(43, 20);
+			this.label_Stop.TabIndex = 23;
+			this.label_Stop.Text = "Stop";
+			// 
+			// lb_Position
+			// 
+			this.lb_Position.AutoSize = true;
+			this.lb_Position.Location = new System.Drawing.Point(26, 21);
+			this.lb_Position.Name = "lb_Position";
+			this.lb_Position.Size = new System.Drawing.Size(44, 13);
+			this.lb_Position.TabIndex = 1;
+			this.lb_Position.Text = "Position";
+			// 
+			// lb_Rotation
+			// 
+			this.lb_Rotation.AutoSize = true;
+			this.lb_Rotation.Location = new System.Drawing.Point(26, 50);
+			this.lb_Rotation.Name = "lb_Rotation";
+			this.lb_Rotation.Size = new System.Drawing.Size(47, 13);
+			this.lb_Rotation.TabIndex = 2;
+			this.lb_Rotation.Text = "Rotation";
+			// 
+			// lb_Scale
+			// 
+			this.lb_Scale.AutoSize = true;
+			this.lb_Scale.Location = new System.Drawing.Point(26, 75);
+			this.lb_Scale.Name = "lb_Scale";
+			this.lb_Scale.Size = new System.Drawing.Size(34, 13);
+			this.lb_Scale.TabIndex = 3;
+			this.lb_Scale.Text = "Scale";
+			// 
+			// textBox_PosX
+			// 
+			this.textBox_PosX.Location = new System.Drawing.Point(107, 18);
+			this.textBox_PosX.Name = "textBox_PosX";
+			this.textBox_PosX.Size = new System.Drawing.Size(57, 20);
+			this.textBox_PosX.TabIndex = 4;
+			this.textBox_PosX.Text = "0";
+			this.textBox_PosX.Click += new System.EventHandler(this.textBox_PosX_Click);
+			this.textBox_PosX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_PosX_KeyPress);
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(87, 21);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(14, 13);
+			this.label1.TabIndex = 7;
+			this.label1.Text = "X";
+			// 
+			// textBox_RotateX
+			// 
+			this.textBox_RotateX.Location = new System.Drawing.Point(107, 46);
+			this.textBox_RotateX.Name = "textBox_RotateX";
+			this.textBox_RotateX.Size = new System.Drawing.Size(57, 20);
+			this.textBox_RotateX.TabIndex = 10;
+			this.textBox_RotateX.Text = "0";
+			this.textBox_RotateX.Click += new System.EventHandler(this.textBox_RotateX_Click);
+			this.textBox_RotateX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_RotateX_KeyPress);
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(87, 49);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(14, 13);
+			this.label6.TabIndex = 13;
+			this.label6.Text = "X";
+			// 
+			// textBox_ScaleX
+			// 
+			this.textBox_ScaleX.Location = new System.Drawing.Point(107, 72);
+			this.textBox_ScaleX.Name = "textBox_ScaleX";
+			this.textBox_ScaleX.Size = new System.Drawing.Size(57, 20);
+			this.textBox_ScaleX.TabIndex = 16;
+			this.textBox_ScaleX.Text = "1";
+			this.textBox_ScaleX.Click += new System.EventHandler(this.textBox_ScaleX_Click);
+			this.textBox_ScaleX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_ScaleX_KeyPress);
+			// 
+			// label9
+			// 
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(87, 75);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(14, 13);
+			this.label9.TabIndex = 19;
+			this.label9.Text = "X";
+			// 
+			// groupBox_Texture
+			// 
+			this.groupBox_Texture.Controls.Add(this.TextureButton);
+			this.groupBox_Texture.Location = new System.Drawing.Point(1077, 27);
+			this.groupBox_Texture.Name = "groupBox_Texture";
+			this.groupBox_Texture.Size = new System.Drawing.Size(105, 100);
+			this.groupBox_Texture.TabIndex = 12;
+			this.groupBox_Texture.TabStop = false;
+			this.groupBox_Texture.Text = "Texture";
 			// 
 			// Form1
 			// 
@@ -537,12 +530,11 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(1370, 711);
-			this.Controls.Add(this.label_Texture);
-			this.Controls.Add(this.TextureButton);
+			this.Controls.Add(this.groupBox_Texture);
+			this.Controls.Add(this.groupBox_Transform);
 			this.Controls.Add(this.groupBox_SampleScenes);
 			this.Controls.Add(this.groupBox_Color);
 			this.Controls.Add(this.groupBox_Objects);
-			this.Controls.Add(this.pnl_Transform);
 			this.Controls.Add(this.openGLControl1);
 			this.Controls.Add(this.menuStrip1);
 			this.MainMenuStrip = this.menuStrip1;
@@ -550,13 +542,14 @@
 			this.Text = "3D Scenes";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).EndInit();
-			this.pnl_Transform.ResumeLayout(false);
-			this.pnl_Transform.PerformLayout();
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.groupBox_Objects.ResumeLayout(false);
 			this.groupBox_Color.ResumeLayout(false);
 			this.groupBox_SampleScenes.ResumeLayout(false);
+			this.groupBox_Transform.ResumeLayout(false);
+			this.groupBox_Transform.PerformLayout();
+			this.groupBox_Texture.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -575,39 +568,38 @@
 		private System.Windows.Forms.Button bt_Palette;
 		private System.Windows.Forms.ColorDialog colorDialog1;
 		private System.Windows.Forms.Button bt_Color;
-		private System.Windows.Forms.Panel pnl_Transform;
 		private System.Windows.Forms.TextBox textBox_PosZ;
 		private System.Windows.Forms.TextBox textBox_PosY;
-		private System.Windows.Forms.TextBox textBox_PosX;
-		private System.Windows.Forms.Label lb_Scale;
-		private System.Windows.Forms.Label lb_Rotation;
-		private System.Windows.Forms.Label lb_Position;
-		private System.Windows.Forms.Label lb_Transform;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Label label8;
-		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.TextBox textBox_ScaleZ;
 		private System.Windows.Forms.TextBox textBox_ScaleY;
-		private System.Windows.Forms.TextBox textBox_ScaleX;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.TextBox textBox_RotateZ;
 		private System.Windows.Forms.TextBox textBox_RotateY;
-		private System.Windows.Forms.TextBox textBox_RotateX;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
 		private System.Windows.Forms.Button bt_Enter;
-		private System.Windows.Forms.Label label_Stop;
 		private System.Windows.Forms.GroupBox groupBox_Objects;
 		private System.Windows.Forms.GroupBox groupBox_Color;
 		private System.Windows.Forms.GroupBox groupBox_SampleScenes;
         private System.Windows.Forms.Button TextureButton;
-		private System.Windows.Forms.Label label_Texture;
+		private System.Windows.Forms.GroupBox groupBox_Transform;
+		private System.Windows.Forms.Label label_Stop;
+		private System.Windows.Forms.Label lb_Position;
+		private System.Windows.Forms.Label lb_Rotation;
+		private System.Windows.Forms.Label lb_Scale;
+		private System.Windows.Forms.TextBox textBox_PosX;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.TextBox textBox_ScaleX;
+		private System.Windows.Forms.TextBox textBox_RotateX;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.GroupBox groupBox_Texture;
 	}
 }
 
