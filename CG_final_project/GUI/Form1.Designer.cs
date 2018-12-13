@@ -69,21 +69,26 @@
 			this.lb_Rotation = new System.Windows.Forms.Label();
 			this.lb_Position = new System.Windows.Forms.Label();
 			this.lb_Transform = new System.Windows.Forms.Label();
+			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.test = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
 			this.pnl_Tool_bar.SuspendLayout();
 			this.pnl_Transform.SuspendLayout();
+			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// openGLControl1
 			// 
 			this.openGLControl1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
 			this.openGLControl1.DrawFPS = false;
-			this.openGLControl1.Location = new System.Drawing.Point(0, 123);
+			this.openGLControl1.Location = new System.Drawing.Point(0, 162);
 			this.openGLControl1.Name = "openGLControl1";
 			this.openGLControl1.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
 			this.openGLControl1.RenderContextType = SharpGL.RenderContextType.DIBSection;
 			this.openGLControl1.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
-			this.openGLControl1.Size = new System.Drawing.Size(1173, 586);
+			this.openGLControl1.Size = new System.Drawing.Size(1173, 547);
 			this.openGLControl1.TabIndex = 0;
 			this.openGLControl1.OpenGLInitialized += new System.EventHandler(this.openGLControl1_OpenGLInitialized);
 			this.openGLControl1.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl1_OpenGLDraw);
@@ -104,7 +109,7 @@
 			this.pnl_Tool_bar.Controls.Add(this.bt_Prism);
 			this.pnl_Tool_bar.Controls.Add(this.bt_Pyramid);
 			this.pnl_Tool_bar.Controls.Add(this.bt_Cube);
-			this.pnl_Tool_bar.Location = new System.Drawing.Point(0, 1);
+			this.pnl_Tool_bar.Location = new System.Drawing.Point(0, 40);
 			this.pnl_Tool_bar.Name = "pnl_Tool_bar";
 			this.pnl_Tool_bar.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.pnl_Tool_bar.Size = new System.Drawing.Size(815, 116);
@@ -182,6 +187,7 @@
 			this.bt_Select.Size = new System.Drawing.Size(40, 40);
 			this.bt_Select.TabIndex = 3;
 			this.bt_Select.UseVisualStyleBackColor = true;
+			this.bt_Select.Click += new System.EventHandler(this.bt_Select_Click);
 			// 
 			// bt_Prism
 			// 
@@ -228,7 +234,7 @@
 			// lstBox_SampleScene
 			// 
 			this.lstBox_SampleScene.FormattingEnabled = true;
-			this.lstBox_SampleScene.Location = new System.Drawing.Point(1179, 145);
+			this.lstBox_SampleScene.Location = new System.Drawing.Point(1188, 184);
 			this.lstBox_SampleScene.Name = "lstBox_SampleScene";
 			this.lstBox_SampleScene.Size = new System.Drawing.Size(166, 212);
 			this.lstBox_SampleScene.TabIndex = 3;
@@ -237,7 +243,7 @@
 			// lb_SampleScene
 			// 
 			this.lb_SampleScene.AutoSize = true;
-			this.lb_SampleScene.Location = new System.Drawing.Point(1180, 123);
+			this.lb_SampleScene.Location = new System.Drawing.Point(1189, 162);
 			this.lb_SampleScene.Name = "lb_SampleScene";
 			this.lb_SampleScene.Size = new System.Drawing.Size(74, 13);
 			this.lb_SampleScene.TabIndex = 4;
@@ -267,7 +273,7 @@
 			this.pnl_Transform.Controls.Add(this.lb_Rotation);
 			this.pnl_Transform.Controls.Add(this.lb_Position);
 			this.pnl_Transform.Controls.Add(this.lb_Transform);
-			this.pnl_Transform.Location = new System.Drawing.Point(830, 12);
+			this.pnl_Transform.Location = new System.Drawing.Point(821, 40);
 			this.pnl_Transform.Name = "pnl_Transform";
 			this.pnl_Transform.Size = new System.Drawing.Size(373, 100);
 			this.pnl_Transform.TabIndex = 5;
@@ -408,7 +414,9 @@
 			this.textBox_PosZ.Size = new System.Drawing.Size(57, 20);
 			this.textBox_PosZ.TabIndex = 6;
 			this.textBox_PosZ.Text = "0";
+			this.textBox_PosZ.Click += new System.EventHandler(this.textBox_PosZ_Click);
 			this.textBox_PosZ.TextChanged += new System.EventHandler(this.textBox_PosZ_TextChanged);
+			this.textBox_PosZ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_PosZ_KeyPress);
 			// 
 			// textBox_PosY
 			// 
@@ -417,7 +425,9 @@
 			this.textBox_PosY.Size = new System.Drawing.Size(57, 20);
 			this.textBox_PosY.TabIndex = 5;
 			this.textBox_PosY.Text = "0";
+			this.textBox_PosY.Click += new System.EventHandler(this.textBox_PosY_Click);
 			this.textBox_PosY.TextChanged += new System.EventHandler(this.textBox_PosY_TextChanged);
+			this.textBox_PosY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_PosY_KeyPress);
 			// 
 			// textBox_PosX
 			// 
@@ -426,7 +436,9 @@
 			this.textBox_PosX.Size = new System.Drawing.Size(57, 20);
 			this.textBox_PosX.TabIndex = 4;
 			this.textBox_PosX.Text = "0";
+			this.textBox_PosX.Click += new System.EventHandler(this.textBox_PosX_Click);
 			this.textBox_PosX.TextChanged += new System.EventHandler(this.textBox_PosX_TextChanged);
+			this.textBox_PosX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_PosX_KeyPress);
 			// 
 			// lb_Scale
 			// 
@@ -464,17 +476,54 @@
 			this.lb_Transform.TabIndex = 0;
 			this.lb_Transform.Text = "Transform";
 			// 
+			// menuStrip1
+			// 
+			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+			this.menuStrip1.Name = "menuStrip1";
+			this.menuStrip1.Size = new System.Drawing.Size(1366, 24);
+			this.menuStrip1.TabIndex = 6;
+			this.menuStrip1.Text = "menuStrip1";
+			// 
+			// fileToolStripMenuItem
+			// 
+			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem});
+			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+			this.fileToolStripMenuItem.Text = "&File";
+			// 
+			// newToolStripMenuItem
+			// 
+			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+			this.newToolStripMenuItem.Text = "&New";
+			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+			// 
+			// test
+			// 
+			this.test.Location = new System.Drawing.Point(1216, 40);
+			this.test.Multiline = true;
+			this.test.Name = "test";
+			this.test.Size = new System.Drawing.Size(123, 90);
+			this.test.TabIndex = 22;
+			this.test.Text = "0";
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(1366, 705);
+			this.Controls.Add(this.test);
 			this.Controls.Add(this.pnl_Transform);
 			this.Controls.Add(this.lb_SampleScene);
 			this.Controls.Add(this.lstBox_SampleScene);
 			this.Controls.Add(this.pnl_Tool_bar);
 			this.Controls.Add(this.openGLControl1);
+			this.Controls.Add(this.menuStrip1);
+			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "Form1";
 			this.Text = "Form1";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -482,6 +531,8 @@
 			this.pnl_Tool_bar.ResumeLayout(false);
 			this.pnl_Transform.ResumeLayout(false);
 			this.pnl_Transform.PerformLayout();
+			this.menuStrip1.ResumeLayout(false);
+			this.menuStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -528,6 +579,10 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.MenuStrip menuStrip1;
+		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+		private System.Windows.Forms.TextBox test;
 	}
 }
 

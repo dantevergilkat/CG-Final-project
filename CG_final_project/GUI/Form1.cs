@@ -12,7 +12,8 @@ using BUS;
 
 namespace GUI
 {
-	public enum AFFINE {
+	public enum AFFINE
+	{
 		TRANSLATE,
 		ROTATE,
 		SCALE
@@ -30,11 +31,12 @@ namespace GUI
 		AFFINE currentAffine; // Thao tac affine hien tai
 		Point start = new Point(0, 0); // Luu toa do di chuyen cua nguoi dung
 		Point end = new Point(0, 0);
-		bool isAffine; // Bien kiem tra xem nguoi dung chon 1 trong cac affine
+		bool isAffine = false; // Bien kiem tra xem nguoi dung chon 1 trong cac affine
 		Point3D pos = new Point3D();
 		Point3D rotation;
 		Point3D scale;
-		bool isDown = false;
+
+		List<Point3D> listPos = new List<Point3D>(); // Tao danh sach cac vi tri cua position
 
 		// Khoi tao doi tuong Camera
 		CameraRotation cam = new CameraRotation();
@@ -80,7 +82,7 @@ namespace GUI
 				drObj.setColorOfOneObj(indexCurrentObj, currentColor);
 				isChangedColor = false; // reset lai
 			}
-			if (isDown && isAffine)
+			if (isAffine)
 			{
 				switch (currentAffine)
 				{
@@ -94,9 +96,9 @@ namespace GUI
 
 						break;
 				}
-				isDown = false;
+				
 			}
-			
+
 
 			// Draw object
 			drObj.draw(gl, indexCurrentObj);
@@ -128,7 +130,7 @@ namespace GUI
 			gl.Perspective(60,
 			openGLControl1.Width / openGLControl1.Height,
 				1.0, 20.0);
-	
+
 			////set ma tran model view
 			//gl.MatrixMode(OpenGL.GL_MODELVIEW);
 			//gl.LookAt(
@@ -144,6 +146,7 @@ namespace GUI
 			drObj.addObj(currentType, currentColor); // Them object vao list luu tru
 			int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Cube " + count.ToString()); // Them vao list quan ly
+			listPos.Add(new Point3D()); // Them toa position cho obj nay
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
 			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
 			indexCurrentObj = count; // Luu index cua Obj vua moi ve
@@ -155,9 +158,13 @@ namespace GUI
 			drObj.addObj(currentType, currentColor); // Them object vao list luu tru
 			int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Pyramid " + count.ToString()); // Them vao list quan ly
+			listPos.Add(new Point3D()); // Them toa position cho obj nay
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
+			
 			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
 			indexCurrentObj = count; // Luu index cua Obj vua moi ve
+
+
 		}
 
 		private void bt_Prism_Click(object sender, EventArgs e)
@@ -166,6 +173,7 @@ namespace GUI
 			drObj.addObj(currentType, currentColor); // Them object vao list luu tru
 			int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Prism " + count.ToString()); // Them vao list quan ly
+			listPos.Add(new Point3D()); // Them toa position cho obj nay
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
 			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
 			indexCurrentObj = count; // Luu index cua Obj vua moi ve
@@ -175,15 +183,34 @@ namespace GUI
 		{
 			// Lay index nguoi dung chon
 			indexCurrentObj = lstBox_SampleScene.SelectedIndex;
+			isAffine = false;
+
+			// Load cac toa do cua obj
+			textBox_PosX.Text = listPos[indexCurrentObj].x.ToString();
+			textBox_PosY.Text = listPos[indexCurrentObj].y.ToString();
+			textBox_PosZ.Text = listPos[indexCurrentObj].z.ToString();
+
+			// Cap nhat toa do cua pos
+			pos = new Point3D(listPos[indexCurrentObj]);
+
+			test.Text = "";
+			for (int i = 0; i < listPos.Count(); i++) {
+				test.Text += listPos[i].x.ToString() + ' ' + listPos[i].y.ToString() + ' ' +
+					listPos[i].z.ToString();
+				test.Text += '\n';
+			}
+
 		}
 
 		private void bt_Palette_Click(object sender, EventArgs e)
 		{
-			if (colorDialog1.ShowDialog() == DialogResult.OK) {
+			if (colorDialog1.ShowDialog() == DialogResult.OK)
+			{
 				currentColor = colorDialog1.Color;
 				bt_Color.BackColor = currentColor;
 
-				if (indexCurrentObj != -1) {
+				if (indexCurrentObj != -1)
+				{
 					isChangedColor = true;
 				}
 			}
@@ -220,7 +247,6 @@ namespace GUI
 		{
 			// Cap nhat toa do cuoi cung khi user buong chuot
 			end = new Point(e.X, e.Y);
-			isDown = false;
 		}
 
 		private void openGLControl1_MouseMove(object sender, MouseEventArgs e)
@@ -234,30 +260,40 @@ namespace GUI
 			// Lay toa do click chuot
 			start = new Point(e.X, e.Y);
 			end = new Point(e.X, e.Y);
-			isDown = true;
 		}
 
 		private void textBox_PosX_TextChanged(object sender, EventArgs e)
 		{
+			if (textBox_PosX.Text == "")
+				return;
 			bool success = true;
 			success = float.TryParse(textBox_PosX.Text, out pos.x);
-			isDown = true;
+			if (success)
+				// Cap nhat toa do x vao list
+				listPos[indexCurrentObj] = new Point3D(pos);
 		}
 
 		private void textBox_PosY_TextChanged(object sender, EventArgs e)
 		{
+			if (textBox_PosY.Text == "")
+				return;
 			bool success = true;
-			success = float.TryParse(textBox_PosX.Text, out pos.y);
-			isDown = true;
+			success = float.TryParse(textBox_PosY.Text, out pos.y);
+			if (success)
+				// Cap nhat toa do x vao list
+				listPos[indexCurrentObj] = new Point3D(pos);
 
 		}
 
 		private void textBox_PosZ_TextChanged(object sender, EventArgs e)
 		{
+			if (textBox_PosZ.Text == "")
+				return;
 			bool success = true;
-			success = float.TryParse(textBox_PosX.Text, out pos.z);
-			isDown = true;
-
+			success = float.TryParse(textBox_PosZ.Text, out pos.z);
+			if (success)
+				// Cap nhat toa do x vao list
+				listPos[indexCurrentObj] = new Point3D(pos);
 		}
 
 		private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -289,5 +325,73 @@ namespace GUI
 
 		}
 
+		private void textBox_PosX_Click(object sender, EventArgs e)
+		{
+			textBox_PosX.SelectAll();
+		}
+
+		private void textBox_PosY_Click(object sender, EventArgs e)
+		{
+			textBox_PosY.SelectAll();
+		}
+
+		private void textBox_PosZ_Click(object sender, EventArgs e)
+		{
+			textBox_PosZ.SelectAll();
+		}
+
+		private void textBox_PosX_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+			{
+				e.Handled = true;
+			}
+		}
+
+		private void textBox_PosY_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+			{
+				e.Handled = true;
+			}
+		}
+
+		private void textBox_PosZ_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+			{
+				e.Handled = true;
+			}
+		}
+
+		private void newToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			// Khoi tao mang doi tuong moi
+			drObj = new CDrawObject();
+			listObjName.Clear(); // Xoa het cac doi tuong cu
+
+			indexCurrentObj = -1; // Bien giu index cua doi tuong nguoi dung chon
+			currentColor = Color.White; // Mau dung hien tai
+			isChangedColor = false; // Su dung de doi mau obj khi da selected
+			start = new Point(0, 0); // Luu toa do di chuyen cua nguoi dung
+			end = new Point(0, 0);
+			isAffine = false; // Bien kiem tra xem nguoi dung chon 1 trong cac affine
+			pos = new Point3D();
+			Point3D rotation;
+			Point3D scale;
+
+			// Khoi tao doi tuong Camera
+			CameraRotation cam = new CameraRotation();
+
+			// Xoa listBox Sample Scene
+			lstBox_SampleScene.Items.Clear();
+
+
+		}
+
+		private void bt_Select_Click(object sender, EventArgs e)
+		{
+			isAffine = false;
+		}
 	}
 }

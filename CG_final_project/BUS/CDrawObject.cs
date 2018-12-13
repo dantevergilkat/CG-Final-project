@@ -24,6 +24,11 @@ namespace BUS
 			y = _y;
 			z = _z;
 		}
+		public Point3D(Point3D src) {
+			x = src.x;
+			y = src.y;
+			z = src.z;
+		}
 	}
 
 	// Do doi
@@ -54,9 +59,11 @@ namespace BUS
 
 		// Ham cap nhat do doi cho obj
 		public void updateTranCoor(float _trX, float _trY, float _trZ) {
-			trCoor.trX += _trX;
-			trCoor.trY += _trY;
-			trCoor.trY += _trZ;
+
+			trCoor.trX += (_trX - trCoor.trX);
+			trCoor.trY += (_trY - trCoor.trY);
+			trCoor.trY += (_trZ - trCoor.trZ);
+
 		}
 
 		// Ham kiem tra co translate khong?
@@ -78,11 +85,6 @@ namespace BUS
 			trCoor = new STranslationCoor();
 		}
 
-		public void translate(OpenGL gl, Point p1, Point p2) {
-			gl.PushMatrix();
-			gl.Translate(p2.X - p1.X, p2.Y - p1.Y, 0);
-			gl.PopMatrix();
-		}
 	}
 
 	// Class: Hinh lap phuong
@@ -96,7 +98,7 @@ namespace BUS
 
 		public override void drawBorder(OpenGL gl, bool isSelected)
 		{
-			float a = 2.0f;
+			float a = 1.0f;
 			if (isSelected)
 			{ // Neu selected
 			  // Duong vien mau cam dam
@@ -107,7 +109,7 @@ namespace BUS
 			gl.LineWidth(3);
 
 			// Ve bien
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Begin(OpenGL.GL_LINE_LOOP);
 			gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Top)
 			gl.Vertex(a, 0.0f, 0.0f);    // Top Left Of The Quad (Top)
 			gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Top)
@@ -115,7 +117,7 @@ namespace BUS
 			gl.End();
 			gl.Flush();
 
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Begin(OpenGL.GL_LINE_LOOP);
 			gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Bottom)
 			gl.Vertex(0.0f, a, 0.0f);    // Top Left Of The Quad (Bottom)
 			gl.Vertex(a, a, 0.0f);    // Bottom Left Of The Quad (Bottom)
@@ -123,7 +125,7 @@ namespace BUS
 			gl.End();
 			gl.Flush();
 
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Begin(OpenGL.GL_LINE_LOOP);
 			gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Front)
 			gl.Vertex(0.0f, a, 0.0f);    // Top Left Of The Quad (Front)
 			gl.Vertex(0.0f, a, a);    // Bottom Left Of The Quad (Front)
@@ -131,7 +133,7 @@ namespace BUS
 			gl.End();
 			gl.Flush();
 
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Begin(OpenGL.GL_LINE_LOOP);
 			gl.Vertex(0.0f, a, a);    // Top Right Of The Quad (Back)
 			gl.Vertex(a, a, a);    // Top Left Of The Quad (Back)
 			gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Back)
@@ -139,7 +141,7 @@ namespace BUS
 			gl.End();
 			gl.Flush();
 
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Begin(OpenGL.GL_LINE_LOOP);
 			gl.Vertex(a, a, a);    // Top Right Of The Quad (Left)
 			gl.Vertex(a, a, 0.0f);    // Top Left Of The Quad (Left)
 			gl.Vertex(a, 0.0f, 0.0f);    // Bottom Left Of The Quad (Left)
@@ -147,13 +149,14 @@ namespace BUS
 			gl.End();
 			gl.Flush();
 
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Begin(OpenGL.GL_LINE_LOOP);
 			gl.Vertex(0.0f, a, 0.0f);    // Top Right Of The Quad (Right)
 			gl.Vertex(a, a, 0.0f);    // Top Left Of The Quad (Right)
 			gl.Vertex(a, a, a);    // Bottom Left Of The Quad (Right)
 			gl.Vertex(0.0f, a, a);    // Bottom 
 			gl.End();
 			gl.Flush();
+
 			gl.LineWidth(1);
 		}
 
@@ -164,9 +167,10 @@ namespace BUS
 				gl.PushMatrix();
 				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
 			}
+			
 
 			// Ve hinh lap phuong voi canh a bat ky
-			float a = 2.0f;
+			float a = 1.0f;
 			gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
 			gl.Begin(OpenGL.GL_QUADS);
 			gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Top)
@@ -227,8 +231,8 @@ namespace BUS
 
 		public override void drawBorder(OpenGL gl, bool isSelected)
 		{
-			float a = 2.0f;
-			float h = 5.0f;
+			float a = 1.0f;
+			float h = 1.0f;
 
 			if (isSelected)
 			{ // Neu selected
@@ -237,9 +241,10 @@ namespace BUS
 			}
 			else
 				gl.Color(224 / 255.0f, 224/255.0f, 224/255.0f);
+
 			gl.LineWidth(3);
 			// Ve bien
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Begin(OpenGL.GL_LINE_LOOP);
 			// Ve day ABCD
 			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(a, 0.0f, 0.0f);
@@ -248,33 +253,18 @@ namespace BUS
 			gl.End();
 			gl.Flush();
 
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Begin(OpenGL.GL_LINES);
+			// Ve SA
 			gl.Vertex(a / 2, h, a / 2);
 			gl.Vertex(0.0f, 0.0f, 0.0f);
-			gl.Vertex(0.0f, 0.0f, a);
-			gl.End();
-			gl.Flush();
-
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			// Ve SB
 			gl.Vertex(a / 2, h, a / 2);
 			gl.Vertex(0.0f, 0.0f, a);
-			gl.Vertex(a, 0.0f, a);
-			gl.End();
-			gl.Flush();
-
-
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			// Ve SC
 			gl.Vertex(a / 2, h, a / 2);
 			gl.Vertex(a, 0.0f, a);
-			gl.Vertex(a, 0.0f, 0.0f);
-			gl.End();
-			gl.Flush();
-
-
-			gl.Begin(OpenGL.GL_LINE_STRIP);
-			// Ve mat sau SAD
+			// Ve SD
 			gl.Vertex(a / 2, h, a / 2);
-			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(a, 0.0f, 0.0f);
 			gl.End();
 			gl.Flush();
@@ -286,9 +276,16 @@ namespace BUS
 
 		public override void draw(OpenGL gl, bool isSelected = false)
 		{
-			float a = 2.0f;
+			// Thuc hien kiem tra xem co translate, rotate hay scale khong?
+			if (isTranslate())
+			{
+				gl.PushMatrix();
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
+			}
+
+			float a = 1.0f;
 			// Ve hinh chop deu day hinh vuong voi dinh S tuy y va canh day la a
-			float h = 5.0f;
+			float h = 1.0f;
 			gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
 
 			// Ve day
@@ -327,6 +324,10 @@ namespace BUS
 			gl.Flush();
 
 			drawBorder(gl, isSelected);
+
+			if (isTranslate())
+				gl.PopMatrix();
+
 		}
 		public CSquarePyramid() : base()
 		{
@@ -345,8 +346,8 @@ namespace BUS
 
 		public override void drawBorder(OpenGL gl, bool isSelected)
 		{
-			float a = 4.0f;
-			float h = 5.0f;
+			float a = 1.0f;
+			float h = 1.0f;
 
 			if (isSelected)
 			{ // Neu selected
@@ -358,7 +359,7 @@ namespace BUS
 			gl.LineWidth(3);
 
 			// Ve bien
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Begin(OpenGL.GL_LINE_LOOP);
 			// Ve day ABC
 			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(a, 0.0f, 0.0f);
@@ -366,7 +367,7 @@ namespace BUS
 			gl.End();
 			gl.Flush();
 
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Begin(OpenGL.GL_LINE_LOOP);
 			// Ve mat ben thu nhat AA'C'C
 			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(0.0f, h, 0.0f);
@@ -375,7 +376,7 @@ namespace BUS
 			gl.End();
 			gl.Flush();
 
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Begin(OpenGL.GL_LINE_LOOP);
 			// Ve mat ben thu hai CC'B'B
 			gl.Vertex(a / 2, 0.0f, a);
 			gl.Vertex(a / 2, h, a);
@@ -385,7 +386,7 @@ namespace BUS
 			gl.Flush();
 
 
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Begin(OpenGL.GL_LINE_LOOP);
 			// Ve mat sau AA'B'B
 			gl.Vertex(0.0f, 0.0f, 0.0f);
 			gl.Vertex(0.0f, h, 0.0f);
@@ -395,7 +396,7 @@ namespace BUS
 			gl.Flush();
 
 
-			gl.Begin(OpenGL.GL_LINE_STRIP);
+			gl.Begin(OpenGL.GL_LINE_LOOP);
 			// Ve day tren A'B'C'
 			gl.Vertex(0.0f, h, 0.0f);
 			gl.Vertex(a, h, 0.0f);
@@ -408,9 +409,16 @@ namespace BUS
 
 		public override void draw(OpenGL gl, bool isSelected = false)
 		{
+			// Thuc hien kiem tra xem co translate, rotate hay scale khong?
+			if (isTranslate())
+			{
+				gl.PushMatrix();
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
+			}
+
 			// Ve hinh tru co day la tam giac deu voi canh a tuy y
-			float a = 4.0f;
-			float h = 5.0f;
+			float a = 1.0f;
+			float h = 1.0f;
 
 			gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
 			gl.Begin(OpenGL.GL_TRIANGLES);
@@ -453,6 +461,9 @@ namespace BUS
 
 			// Ve bien
 			drawBorder(gl, isSelected);
+
+			if (isTranslate())
+				gl.PopMatrix();
 		}
 
 		public CTriangularPrism() : base()
