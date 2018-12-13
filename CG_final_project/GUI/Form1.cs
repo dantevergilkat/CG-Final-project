@@ -31,16 +31,16 @@ namespace GUI
 		int indexCurrentObj = -1; // Bien giu index cua doi tuong nguoi dung chon
 		Color currentColor = Color.White; // Mau dung hien tai
 		bool isChangedColor = false; // Su dung de doi mau obj khi da selected
+		// ----------------------------------- Ho tro thao tac affine---------------------------------------------
 		AFFINE currentAffine; // Thao tac affine hien tai
-		Point start = new Point(0, 0); // Luu toa do di chuyen cua nguoi dung
-		Point end = new Point(0, 0);
 		bool isAffine = false; // Bien kiem tra xem nguoi dung chon 1 trong cac affine
-		Point3D pos = new Point3D();
-		Point3D rotation;
-		Point3D scale;
+		Point3D pos = new Point3D(); // Luu thong so de translate hien tai
+		Point3D rotation = new Point3D(); // Luu thong so de rotate hien tai
+		Point3D scale = new Point3D(); // Luu thong so de salce hien tai
 
 		List<Point3D> listPos = new List<Point3D>(); // Tao danh sach cac vi tri cua position
-
+		List<Point3D> listRota = new List<Point3D>(); // Tao danh sach cac goc quay cho cac doi tuong cua rotate
+		List<Point3D> listScale = new List<Point3D>(); // Tao danh sach cac toa do scale cho cac doi tuong cua scale 
 		// Khoi tao doi tuong Camera
 		CameraRotation cam = new CameraRotation();
 
@@ -149,10 +149,10 @@ namespace GUI
 						drObj.updateTranCoor(indexCurrentObj, pos.x, pos.y, pos.z);
 						break;
 					case AFFINE.ROTATE:
-
+						drObj.updateRotaCoor(indexCurrentObj, rotation.x, rotation.y, rotation.z);
 						break;
 					case AFFINE.SCALE:
-
+						drObj.updateScaleCoor(indexCurrentObj, scale.x, scale.y, scale.z);
 						break;
 				}
 				
@@ -215,6 +215,8 @@ namespace GUI
             int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Cube " + count.ToString()); // Them vao list quan ly
 			listPos.Add(new Point3D()); // Them toa position cho obj nay
+			listRota.Add(new Point3D()); // Them toa do rotation cho obj nay
+			listScale.Add(new Point3D(1, 1, 1)); // Them toa do scale cho obj nay
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
 			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
 			indexCurrentObj = count; // Luu index cua Obj vua moi ve
@@ -236,11 +238,13 @@ namespace GUI
             int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Pyramid " + count.ToString()); // Them vao list quan ly
 			listPos.Add(new Point3D()); // Them toa position cho obj nay
+			listRota.Add(new Point3D()); // Them toa do rotation cho obj nay
+			listScale.Add(new Point3D(1, 1, 1)); // Them toa do scale cho obj nay
+
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
 			
 			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
 			indexCurrentObj = count; // Luu index cua Obj vua moi ve
-
 
 		}
 
@@ -251,6 +255,9 @@ namespace GUI
 			int count = listObjName.Count(); // Lay so phan tu hien tai
 			listObjName.Add("Prism " + count.ToString()); // Them vao list quan ly
 			listPos.Add(new Point3D()); // Them toa position cho obj nay
+			listRota.Add(new Point3D()); // Them toa do rotation cho obj nay
+			listScale.Add(new Point3D(1, 1, 1)); // Them toa do scale cho obj nay
+
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
 			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
 			indexCurrentObj = count; // Luu index cua Obj vua moi ve
@@ -262,13 +269,27 @@ namespace GUI
 			indexCurrentObj = lstBox_SampleScene.SelectedIndex;
 			isAffine = false;
 
-			// Load cac toa do cua obj
+			// Load cac toa do Position cua obj
 			textBox_PosX.Text = listPos[indexCurrentObj].x.ToString();
 			textBox_PosY.Text = listPos[indexCurrentObj].y.ToString();
 			textBox_PosZ.Text = listPos[indexCurrentObj].z.ToString();
 
+			// Load cac toa do cho Rotation cua obj
+			textBox_RotateX.Text = listRota[indexCurrentObj].x.ToString();
+			textBox_RotateY.Text = listRota[indexCurrentObj].y.ToString();
+			textBox_RotateZ.Text = listRota[indexCurrentObj].z.ToString();
+
+			// Load cac toa do cho Scale cua obj
+			textBox_ScaleX.Text = listScale[indexCurrentObj].x.ToString();
+			textBox_ScaleY.Text = listScale[indexCurrentObj].y.ToString();
+			textBox_ScaleZ.Text = listScale[indexCurrentObj].z.ToString();
+
 			// Cap nhat toa do cua pos
 			pos = new Point3D(listPos[indexCurrentObj]);
+			// Cap nhat toa do cua rota
+			rotation = new Point3D(listRota[indexCurrentObj]);
+			// Cap nhat toa doa cua scale
+			scale = new Point3D(listScale[indexCurrentObj]);
 
 		}
 
@@ -294,44 +315,6 @@ namespace GUI
 				isChangedColor = true;
 			}
 		}
-
-		private void bt_Move_Click(object sender, EventArgs e)
-		{
-			currentAffine = AFFINE.TRANSLATE;
-			isAffine = true;
-		}
-
-		private void bt_Rotate_Click(object sender, EventArgs e)
-		{
-			currentAffine = AFFINE.ROTATE;
-			isAffine = true;
-		}
-
-		private void bt_Scale_Click(object sender, EventArgs e)
-		{
-			currentAffine = AFFINE.SCALE;
-			isAffine = true;
-		}
-
-		private void openGLControl1_MouseUp(object sender, MouseEventArgs e)
-		{
-			// Cap nhat toa do cuoi cung khi user buong chuot
-			end = new Point(e.X, e.Y);
-		}
-
-		private void openGLControl1_MouseMove(object sender, MouseEventArgs e)
-		{
-			// Cap nhat toa do khi di chuyen
-			end = new Point(e.X, e.Y);
-		}
-
-		private void openGLControl1_MouseDown(object sender, MouseEventArgs e)
-		{
-			// Lay toa do click chuot
-			start = new Point(e.X, e.Y);
-			end = new Point(e.X, e.Y);
-		}
-
 
 		private void Form1_KeyDown(object sender, KeyEventArgs e)
 		{
@@ -425,8 +408,6 @@ namespace GUI
 			indexCurrentObj = -1; // Bien giu index cua doi tuong nguoi dung chon
 			currentColor = Color.White; // Mau dung hien tai
 			isChangedColor = false; // Su dung de doi mau obj khi da selected
-			start = new Point(0, 0); // Luu toa do di chuyen cua nguoi dung
-			end = new Point(0, 0);
 			isAffine = false; // Bien kiem tra xem nguoi dung chon 1 trong cac affine
 			pos = new Point3D();
 			Point3D rotation;
@@ -438,6 +419,10 @@ namespace GUI
 			// Xoa listBox Sample Scene
 			lstBox_SampleScene.Items.Clear();
 
+			// Xoa cac bien ho tro affine
+			listPos.Clear();
+			listRota.Clear();
+			listScale.Clear();
 
 		}
 
@@ -449,8 +434,30 @@ namespace GUI
 			success = float.TryParse(textBox_PosZ.Text, out pos.z);
 			if (success)
 			{
-				// Cap nhat toa do x vao list
+				// Cap nhat toa do pos vao list
 				listPos[indexCurrentObj] = new Point3D(pos);
+				// Cap nhat la co thuc hien bien doi affine
+				isAffine = true;
+			}
+			success = true;
+			success = float.TryParse(textBox_RotateX.Text, out rotation.x);
+			success = float.TryParse(textBox_RotateY.Text, out rotation.y);
+			success = float.TryParse(textBox_RotateZ.Text, out rotation.z);
+			if (success)
+			{
+				// Cap nhat toa do rotation vao list
+				listRota[indexCurrentObj] = new Point3D(rotation);
+				// Cap nhat la co thuc hien bien doi affine
+				isAffine = true;
+			}
+			success = true;
+			success = float.TryParse(textBox_ScaleX.Text, out scale.x);
+			success = float.TryParse(textBox_ScaleY.Text, out scale.y);
+			success = float.TryParse(textBox_ScaleZ.Text, out scale.z);
+			if (success)
+			{
+				// Cap nhat toa do rotation vao list
+				listScale[indexCurrentObj] = new Point3D(scale);
 				// Cap nhat la co thuc hien bien doi affine
 				isAffine = true;
 			}
@@ -473,4 +480,112 @@ namespace GUI
             }
         }
     }
+		private void textBox_RotateX_Click(object sender, EventArgs e)
+		{
+			textBox_RotateX.SelectAll();
+		}
+
+		private void textBox_RotateY_Click(object sender, EventArgs e)
+		{
+			textBox_RotateY.SelectAll();
+		}
+
+		private void textBox_RotateZ_Click(object sender, EventArgs e)
+		{
+			textBox_RotateZ.SelectAll();
+		}
+
+		private void textBox_RotateX_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+			{
+				e.Handled = true;
+			}
+			else
+			{
+				isAffine = true;
+				currentAffine = AFFINE.ROTATE;
+			}
+		}
+
+		private void textBox_RotateY_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+			{
+				e.Handled = true;
+			}
+			else
+			{
+				isAffine = true;
+				currentAffine = AFFINE.ROTATE;
+			}
+		}
+
+		private void textBox_RotateZ_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+			{
+				e.Handled = true;
+			}
+			else
+			{
+				isAffine = true;
+				currentAffine = AFFINE.ROTATE;
+			}
+		}
+
+		private void textBox_ScaleX_Click(object sender, EventArgs e)
+		{
+			textBox_ScaleX.SelectAll();
+		}
+
+		private void textBox_ScaleY_Click(object sender, EventArgs e)
+		{
+			textBox_ScaleY.SelectAll();
+		}
+
+		private void textBox_ScaleZ_Click(object sender, EventArgs e)
+		{
+			textBox_ScaleZ.SelectAll();
+		}
+
+		private void textBox_ScaleX_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+			{
+				e.Handled = true;
+			}
+			else
+			{
+				isAffine = true;
+				currentAffine = AFFINE.SCALE;
+			}
+		}
+
+		private void textBox_ScaleY_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+			{
+				e.Handled = true;
+			}
+			else
+			{
+				isAffine = true;
+				currentAffine = AFFINE.SCALE;
+			}
+		}
+
+		private void textBox_ScaleZ_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+			{
+				e.Handled = true;
+			}
+			else
+			{
+				isAffine = true;
+				currentAffine = AFFINE.SCALE;
+			}
+		}
+	}
 }
