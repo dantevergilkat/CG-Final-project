@@ -94,7 +94,7 @@ namespace BUS
 		public void updateTranCoor(float _trX, float _trY, float _trZ) {
 			trCoor.trX += (_trX - trCoor.trX);
 			trCoor.trY += (_trY - trCoor.trY);
-			trCoor.trY += (_trZ - trCoor.trZ);
+			trCoor.trZ += (_trZ - trCoor.trZ);
 		}
 
 		// Hap cap nhat cho phep quay
