@@ -17,11 +17,31 @@ namespace BUS
 		TRIANGULAR_PRISM
 	}
 
+	public struct Point3D {
+		public float x, y, z;
+		public Point3D(float _x = 0, float _y = 0, float _z = 0) {
+			x = _x;
+			y = _y;
+			z = _z;
+		}
+	}
+
+	// Do doi
+	public struct STranslationCoor {
+		public float trX, trY, trZ;
+		public STranslationCoor(float _trX = 0, float _trY = 0, float _trZ = 0) {
+			trX = _trX;
+			trY = _trY;
+			trZ = _trZ;
+		}
+	}
+
 	// Bass class: Object
 	public abstract class CObject
 	{
 		protected String name;
 		protected Color colorUse; // Mau su dung
+		protected STranslationCoor trCoor; // Do doi translate
 		public abstract String Name
 		{
 			get; set;
@@ -32,13 +52,36 @@ namespace BUS
 			set { colorUse = value; }
 		}
 
+		// Ham cap nhat do doi cho obj
+		public void updateTranCoor(float _trX, float _trY, float _trZ) {
+			trCoor.trX += _trX;
+			trCoor.trY += _trY;
+			trCoor.trY += _trZ;
+		}
+
+		// Ham kiem tra co translate khong?
+		public bool isTranslate() {
+			if(trCoor.trX != 0 || trCoor.trY != 0 || trCoor.trZ != 0)
+				return true;
+			return false;
+		}
+
+		// Ham ve bien
 		public abstract void drawBorder(OpenGL gl, bool isSelected);
 
+		// Ham ve hinh
 		public abstract void draw(OpenGL gl, bool isSelected = false);
 
 		public CObject()
 		{
 			colorUse = Color.White; // Mac dinh la mau trang
+			trCoor = new STranslationCoor();
+		}
+
+		public void translate(OpenGL gl, Point p1, Point p2) {
+			gl.PushMatrix();
+			gl.Translate(p2.X - p1.X, p2.Y - p1.Y, 0);
+			gl.PopMatrix();
 		}
 	}
 
@@ -116,6 +159,12 @@ namespace BUS
 
 		public override void draw(OpenGL gl, bool isSelected = false)
 		{
+			// Thuc hien kiem tra xem co translate, rotate hay scale khong?
+			if (isTranslate()) {
+				gl.PushMatrix();
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
+			}
+
 			// Ve hinh lap phuong voi canh a bat ky
 			float a = 2.0f;
 			gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
@@ -152,8 +201,13 @@ namespace BUS
 
 			gl.End();
 			gl.Flush();
-
+			// Ve bien
 			drawBorder(gl, isSelected);
+
+			if (isTranslate()) {
+				gl.PopMatrix();
+			}
+
 		}
 
 		public CCube() : base()
@@ -277,7 +331,6 @@ namespace BUS
 		public CSquarePyramid() : base()
 		{
 			name = "Square pyramid";
-			
 		}
 	}
 
@@ -443,8 +496,16 @@ namespace BUS
 			return lst.Count();
 		}
 
+		// Ham cap nhat mau cho lst[idx]
 		public void setColorOfOneObj(int idx, Color color) {
 			lst[idx].ColorUse = color;
+		}
+
+
+		// Ham cap nhat do doi cho lst[idx]
+		public void updateTranCoor(int idx, float trX, float trY, float trZ)
+		{
+			lst[idx].updateTranCoor(trX, trY, trZ);
 		}
 
 	}
@@ -458,10 +519,12 @@ namespace BUS
 			lstObj.draw(gl);
 		}
 
+		// Ham draw co truyen vao index cua obj duoc chon hien tai
 		public void draw(OpenGL gl, int idxSelected) {
 			lstObj.draw(gl, idxSelected);
 		}
 
+		// Ham them 1 obj vao list
 		public void addObj(TypeObject type, Color color)
 		{
 			CObject obj = null;
@@ -483,112 +546,121 @@ namespace BUS
 			lstObj.add(obj);
 		}
 
+		// Ham lay do dai cua lstObj
 		public int getLength() {
 			return lstObj.getLength();
 		}
 
+		// Ham cap nhat mau cho lst[idx]
 		public void setColorOfOneObj(int idx, Color color) {
 			lstObj.setColorOfOneObj(idx, color);
 		}
 
+		// Ham cap nhat do doi cho lstObj[idx]
+		public void updateTranCoor(int idx, float trX, float trY, float trZ) {
+			lstObj.updateTranCoor(idx, trX, trY, trZ);
+		}
+
+
 	}
-    class MatrixManipulation
-    {
-        private double[,] matrixMult(double[,] mat1, double[,] mat2, int m, int n, int p) // Nhan 2 ma tran
-        {
-            double[,] retMat = new double[m, p];
-            for (int i = 0; i < m; i++)
-            {
-                for (int j = 0; j < p; j++)
-                {
-                    retMat[i, j] = mat1[i, 0] * mat2[0, j] + mat1[i, 1] * mat2[1, j] + mat1[i, 2] * mat2[2, j] + mat1[i, 3] * mat2[3, j];
-                }
-            }
-            return retMat;
-        }
-        public double[] verticeRotate(double[] sPoint, double[] ePoint, double angle, double x, double y, double z) // xoay diem (x, y, z) quanh vecto co diem dau la sPoint, diem cuoi la ePoint
-        { // return a list of new x, y, z
-            // return vertice
-            double[] ret = new double[3];
-            // create vector from given start point and end point
-            double x1 = sPoint[0], y1 = sPoint[1], z1 = sPoint[2];
-            double[] vec = new double[3] { ePoint[0] - sPoint[0], ePoint[1] - sPoint[1], ePoint[2] - sPoint[2] };
-            double vec_magnitude = Math.Sqrt(Math.Pow(vec[0], 2) + Math.Pow(vec[1], 2) + Math.Pow(vec[2], 2));
-            double kx = vec[0] / vec_magnitude, ky = vec[1] / vec_magnitude, kz = vec[2] / vec_magnitude;
-            double d = Math.Sqrt(Math.Pow(ky, 2) + Math.Pow(kz, 2));
-            double radian = (Math.PI / 180) * angle;
 
-            double[,] rev_tr = new double[4, 4]
-            {
-                {1, 0, 0, x1},
-                {0, 1, 0, y1},
-                {0, 0, 1, z1},
-                {0, 0, 0, 1}
-            };
-            double[,] rev_rot_a = new double[4, 4]
-            {
-                {1, 0, 0, 0},
-                {0, kz/d, (-1)*ky/d, 0},
-                {0, ky/d, kz/d, 0},
-                {0, 0, 0, 1}
-            };
-            double[,] rev_rot_b = new double[4, 4]
-            {
-                {d, 0, kx, 0},
-                {0, 1, 0, 0},
-                {(-1)*kx, 0, d, 0},
-                {0, 0, 0, 1}
-            };
-            double[,] rot = new double[4, 4]
-            {
-                {Math.Cos(radian), Math.Sin(radian), 0, 0 },
-                {(-1)*Math.Sin(radian), Math.Cos(radian), 0, 0 },
-                {0, 0, 1, 0 },
-                {0, 0, 0, 1}
-            };
-            double[,] rot_b = new double[4, 4]
-            {
-                {d, 0, (-1)*kx, 0 },
-                {0, 1, 0, 0 },
-                {kx, 0, d, 0 },
-                {0, 0, 0, 1 }
-            };
-            double[,] rot_a = new double[4, 4]
-            {
-                {1, 0, 0, 0 },
-                {0, kz/d, ky/d, 0 },
-                {0, (-1)*ky/d, kz/d, 0 },
-                {0, 0, 0, 1 }
-            };
-            double[,] tr = new double[4, 4]
-            {
-                {1, 0, 0, (-1)*x1 },
-                {0, 1, 0, (-1)*y1 },
-                {0, 0, 1, (-1)*z1 },
-                {0, 0, 0, 1 }
-            };
-            double[,] tmp = new double[4, 4];
-            tmp = matrixMult(rev_tr, rev_rot_a, 4, 4, 4);
-            tmp = matrixMult(tmp, rev_rot_b, 4, 4, 4);
-            tmp = matrixMult(tmp, rot, 4, 4, 4);
-            tmp = matrixMult(tmp, rot_b, 4, 4, 4);
-            tmp = matrixMult(tmp, rot_a, 4, 4, 4);
-            tmp = matrixMult(tmp, tr, 4, 4, 4);
+	class MatrixManipulation
+	{
+		private double[,] matrixMult(double[,] mat1, double[,] mat2, int m, int n, int p) // Nhan 2 ma tran
+		{
+			double[,] retMat = new double[m, p];
+			for (int i = 0; i < m; i++)
+			{
+				for (int j = 0; j < p; j++)
+				{
+					retMat[i, j] = mat1[i, 0] * mat2[0, j] + mat1[i, 1] * mat2[1, j] + mat1[i, 2] * mat2[2, j] + mat1[i, 3] * mat2[3, j];
+				}
+			}
+			return retMat;
+		}
+		public double[] verticeRotate(double[] sPoint, double[] ePoint, double angle, double x, double y, double z) // xoay diem (x, y, z) quanh vecto co diem dau la sPoint, diem cuoi la ePoint
+		{ // return a list of new x, y, z
+		  // return vertice
+			double[] ret = new double[3];
+			// create vector from given start point and end point
+			double x1 = sPoint[0], y1 = sPoint[1], z1 = sPoint[2];
+			double[] vec = new double[3] { ePoint[0] - sPoint[0], ePoint[1] - sPoint[1], ePoint[2] - sPoint[2] };
+			double vec_magnitude = Math.Sqrt(Math.Pow(vec[0], 2) + Math.Pow(vec[1], 2) + Math.Pow(vec[2], 2));
+			double kx = vec[0] / vec_magnitude, ky = vec[1] / vec_magnitude, kz = vec[2] / vec_magnitude;
+			double d = Math.Sqrt(Math.Pow(ky, 2) + Math.Pow(kz, 2));
+			double radian = (Math.PI / 180) * angle;
 
-            double[,] verticeVec = new double[4, 1] { { x }, { y }, { z }, { 1 } };
-            tmp = matrixMult(tmp, verticeVec, 4, 4, 1);
-            ret[0] = tmp[0, 0];
-            ret[1] = tmp[1, 0];
-            ret[2] = tmp[2, 0];
-            return ret;
-        }
-    }
+			double[,] rev_tr = new double[4, 4]
+			{
+				{1, 0, 0, x1},
+				{0, 1, 0, y1},
+				{0, 0, 1, z1},
+				{0, 0, 0, 1}
+			};
+			double[,] rev_rot_a = new double[4, 4]
+			{
+				{1, 0, 0, 0},
+				{0, kz/d, (-1)*ky/d, 0},
+				{0, ky/d, kz/d, 0},
+				{0, 0, 0, 1}
+			};
+			double[,] rev_rot_b = new double[4, 4]
+			{
+				{d, 0, kx, 0},
+				{0, 1, 0, 0},
+				{(-1)*kx, 0, d, 0},
+				{0, 0, 0, 1}
+			};
+			double[,] rot = new double[4, 4]
+			{
+				{Math.Cos(radian), Math.Sin(radian), 0, 0 },
+				{(-1)*Math.Sin(radian), Math.Cos(radian), 0, 0 },
+				{0, 0, 1, 0 },
+				{0, 0, 0, 1}
+			};
+			double[,] rot_b = new double[4, 4]
+			{
+				{d, 0, (-1)*kx, 0 },
+				{0, 1, 0, 0 },
+				{kx, 0, d, 0 },
+				{0, 0, 0, 1 }
+			};
+			double[,] rot_a = new double[4, 4]
+			{
+				{1, 0, 0, 0 },
+				{0, kz/d, ky/d, 0 },
+				{0, (-1)*ky/d, kz/d, 0 },
+				{0, 0, 0, 1 }
+			};
+			double[,] tr = new double[4, 4]
+			{
+				{1, 0, 0, (-1)*x1 },
+				{0, 1, 0, (-1)*y1 },
+				{0, 0, 1, (-1)*z1 },
+				{0, 0, 0, 1 }
+			};
+			double[,] tmp = new double[4, 4];
+			tmp = matrixMult(rev_tr, rev_rot_a, 4, 4, 4);
+			tmp = matrixMult(tmp, rev_rot_b, 4, 4, 4);
+			tmp = matrixMult(tmp, rot, 4, 4, 4);
+			tmp = matrixMult(tmp, rot_b, 4, 4, 4);
+			tmp = matrixMult(tmp, rot_a, 4, 4, 4);
+			tmp = matrixMult(tmp, tr, 4, 4, 4);
+
+			double[,] verticeVec = new double[4, 1] { { x }, { y }, { z }, { 1 } };
+			tmp = matrixMult(tmp, verticeVec, 4, 4, 1);
+			ret[0] = tmp[0, 0];
+			ret[1] = tmp[1, 0];
+			ret[2] = tmp[2, 0];
+			return ret;
+		}
+	}
     //==============================================================CAMERA===============================================================================
     public class CameraRotation
     {
         // camera position
         private double x = -4;
-        private double y = 4;
+        private double y = 0;
         private double z = -4;
         // view point
         private double v_x = 1;
@@ -602,10 +674,15 @@ namespace BUS
         private double p_x = 0;
         private double p_y = 0;
         private double p_z = 2;
+        // khoang cach tu hinh chieu cua camera position den viewpoint
+        private double dist = Math.Sqrt(Math.Pow(-4 - 1, 2) + Math.Pow(-4 - 1, 2));
 
         // flag for checking when we need to change y of vector up 
         private int flag1 = 0;
         private int flag2 = 0;
+
+        // angle
+        private int angle = 0;
 
         // Khai bao de su dung ham rotate
         private MatrixManipulation matManip = new MatrixManipulation();
@@ -645,6 +722,28 @@ namespace BUS
         public double getU_Z()
         {
             return u_z;
+        }
+        public double getDist()
+        {
+            return dist;
+        }
+        public double getAngle()
+        {
+            return angle;
+        }
+        public void nearer() // translate: vector(OA) = (k/(k-0.1)) * vector(OA')
+        {
+            x = ((dist - 0.2) / dist) * (x - v_x) + v_x;
+            y = ((dist - 0.2) / dist) * (y - v_y) + v_y;
+            z = ((dist - 0.2) / dist) * (z - v_z) + v_z;
+            dist--;
+        }
+        public void further() // translate: vector(OA) = (k/(k+0.1)) * vector(OA')
+        {
+            x = ((dist + 0.2) / dist) * (x - v_x) + v_x;
+            y = ((dist + 0.2) / dist) * (y - v_y) + v_y;
+            z = ((dist + 0.2) / dist) * (z - v_z) + v_z;
+            dist++;
         }
         public void leftRotate()
         {
@@ -692,18 +791,12 @@ namespace BUS
             double[] sPoint = new double[3] { v_x, v_y, v_z };
             double[] ePoint = new double[3] { p_x, p_y, p_z };
             double[] newVertice = new double[3];
-            newVertice = matManip.verticeRotate(sPoint, ePoint, -0.5, x, y, z);//-0.5
-            double dist = Math.Sqrt(Math.Pow(newVertice[0] - v_x, 2) + Math.Pow(newVertice[2] - v_z, 2));
-            if (dist < 0.04 && flag1 == 0)//0.04
-            {
-                if ((newVertice[1] < 0 && newVertice[1] < y) || (newVertice[1] > 0 && newVertice[1] > y))
-                {
-                    flag1 = 5;
-                    u_y = -1 * u_y;
-                }
-            }
-            if (flag1 > 0)
-                flag1--;
+            newVertice = matManip.verticeRotate(sPoint, ePoint, -1, x, y, z);//-0.5
+            if (angle == 0)
+                angle = 360;
+            angle -= 1;
+            if (angle == 269 || angle == 89)
+                u_y *= -1;
             x = newVertice[0];
             y = newVertice[1];
             z = newVertice[2];
@@ -713,26 +806,18 @@ namespace BUS
         {
             double[] sPoint = new double[3] { v_x, v_y, v_z };
             double[] ePoint = new double[3] { p_x, p_y, p_z };
-            //double[] newVertice = new double[3];
-            double[] newVertice;
-            newVertice = matManip.verticeRotate(sPoint, ePoint, 0.5, x, y, z);//0.5
-            double dist = Math.Sqrt(Math.Pow(newVertice[0] - v_x, 2) + Math.Pow(newVertice[2] - v_z, 2));
-            if (dist < 0.1 && flag2 == 0)//0.1
-            {
-                if ((newVertice[1] < 0 && newVertice[1] > y) || (newVertice[1] > 0 && newVertice[1] < y))
-                {
-                    flag2 = 5;
-                    u_y = -1 * u_y;
-                }
-            }
-            if (flag2 > 0)
-                flag2--;
+            double[] newVertice = new double[3];
+            newVertice = matManip.verticeRotate(sPoint, ePoint, 1, x, y, z);//0.5
+            if (angle == 360)
+                angle = 0;
+            angle += 1;
+            if (angle == 90 || angle == 271)
+                u_y *= -1;
             x = newVertice[0];
             y = newVertice[1];
             z = newVertice[2];
         }
     }
-
-
+    
 
 }

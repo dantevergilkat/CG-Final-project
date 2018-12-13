@@ -12,6 +12,12 @@ using BUS;
 
 namespace GUI
 {
+	public enum AFFINE {
+		TRANSLATE,
+		ROTATE,
+		SCALE
+	}
+
 	public partial class Form1 : Form
 	{
 		// Khoi tao doi tuong lop CDrawObject de ve
@@ -21,14 +27,22 @@ namespace GUI
 		int indexCurrentObj = -1; // Bien giu index cua doi tuong nguoi dung chon
 		Color currentColor = Color.White; // Mau dung hien tai
 		bool isChangedColor = false; // Su dung de doi mau obj khi da selected
-        // Khoi tao doi tuong Camera
-        CameraRotation cam = new CameraRotation();
+		AFFINE currentAffine; // Thao tac affine hien tai
+		Point start = new Point(0, 0); // Luu toa do di chuyen cua nguoi dung
+		Point end = new Point(0, 0);
+		bool isAffine; // Bien kiem tra xem nguoi dung chon 1 trong cac affine
+		Point3D pos = new Point3D();
+		Point3D rotation;
+		Point3D scale;
+		bool isDown = false;
 
+		// Khoi tao doi tuong Camera
+		CameraRotation cam = new CameraRotation();
 
-        public Form1()
+		public Form1()
 		{
-            this.KeyPreview = true;
 			InitializeComponent();
+			this.KeyPreview = true;
 		}
 
 		private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
@@ -36,38 +50,60 @@ namespace GUI
 			OpenGL gl = openGLControl1.OpenGL;
 			// Clear vung nho dem
 			gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
-            //=================================CAMERA ROTATION============================================
-            // Camera rotation
-            gl.MatrixMode(OpenGL.GL_MODELVIEW);
-            gl.LoadIdentity();
-            /*gl.LookAt(rotate_x, rotate_y, rotate_z, // camera position (-4,4,-4)
+
+			//=================================CAMERA ROTATION============================================
+			// Camera rotation
+			gl.MatrixMode(OpenGL.GL_MODELVIEW);
+			gl.LoadIdentity();
+			/*gl.LookAt(rotate_x, rotate_y, rotate_z, // camera position (-4,4,-4)
                       1, 0, 1, // look at
                       0, 1, 0); // vector up*/
-            double x = cam.getX();
-            double y = cam.getY();
-            double z = cam.getZ();
+			double x = cam.getX();
+			double y = cam.getY();
+			double z = cam.getZ();
 
-            double u_x = cam.getU_X();
-            double u_y = cam.getU_Y();
-            double u_z = cam.getU_Z();
-            //label2.Text = u_y.ToString();
+			double u_x = cam.getU_X();
+			double u_y = cam.getU_Y();
+			double u_z = cam.getU_Z();
+
+            double angle = cam.getAngle();
+
+
+
             gl.LookAt(x, y, z,
-                      1, 0, 1,
-                      u_x, u_y, u_z);
+					  1, 0, 1,
+					  u_x, u_y, u_z);
 
-            //============================================================================================
-            // Kiem tra khi nguoi dung select 1 doi tuong va co thay doi mau to khong
-            if (isChangedColor)
+			//============================================================================================
+
+			// Kiem tra khi nguoi dung select 1 doi tuong va co thay doi mau to khong
+			if (isChangedColor)
 			{
 				// Doi mau nguoi chung luc click vao listbox
 				drObj.setColorOfOneObj(indexCurrentObj, currentColor);
 				isChangedColor = false; // reset lai
 			}
+			if (isDown && isAffine)
+			{
+				switch (currentAffine)
+				{
+					case AFFINE.TRANSLATE:
+						drObj.updateTranCoor(indexCurrentObj, pos.x, pos.y, pos.z);
+						break;
+					case AFFINE.ROTATE:
 
-			// Draw object
-			drObj.draw(gl, indexCurrentObj);
+						break;
+					case AFFINE.SCALE:
 
-		
+						break;
+				}
+				isDown = false;
+			}
+
+
+            // Draw object
+            if (angle != 90 && angle != 270)
+                drObj.draw(gl, indexCurrentObj);
 		}
 
 		private void openGLControl1_OpenGLInitialized(object sender, EventArgs e)
@@ -97,12 +133,12 @@ namespace GUI
 			openGLControl1.Width / openGLControl1.Height,
 				1.0, 20.0);
 	
-			//set ma tran model view
-			/*gl.MatrixMode(OpenGL.GL_MODELVIEW);
-			gl.LookAt(
-				5, 7, 6,
-				0, 0, 0,
-				0, 1, 0);*/
+			////set ma tran model view
+			//gl.MatrixMode(OpenGL.GL_MODELVIEW);
+			//gl.LookAt(
+			//	5, 7, 6,
+			//	0, 0, 0,
+			//	0, 1, 0);
 
 		}
 
@@ -166,33 +202,103 @@ namespace GUI
 			}
 		}
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyValue == 87) // press W
-            {
-                //rotate_y += 0.2;
-                cam.upRotate();
-            }
-            else if (e.KeyValue == 83) // press S
-            {
-                //rotate_y -= 0.2;
-                cam.downRotate();
-            }
-            else if (e.KeyValue == 68) // press D
-            {
-                if (cam.getU_Y() == -1)
-                    cam.rightRotate();
-                else
-                    cam.leftRotate();
-            }
-            else if (e.KeyValue == 65) // press A
-            {
-                if (cam.getU_Y() == -1)
-                    cam.leftRotate();
-                else
-                    cam.rightRotate();
-            }
+		private void bt_Move_Click(object sender, EventArgs e)
+		{
+			currentAffine = AFFINE.TRANSLATE;
+			isAffine = true;
+		}
 
+		private void bt_Rotate_Click(object sender, EventArgs e)
+		{
+			currentAffine = AFFINE.ROTATE;
+			isAffine = true;
+		}
+
+		private void bt_Scale_Click(object sender, EventArgs e)
+		{
+			currentAffine = AFFINE.SCALE;
+			isAffine = true;
+		}
+
+		private void openGLControl1_MouseUp(object sender, MouseEventArgs e)
+		{
+			// Cap nhat toa do cuoi cung khi user buong chuot
+			end = new Point(e.X, e.Y);
+			isDown = false;
+		}
+
+		private void openGLControl1_MouseMove(object sender, MouseEventArgs e)
+		{
+			// Cap nhat toa do khi di chuyen
+			end = new Point(e.X, e.Y);
+		}
+
+		private void openGLControl1_MouseDown(object sender, MouseEventArgs e)
+		{
+			// Lay toa do click chuot
+			start = new Point(e.X, e.Y);
+			end = new Point(e.X, e.Y);
+			isDown = true;
+		}
+
+		private void textBox_PosX_TextChanged(object sender, EventArgs e)
+		{
+			bool success = true;
+			success = float.TryParse(textBox_PosX.Text, out pos.x);
+			isDown = true;
+		}
+
+		private void textBox_PosY_TextChanged(object sender, EventArgs e)
+		{
+			bool success = true;
+			success = float.TryParse(textBox_PosX.Text, out pos.y);
+			isDown = true;
+
+		}
+
+		private void textBox_PosZ_TextChanged(object sender, EventArgs e)
+		{
+			bool success = true;
+			success = float.TryParse(textBox_PosX.Text, out pos.z);
+			isDown = true;
+
+		}
+
+		private void Form1_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyValue == 87) // press W
+			{
+				//rotate_y += 0.2;
+				cam.upRotate();
+			}
+			else if (e.KeyValue == 83) // press S
+			{
+				//rotate_y -= 0.2;
+				cam.downRotate();
+			}
+			else if (e.KeyValue == 68) // press D
+			{
+				if (cam.getU_Y() == -1)
+					cam.rightRotate();
+				else
+					cam.leftRotate();
+			}
+			else if (e.KeyValue == 65) // press A
+			{
+				if (cam.getU_Y() == -1)
+					cam.leftRotate();
+				else
+					cam.rightRotate();
+			}
+            else if (e.KeyValue == 90)
+            {
+                cam.further();
+            }
+            else if (e.KeyValue == 88 && cam.getDist() >= 2)
+            {
+                cam.nearer();
+            }
         }
+
     }
 }
