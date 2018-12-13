@@ -31,22 +31,18 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.openGLControl1 = new SharpGL.OpenGLControl();
-			this.pnl_Tool_bar = new System.Windows.Forms.Panel();
 			this.bt_Color = new System.Windows.Forms.Button();
 			this.bt_Palette = new System.Windows.Forms.Button();
-			this.bt_Scale = new System.Windows.Forms.Button();
-			this.imgList_icon_affine = new System.Windows.Forms.ImageList(this.components);
-			this.bt_Rotate = new System.Windows.Forms.Button();
-			this.bt_Move = new System.Windows.Forms.Button();
 			this.bt_Stop = new System.Windows.Forms.Button();
+			this.imgList_icon_affine = new System.Windows.Forms.ImageList(this.components);
 			this.bt_Prism = new System.Windows.Forms.Button();
 			this.imgList_icon_object = new System.Windows.Forms.ImageList(this.components);
 			this.bt_Pyramid = new System.Windows.Forms.Button();
 			this.bt_Cube = new System.Windows.Forms.Button();
 			this.lstBox_SampleScene = new System.Windows.Forms.ListBox();
-			this.lb_SampleScene = new System.Windows.Forms.Label();
 			this.colorDialog1 = new System.Windows.Forms.ColorDialog();
 			this.pnl_Transform = new System.Windows.Forms.Panel();
+			this.bt_Enter = new System.Windows.Forms.Button();
 			this.label7 = new System.Windows.Forms.Label();
 			this.label8 = new System.Windows.Forms.Label();
 			this.label9 = new System.Windows.Forms.Label();
@@ -72,55 +68,40 @@
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.bt_Enter = new System.Windows.Forms.Button();
+			this.groupBox_Objects = new System.Windows.Forms.GroupBox();
+			this.groupBox_Color = new System.Windows.Forms.GroupBox();
+			this.label_Stop = new System.Windows.Forms.Label();
+			this.groupBox_SampleScenes = new System.Windows.Forms.GroupBox();
 			((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
-			this.pnl_Tool_bar.SuspendLayout();
 			this.pnl_Transform.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
+			this.groupBox_Objects.SuspendLayout();
+			this.groupBox_Color.SuspendLayout();
+			this.groupBox_SampleScenes.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// openGLControl1
 			// 
 			this.openGLControl1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
 			this.openGLControl1.DrawFPS = false;
-			this.openGLControl1.Location = new System.Drawing.Point(0, 149);
+			this.openGLControl1.Location = new System.Drawing.Point(0, 133);
 			this.openGLControl1.Name = "openGLControl1";
 			this.openGLControl1.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
 			this.openGLControl1.RenderContextType = SharpGL.RenderContextType.DIBSection;
 			this.openGLControl1.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
-			this.openGLControl1.Size = new System.Drawing.Size(1173, 560);
+			this.openGLControl1.Size = new System.Drawing.Size(1173, 576);
 			this.openGLControl1.TabIndex = 0;
 			this.openGLControl1.OpenGLInitialized += new System.EventHandler(this.openGLControl1_OpenGLInitialized);
 			this.openGLControl1.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl1_OpenGLDraw);
 			this.openGLControl1.Resized += new System.EventHandler(this.openGLControl1_Resized);
 			this.openGLControl1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-			this.openGLControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseDown);
-			this.openGLControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseMove);
-			this.openGLControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.openGLControl1_MouseUp);
-			// 
-			// pnl_Tool_bar
-			// 
-			this.pnl_Tool_bar.Controls.Add(this.bt_Color);
-			this.pnl_Tool_bar.Controls.Add(this.bt_Palette);
-			this.pnl_Tool_bar.Controls.Add(this.bt_Scale);
-			this.pnl_Tool_bar.Controls.Add(this.bt_Stop);
-			this.pnl_Tool_bar.Controls.Add(this.bt_Prism);
-			this.pnl_Tool_bar.Controls.Add(this.bt_Rotate);
-			this.pnl_Tool_bar.Controls.Add(this.bt_Pyramid);
-			this.pnl_Tool_bar.Controls.Add(this.bt_Cube);
-			this.pnl_Tool_bar.Controls.Add(this.bt_Move);
-			this.pnl_Tool_bar.Location = new System.Drawing.Point(3, 27);
-			this.pnl_Tool_bar.Name = "pnl_Tool_bar";
-			this.pnl_Tool_bar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.pnl_Tool_bar.Size = new System.Drawing.Size(745, 116);
-			this.pnl_Tool_bar.TabIndex = 1;
 			// 
 			// bt_Color
 			// 
 			this.bt_Color.BackColor = System.Drawing.Color.White;
-			this.bt_Color.Location = new System.Drawing.Point(579, 34);
+			this.bt_Color.Location = new System.Drawing.Point(27, 30);
 			this.bt_Color.Name = "bt_Color";
-			this.bt_Color.Size = new System.Drawing.Size(45, 45);
+			this.bt_Color.Size = new System.Drawing.Size(50, 50);
 			this.bt_Color.TabIndex = 8;
 			this.bt_Color.UseVisualStyleBackColor = false;
 			this.bt_Color.Click += new System.EventHandler(this.bt_Color_Click);
@@ -129,23 +110,23 @@
 			// 
 			this.bt_Palette.ForeColor = System.Drawing.SystemColors.Control;
 			this.bt_Palette.Image = ((System.Drawing.Image)(resources.GetObject("bt_Palette.Image")));
-			this.bt_Palette.Location = new System.Drawing.Point(640, 25);
+			this.bt_Palette.Location = new System.Drawing.Point(102, 18);
 			this.bt_Palette.Name = "bt_Palette";
-			this.bt_Palette.Size = new System.Drawing.Size(62, 62);
+			this.bt_Palette.Size = new System.Drawing.Size(75, 75);
 			this.bt_Palette.TabIndex = 7;
 			this.bt_Palette.UseVisualStyleBackColor = true;
 			this.bt_Palette.Click += new System.EventHandler(this.bt_Palette_Click);
 			// 
-			// bt_Scale
+			// bt_Stop
 			// 
-			this.bt_Scale.ImageIndex = 3;
-			this.bt_Scale.ImageList = this.imgList_icon_affine;
-			this.bt_Scale.Location = new System.Drawing.Point(474, 34);
-			this.bt_Scale.Name = "bt_Scale";
-			this.bt_Scale.Size = new System.Drawing.Size(40, 40);
-			this.bt_Scale.TabIndex = 6;
-			this.bt_Scale.UseVisualStyleBackColor = true;
-			this.bt_Scale.Click += new System.EventHandler(this.bt_Scale_Click);
+			this.bt_Stop.ImageIndex = 4;
+			this.bt_Stop.ImageList = this.imgList_icon_affine;
+			this.bt_Stop.Location = new System.Drawing.Point(429, 19);
+			this.bt_Stop.Name = "bt_Stop";
+			this.bt_Stop.Size = new System.Drawing.Size(50, 50);
+			this.bt_Stop.TabIndex = 3;
+			this.bt_Stop.UseVisualStyleBackColor = true;
+			this.bt_Stop.Click += new System.EventHandler(this.bt_Stop_Click);
 			// 
 			// imgList_icon_affine
 			// 
@@ -157,44 +138,11 @@
 			this.imgList_icon_affine.Images.SetKeyName(3, "zoom-out.png");
 			this.imgList_icon_affine.Images.SetKeyName(4, "privacy.png");
 			// 
-			// bt_Rotate
-			// 
-			this.bt_Rotate.ImageIndex = 2;
-			this.bt_Rotate.ImageList = this.imgList_icon_affine;
-			this.bt_Rotate.Location = new System.Drawing.Point(428, 34);
-			this.bt_Rotate.Name = "bt_Rotate";
-			this.bt_Rotate.Size = new System.Drawing.Size(40, 40);
-			this.bt_Rotate.TabIndex = 5;
-			this.bt_Rotate.UseVisualStyleBackColor = true;
-			this.bt_Rotate.Click += new System.EventHandler(this.bt_Rotate_Click);
-			// 
-			// bt_Move
-			// 
-			this.bt_Move.ImageIndex = 1;
-			this.bt_Move.ImageList = this.imgList_icon_affine;
-			this.bt_Move.Location = new System.Drawing.Point(382, 34);
-			this.bt_Move.Name = "bt_Move";
-			this.bt_Move.Size = new System.Drawing.Size(40, 40);
-			this.bt_Move.TabIndex = 4;
-			this.bt_Move.UseVisualStyleBackColor = true;
-			this.bt_Move.Click += new System.EventHandler(this.bt_Move_Click);
-			// 
-			// bt_Stop
-			// 
-			this.bt_Stop.ImageIndex = 4;
-			this.bt_Stop.ImageList = this.imgList_icon_affine;
-			this.bt_Stop.Location = new System.Drawing.Point(336, 34);
-			this.bt_Stop.Name = "bt_Stop";
-			this.bt_Stop.Size = new System.Drawing.Size(40, 40);
-			this.bt_Stop.TabIndex = 3;
-			this.bt_Stop.UseVisualStyleBackColor = true;
-			this.bt_Stop.Click += new System.EventHandler(this.bt_Stop_Click);
-			// 
 			// bt_Prism
 			// 
 			this.bt_Prism.ImageIndex = 2;
 			this.bt_Prism.ImageList = this.imgList_icon_object;
-			this.bt_Prism.Location = new System.Drawing.Point(216, 12);
+			this.bt_Prism.Location = new System.Drawing.Point(215, 18);
 			this.bt_Prism.Name = "bt_Prism";
 			this.bt_Prism.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.bt_Prism.Size = new System.Drawing.Size(75, 75);
@@ -214,7 +162,7 @@
 			// 
 			this.bt_Pyramid.ImageIndex = 0;
 			this.bt_Pyramid.ImageList = this.imgList_icon_object;
-			this.bt_Pyramid.Location = new System.Drawing.Point(122, 12);
+			this.bt_Pyramid.Location = new System.Drawing.Point(116, 18);
 			this.bt_Pyramid.Name = "bt_Pyramid";
 			this.bt_Pyramid.Size = new System.Drawing.Size(75, 75);
 			this.bt_Pyramid.TabIndex = 1;
@@ -225,7 +173,7 @@
 			// 
 			this.bt_Cube.ImageIndex = 1;
 			this.bt_Cube.ImageList = this.imgList_icon_object;
-			this.bt_Cube.Location = new System.Drawing.Point(27, 12);
+			this.bt_Cube.Location = new System.Drawing.Point(18, 18);
 			this.bt_Cube.Name = "bt_Cube";
 			this.bt_Cube.Size = new System.Drawing.Size(75, 75);
 			this.bt_Cube.TabIndex = 0;
@@ -235,23 +183,16 @@
 			// lstBox_SampleScene
 			// 
 			this.lstBox_SampleScene.FormattingEnabled = true;
-			this.lstBox_SampleScene.Location = new System.Drawing.Point(1188, 184);
+			this.lstBox_SampleScene.Location = new System.Drawing.Point(9, 21);
 			this.lstBox_SampleScene.Name = "lstBox_SampleScene";
-			this.lstBox_SampleScene.Size = new System.Drawing.Size(166, 212);
+			this.lstBox_SampleScene.Size = new System.Drawing.Size(166, 238);
 			this.lstBox_SampleScene.TabIndex = 3;
 			this.lstBox_SampleScene.SelectedIndexChanged += new System.EventHandler(this.lstBox_SampleScene_SelectedIndexChanged);
 			// 
-			// lb_SampleScene
-			// 
-			this.lb_SampleScene.AutoSize = true;
-			this.lb_SampleScene.Location = new System.Drawing.Point(1189, 162);
-			this.lb_SampleScene.Name = "lb_SampleScene";
-			this.lb_SampleScene.Size = new System.Drawing.Size(74, 13);
-			this.lb_SampleScene.TabIndex = 4;
-			this.lb_SampleScene.Text = "Sample scene";
-			// 
 			// pnl_Transform
 			// 
+			this.pnl_Transform.Controls.Add(this.label_Stop);
+			this.pnl_Transform.Controls.Add(this.bt_Stop);
 			this.pnl_Transform.Controls.Add(this.bt_Enter);
 			this.pnl_Transform.Controls.Add(this.label7);
 			this.pnl_Transform.Controls.Add(this.label8);
@@ -275,10 +216,20 @@
 			this.pnl_Transform.Controls.Add(this.lb_Rotation);
 			this.pnl_Transform.Controls.Add(this.lb_Position);
 			this.pnl_Transform.Controls.Add(this.lb_Transform);
-			this.pnl_Transform.Location = new System.Drawing.Point(754, 30);
+			this.pnl_Transform.Location = new System.Drawing.Point(567, 27);
 			this.pnl_Transform.Name = "pnl_Transform";
-			this.pnl_Transform.Size = new System.Drawing.Size(434, 100);
+			this.pnl_Transform.Size = new System.Drawing.Size(504, 100);
 			this.pnl_Transform.TabIndex = 5;
+			// 
+			// bt_Enter
+			// 
+			this.bt_Enter.Location = new System.Drawing.Point(352, 19);
+			this.bt_Enter.Name = "bt_Enter";
+			this.bt_Enter.Size = new System.Drawing.Size(70, 75);
+			this.bt_Enter.TabIndex = 22;
+			this.bt_Enter.Text = "Enter";
+			this.bt_Enter.UseVisualStyleBackColor = true;
+			this.bt_Enter.Click += new System.EventHandler(this.bt_Enter_Click);
 			// 
 			// label7
 			// 
@@ -313,7 +264,9 @@
 			this.textBox_ScaleZ.Name = "textBox_ScaleZ";
 			this.textBox_ScaleZ.Size = new System.Drawing.Size(57, 20);
 			this.textBox_ScaleZ.TabIndex = 18;
-			this.textBox_ScaleZ.Text = "0";
+			this.textBox_ScaleZ.Text = "1";
+			this.textBox_ScaleZ.Click += new System.EventHandler(this.textBox_ScaleZ_Click);
+			this.textBox_ScaleZ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_ScaleZ_KeyPress);
 			// 
 			// textBox_ScaleY
 			// 
@@ -321,7 +274,9 @@
 			this.textBox_ScaleY.Name = "textBox_ScaleY";
 			this.textBox_ScaleY.Size = new System.Drawing.Size(57, 20);
 			this.textBox_ScaleY.TabIndex = 17;
-			this.textBox_ScaleY.Text = "0";
+			this.textBox_ScaleY.Text = "1";
+			this.textBox_ScaleY.Click += new System.EventHandler(this.textBox_ScaleY_Click);
+			this.textBox_ScaleY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_ScaleY_KeyPress);
 			// 
 			// textBox_ScaleX
 			// 
@@ -329,7 +284,9 @@
 			this.textBox_ScaleX.Name = "textBox_ScaleX";
 			this.textBox_ScaleX.Size = new System.Drawing.Size(57, 20);
 			this.textBox_ScaleX.TabIndex = 16;
-			this.textBox_ScaleX.Text = "0";
+			this.textBox_ScaleX.Text = "1";
+			this.textBox_ScaleX.Click += new System.EventHandler(this.textBox_ScaleX_Click);
+			this.textBox_ScaleX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_ScaleX_KeyPress);
 			// 
 			// label4
 			// 
@@ -365,6 +322,8 @@
 			this.textBox_RotateZ.Size = new System.Drawing.Size(57, 20);
 			this.textBox_RotateZ.TabIndex = 12;
 			this.textBox_RotateZ.Text = "0";
+			this.textBox_RotateZ.Click += new System.EventHandler(this.textBox_RotateZ_Click);
+			this.textBox_RotateZ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_RotateZ_KeyPress);
 			// 
 			// textBox_RotateY
 			// 
@@ -373,6 +332,8 @@
 			this.textBox_RotateY.Size = new System.Drawing.Size(57, 20);
 			this.textBox_RotateY.TabIndex = 11;
 			this.textBox_RotateY.Text = "0";
+			this.textBox_RotateY.Click += new System.EventHandler(this.textBox_RotateY_Click);
+			this.textBox_RotateY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_RotateY_KeyPress);
 			// 
 			// textBox_RotateX
 			// 
@@ -381,6 +342,8 @@
 			this.textBox_RotateX.Size = new System.Drawing.Size(57, 20);
 			this.textBox_RotateX.TabIndex = 10;
 			this.textBox_RotateX.Text = "0";
+			this.textBox_RotateX.Click += new System.EventHandler(this.textBox_RotateX_Click);
+			this.textBox_RotateX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_RotateX_KeyPress);
 			// 
 			// label3
 			// 
@@ -500,15 +463,48 @@
 			this.newToolStripMenuItem.Text = "&New";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
 			// 
-			// bt_Enter
+			// groupBox_Objects
 			// 
-			this.bt_Enter.Location = new System.Drawing.Point(352, 19);
-			this.bt_Enter.Name = "bt_Enter";
-			this.bt_Enter.Size = new System.Drawing.Size(70, 75);
-			this.bt_Enter.TabIndex = 22;
-			this.bt_Enter.Text = "Enter";
-			this.bt_Enter.UseVisualStyleBackColor = true;
-			this.bt_Enter.Click += new System.EventHandler(this.bt_Enter_Click);
+			this.groupBox_Objects.Controls.Add(this.bt_Pyramid);
+			this.groupBox_Objects.Controls.Add(this.bt_Cube);
+			this.groupBox_Objects.Controls.Add(this.bt_Prism);
+			this.groupBox_Objects.Location = new System.Drawing.Point(12, 27);
+			this.groupBox_Objects.Name = "groupBox_Objects";
+			this.groupBox_Objects.Size = new System.Drawing.Size(314, 100);
+			this.groupBox_Objects.TabIndex = 8;
+			this.groupBox_Objects.TabStop = false;
+			this.groupBox_Objects.Text = "Objects";
+			// 
+			// groupBox_Color
+			// 
+			this.groupBox_Color.Controls.Add(this.bt_Color);
+			this.groupBox_Color.Controls.Add(this.bt_Palette);
+			this.groupBox_Color.Location = new System.Drawing.Point(345, 27);
+			this.groupBox_Color.Name = "groupBox_Color";
+			this.groupBox_Color.Size = new System.Drawing.Size(200, 100);
+			this.groupBox_Color.TabIndex = 3;
+			this.groupBox_Color.TabStop = false;
+			this.groupBox_Color.Text = "Color";
+			// 
+			// label_Stop
+			// 
+			this.label_Stop.AutoSize = true;
+			this.label_Stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label_Stop.Location = new System.Drawing.Point(432, 73);
+			this.label_Stop.Name = "label_Stop";
+			this.label_Stop.Size = new System.Drawing.Size(43, 20);
+			this.label_Stop.TabIndex = 23;
+			this.label_Stop.Text = "Stop";
+			// 
+			// groupBox_SampleScenes
+			// 
+			this.groupBox_SampleScenes.Controls.Add(this.lstBox_SampleScene);
+			this.groupBox_SampleScenes.Location = new System.Drawing.Point(1179, 27);
+			this.groupBox_SampleScenes.Name = "groupBox_SampleScenes";
+			this.groupBox_SampleScenes.Size = new System.Drawing.Size(187, 274);
+			this.groupBox_SampleScenes.TabIndex = 9;
+			this.groupBox_SampleScenes.TabStop = false;
+			this.groupBox_SampleScenes.Text = "Sample scenes";
 			// 
 			// Form1
 			// 
@@ -516,22 +512,24 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(1366, 705);
+			this.Controls.Add(this.groupBox_SampleScenes);
+			this.Controls.Add(this.groupBox_Color);
+			this.Controls.Add(this.groupBox_Objects);
 			this.Controls.Add(this.pnl_Transform);
-			this.Controls.Add(this.lb_SampleScene);
-			this.Controls.Add(this.lstBox_SampleScene);
-			this.Controls.Add(this.pnl_Tool_bar);
 			this.Controls.Add(this.openGLControl1);
 			this.Controls.Add(this.menuStrip1);
 			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "Form1";
-			this.Text = "Form1";
+			this.Text = "3D Scenes";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).EndInit();
-			this.pnl_Tool_bar.ResumeLayout(false);
 			this.pnl_Transform.ResumeLayout(false);
 			this.pnl_Transform.PerformLayout();
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
+			this.groupBox_Objects.ResumeLayout(false);
+			this.groupBox_Color.ResumeLayout(false);
+			this.groupBox_SampleScenes.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -540,16 +538,11 @@
 		#endregion
 
 		private SharpGL.OpenGLControl openGLControl1;
-		private System.Windows.Forms.Panel pnl_Tool_bar;
 		private System.Windows.Forms.ListBox lstBox_SampleScene;
 		private System.Windows.Forms.Button bt_Pyramid;
 		private System.Windows.Forms.Button bt_Cube;
-		private System.Windows.Forms.Label lb_SampleScene;
 		private System.Windows.Forms.Button bt_Prism;
-		private System.Windows.Forms.Button bt_Scale;
 		private System.Windows.Forms.ImageList imgList_icon_affine;
-		private System.Windows.Forms.Button bt_Rotate;
-		private System.Windows.Forms.Button bt_Move;
 		private System.Windows.Forms.Button bt_Stop;
 		private System.Windows.Forms.ImageList imgList_icon_object;
 		private System.Windows.Forms.Button bt_Palette;
@@ -582,6 +575,10 @@
 		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
 		private System.Windows.Forms.Button bt_Enter;
+		private System.Windows.Forms.Label label_Stop;
+		private System.Windows.Forms.GroupBox groupBox_Objects;
+		private System.Windows.Forms.GroupBox groupBox_Color;
+		private System.Windows.Forms.GroupBox groupBox_SampleScenes;
 	}
 }
 

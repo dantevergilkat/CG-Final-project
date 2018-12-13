@@ -41,12 +41,42 @@ namespace BUS
 		}
 	}
 
+	// Rotate
+	public struct SRotationCoor {
+		public float angleX; // Degree of rotation around X-asis
+		public float angleY; // Degree of rotation around Y-asis
+		public float angleZ; // Degree of rotation around Z-asis
+		public SRotationCoor(float _angleX = 0, float _angleY = 0, float _angleZ = 0)
+		{
+			angleX = _angleX;
+			angleY = _angleY;
+			angleZ = _angleZ;
+		}
+	}
+
+	// Scale
+	public struct SScaleCoor
+	{
+		public float sX; // Scale of X-asis
+		public float sY; // Scale of Y-asis
+		public float sZ; // Scale of Z-asis
+		public SScaleCoor(float _sX = 0, float _sY = 0, float _sZ = 0)
+		{
+			sX = _sX;
+			sY = _sY;
+			sZ = _sZ;
+		}
+	}
+
 	// Bass class: Object
 	public abstract class CObject
 	{
 		protected String name;
 		protected Color colorUse; // Mau su dung
 		protected STranslationCoor trCoor; // Do doi translate
+		protected SRotationCoor rotaCoor; // Ho tro quay
+		protected SScaleCoor scaleCoor; // Ho tro scale
+
 		public abstract String Name
 		{
 			get; set;
@@ -64,9 +94,36 @@ namespace BUS
 			trCoor.trY += (_trZ - trCoor.trZ);
 		}
 
+		// Hap cap nhat cho phep quay
+		public void updateRotaCoor(float _angleX, float _angleY, float _angleZ) {
+			rotaCoor.angleX += (_angleX - rotaCoor.angleX);
+			rotaCoor.angleY += (_angleY - rotaCoor.angleY);
+			rotaCoor.angleZ += (_angleZ - rotaCoor.angleZ);
+		}
+
+		public void updateScaleCoor(float _sX, float _sY, float _sZ) {
+			scaleCoor.sX += (_sX - scaleCoor.sX);
+			scaleCoor.sY += (_sY - scaleCoor.sY);
+			scaleCoor.sZ += (_sZ - scaleCoor.sZ);
+		}
+
 		// Ham kiem tra co translate khong?
 		public bool isTranslate() {
-			if(trCoor.trX != 0 || trCoor.trY != 0 || trCoor.trZ != 0)
+			if (trCoor.trX != 0 || trCoor.trY != 0 || trCoor.trZ != 0)
+				return true;
+			return false;
+		}
+
+		// Ham kiem tra xem co rotate không?
+		public bool isRotate() {
+			if (rotaCoor.angleX != 0 || rotaCoor.angleY != 0 || rotaCoor.angleZ != 0)
+				return true;
+			return false;
+		}
+
+		// Ham kiem tra xem co scale khong?
+		public bool isScale() {
+			if (scaleCoor.sX != 0 || scaleCoor.sY != 0 || scaleCoor.sZ != 0)
 				return true;
 			return false;
 		}
@@ -105,7 +162,6 @@ namespace BUS
 			else
 				gl.Color(224 / 255.0f, 224 / 255.0f, 224 / 255.0f);
 			gl.LineWidth(3);
-
 			// Ve bien
 			gl.Begin(OpenGL.GL_LINE_LOOP);
 			gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Top)
@@ -161,11 +217,23 @@ namespace BUS
 		public override void draw(OpenGL gl, bool isSelected = false)
 		{
 			// Thuc hien kiem tra xem co translate, rotate hay scale khong?
-			if (isTranslate()) {
+			if (isTranslate())
+			{
 				gl.PushMatrix();
 				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
 			}
-			
+			if (isRotate())
+			{
+				gl.PushMatrix();
+				// Tinh tien ve tam O
+				gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
+				gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
+			}
+			if (isScale()) {
+				gl.PushMatrix();
+				gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
+			}
 
 			// Ve hinh lap phuong voi canh a bat ky
 			float a = 1.0f;
@@ -206,10 +274,17 @@ namespace BUS
 			// Ve bien
 			drawBorder(gl, isSelected);
 
-			if (isTranslate()) {
+			if (isTranslate())
+			{
 				gl.PopMatrix();
 			}
-
+			if (isRotate())
+			{
+				gl.PopMatrix();
+			}
+			if (isScale()) {
+				gl.PopMatrix();
+			}
 		}
 
 		public CCube() : base()
@@ -280,6 +355,19 @@ namespace BUS
 				gl.PushMatrix();
 				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
 			}
+			if (isRotate())
+			{
+				gl.PushMatrix();
+				// Tinh tien ve tam O
+				gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
+				gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
+			}
+			if (isScale())
+			{
+				gl.PushMatrix();
+				gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
+			}
 
 			float a = 1.0f;
 			// Ve hinh chop deu day hinh vuong voi dinh S tuy y va canh day la a
@@ -324,6 +412,10 @@ namespace BUS
 			drawBorder(gl, isSelected);
 
 			if (isTranslate())
+				gl.PopMatrix();
+			if (isRotate())
+				gl.PopMatrix();
+			if (isScale())
 				gl.PopMatrix();
 
 		}
@@ -413,6 +505,19 @@ namespace BUS
 				gl.PushMatrix();
 				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
 			}
+			if (isRotate())
+			{
+				gl.PushMatrix();
+				// Tinh tien ve tam O
+				gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
+				gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
+			}
+			if (isScale())
+			{
+				gl.PushMatrix();
+				gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
+			}
 
 			// Ve hinh tru co day la tam giac deu voi canh a tuy y
 			float a = 1.0f;
@@ -461,6 +566,10 @@ namespace BUS
 			drawBorder(gl, isSelected);
 
 			if (isTranslate())
+				gl.PopMatrix();
+			if (isRotate())
+				gl.PopMatrix();
+			if (isScale())
 				gl.PopMatrix();
 		}
 
@@ -517,6 +626,17 @@ namespace BUS
 			lst[idx].updateTranCoor(trX, trY, trZ);
 		}
 
+		// Ham cap nhat cac goc quay cho lstObj[idx]
+		public void updateRotaCoor(int idx, float angleX, float angleY, float angleZ)
+		{
+			lst[idx].updateRotaCoor(angleX, angleY, angleZ);
+		}
+
+		// Ham cap nhat cac do scale cho lstObj[idx]
+		public void updateScaleCoor(int idx, float sX, float sY, float sZ)
+		{
+			lst[idx].updateScaleCoor(sX, sY, sZ);
+		}
 	}
 
 	public class CDrawObject
@@ -570,6 +690,17 @@ namespace BUS
 			lstObj.updateTranCoor(idx, trX, trY, trZ);
 		}
 
+		// Ham cap nhat cac goc quay cho lstObj[idx]
+		public void updateRotaCoor(int idx, float angleX, float angleY, float angleZ)
+		{
+			lstObj.updateRotaCoor(idx, angleX, angleY, angleZ);
+		}
+
+		// Ham cap nhat cac do scale cho lstObj[idx]
+		public void updateScaleCoor(int idx, float sX, float sY, float sZ)
+		{
+			lstObj.updateScaleCoor(idx, sX, sY, sZ);
+		}
 
 	}
 
