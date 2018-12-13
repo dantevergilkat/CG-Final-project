@@ -45,6 +45,7 @@ namespace GUI
 		{
 			InitializeComponent();
 			this.KeyPreview = true;
+			this.AcceptButton = bt_Enter;
 		}
 
 		private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
@@ -193,13 +194,6 @@ namespace GUI
 			// Cap nhat toa do cua pos
 			pos = new Point3D(listPos[indexCurrentObj]);
 
-			test.Text = "";
-			for (int i = 0; i < listPos.Count(); i++) {
-				test.Text += listPos[i].x.ToString() + ' ' + listPos[i].y.ToString() + ' ' +
-					listPos[i].z.ToString();
-				test.Text += '\n';
-			}
-
 		}
 
 		private void bt_Palette_Click(object sender, EventArgs e)
@@ -262,39 +256,6 @@ namespace GUI
 			end = new Point(e.X, e.Y);
 		}
 
-		private void textBox_PosX_TextChanged(object sender, EventArgs e)
-		{
-			if (textBox_PosX.Text == "")
-				return;
-			bool success = true;
-			success = float.TryParse(textBox_PosX.Text, out pos.x);
-			if (success)
-				// Cap nhat toa do x vao list
-				listPos[indexCurrentObj] = new Point3D(pos);
-		}
-
-		private void textBox_PosY_TextChanged(object sender, EventArgs e)
-		{
-			if (textBox_PosY.Text == "")
-				return;
-			bool success = true;
-			success = float.TryParse(textBox_PosY.Text, out pos.y);
-			if (success)
-				// Cap nhat toa do x vao list
-				listPos[indexCurrentObj] = new Point3D(pos);
-
-		}
-
-		private void textBox_PosZ_TextChanged(object sender, EventArgs e)
-		{
-			if (textBox_PosZ.Text == "")
-				return;
-			bool success = true;
-			success = float.TryParse(textBox_PosZ.Text, out pos.z);
-			if (success)
-				// Cap nhat toa do x vao list
-				listPos[indexCurrentObj] = new Point3D(pos);
-		}
 
 		private void Form1_KeyDown(object sender, KeyEventArgs e)
 		{
@@ -346,6 +307,11 @@ namespace GUI
 			{
 				e.Handled = true;
 			}
+			else
+			{
+				isAffine = true;
+				currentAffine = AFFINE.TRANSLATE;
+			}
 		}
 
 		private void textBox_PosY_KeyPress(object sender, KeyPressEventArgs e)
@@ -354,6 +320,11 @@ namespace GUI
 			{
 				e.Handled = true;
 			}
+			else
+			{
+				isAffine = true;
+				currentAffine = AFFINE.TRANSLATE;
+			}
 		}
 
 		private void textBox_PosZ_KeyPress(object sender, KeyPressEventArgs e)
@@ -361,6 +332,11 @@ namespace GUI
 			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
 			{
 				e.Handled = true;
+			}
+			else
+			{
+				isAffine = true;
+				currentAffine = AFFINE.TRANSLATE;
 			}
 		}
 
@@ -389,7 +365,23 @@ namespace GUI
 
 		}
 
-		private void bt_Select_Click(object sender, EventArgs e)
+		private void bt_Enter_Click(object sender, EventArgs e)
+		{
+			bool success = true;
+			success = float.TryParse(textBox_PosX.Text, out pos.x);
+			success = float.TryParse(textBox_PosY.Text, out pos.y);
+			success = float.TryParse(textBox_PosZ.Text, out pos.z);
+			if (success)
+			{
+				// Cap nhat toa do x vao list
+				listPos[indexCurrentObj] = new Point3D(pos);
+				// Cap nhat la co thuc hien bien doi affine
+				isAffine = true;
+			}
+
+		}
+
+		private void bt_Stop_Click(object sender, EventArgs e)
 		{
 			isAffine = false;
 		}

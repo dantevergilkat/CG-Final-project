@@ -38,7 +38,7 @@
 			this.imgList_icon_affine = new System.Windows.Forms.ImageList(this.components);
 			this.bt_Rotate = new System.Windows.Forms.Button();
 			this.bt_Move = new System.Windows.Forms.Button();
-			this.bt_Select = new System.Windows.Forms.Button();
+			this.bt_Stop = new System.Windows.Forms.Button();
 			this.bt_Prism = new System.Windows.Forms.Button();
 			this.imgList_icon_object = new System.Windows.Forms.ImageList(this.components);
 			this.bt_Pyramid = new System.Windows.Forms.Button();
@@ -72,7 +72,7 @@
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.test = new System.Windows.Forms.TextBox();
+			this.bt_Enter = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
 			this.pnl_Tool_bar.SuspendLayout();
 			this.pnl_Transform.SuspendLayout();
@@ -83,12 +83,12 @@
 			// 
 			this.openGLControl1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
 			this.openGLControl1.DrawFPS = false;
-			this.openGLControl1.Location = new System.Drawing.Point(0, 162);
+			this.openGLControl1.Location = new System.Drawing.Point(0, 149);
 			this.openGLControl1.Name = "openGLControl1";
 			this.openGLControl1.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
 			this.openGLControl1.RenderContextType = SharpGL.RenderContextType.DIBSection;
 			this.openGLControl1.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
-			this.openGLControl1.Size = new System.Drawing.Size(1173, 547);
+			this.openGLControl1.Size = new System.Drawing.Size(1173, 560);
 			this.openGLControl1.TabIndex = 0;
 			this.openGLControl1.OpenGLInitialized += new System.EventHandler(this.openGLControl1_OpenGLInitialized);
 			this.openGLControl1.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl1_OpenGLDraw);
@@ -103,16 +103,16 @@
 			this.pnl_Tool_bar.Controls.Add(this.bt_Color);
 			this.pnl_Tool_bar.Controls.Add(this.bt_Palette);
 			this.pnl_Tool_bar.Controls.Add(this.bt_Scale);
-			this.pnl_Tool_bar.Controls.Add(this.bt_Rotate);
-			this.pnl_Tool_bar.Controls.Add(this.bt_Move);
-			this.pnl_Tool_bar.Controls.Add(this.bt_Select);
+			this.pnl_Tool_bar.Controls.Add(this.bt_Stop);
 			this.pnl_Tool_bar.Controls.Add(this.bt_Prism);
+			this.pnl_Tool_bar.Controls.Add(this.bt_Rotate);
 			this.pnl_Tool_bar.Controls.Add(this.bt_Pyramid);
 			this.pnl_Tool_bar.Controls.Add(this.bt_Cube);
-			this.pnl_Tool_bar.Location = new System.Drawing.Point(0, 40);
+			this.pnl_Tool_bar.Controls.Add(this.bt_Move);
+			this.pnl_Tool_bar.Location = new System.Drawing.Point(3, 27);
 			this.pnl_Tool_bar.Name = "pnl_Tool_bar";
 			this.pnl_Tool_bar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.pnl_Tool_bar.Size = new System.Drawing.Size(815, 116);
+			this.pnl_Tool_bar.Size = new System.Drawing.Size(745, 116);
 			this.pnl_Tool_bar.TabIndex = 1;
 			// 
 			// bt_Color
@@ -140,7 +140,7 @@
 			// 
 			this.bt_Scale.ImageIndex = 3;
 			this.bt_Scale.ImageList = this.imgList_icon_affine;
-			this.bt_Scale.Location = new System.Drawing.Point(481, 47);
+			this.bt_Scale.Location = new System.Drawing.Point(474, 34);
 			this.bt_Scale.Name = "bt_Scale";
 			this.bt_Scale.Size = new System.Drawing.Size(40, 40);
 			this.bt_Scale.TabIndex = 6;
@@ -155,12 +155,13 @@
 			this.imgList_icon_affine.Images.SetKeyName(1, "move-option.png");
 			this.imgList_icon_affine.Images.SetKeyName(2, "rotate.png");
 			this.imgList_icon_affine.Images.SetKeyName(3, "zoom-out.png");
+			this.imgList_icon_affine.Images.SetKeyName(4, "privacy.png");
 			// 
 			// bt_Rotate
 			// 
 			this.bt_Rotate.ImageIndex = 2;
 			this.bt_Rotate.ImageList = this.imgList_icon_affine;
-			this.bt_Rotate.Location = new System.Drawing.Point(435, 47);
+			this.bt_Rotate.Location = new System.Drawing.Point(428, 34);
 			this.bt_Rotate.Name = "bt_Rotate";
 			this.bt_Rotate.Size = new System.Drawing.Size(40, 40);
 			this.bt_Rotate.TabIndex = 5;
@@ -171,23 +172,23 @@
 			// 
 			this.bt_Move.ImageIndex = 1;
 			this.bt_Move.ImageList = this.imgList_icon_affine;
-			this.bt_Move.Location = new System.Drawing.Point(386, 47);
+			this.bt_Move.Location = new System.Drawing.Point(382, 34);
 			this.bt_Move.Name = "bt_Move";
 			this.bt_Move.Size = new System.Drawing.Size(40, 40);
 			this.bt_Move.TabIndex = 4;
 			this.bt_Move.UseVisualStyleBackColor = true;
 			this.bt_Move.Click += new System.EventHandler(this.bt_Move_Click);
 			// 
-			// bt_Select
+			// bt_Stop
 			// 
-			this.bt_Select.ImageIndex = 0;
-			this.bt_Select.ImageList = this.imgList_icon_affine;
-			this.bt_Select.Location = new System.Drawing.Point(340, 47);
-			this.bt_Select.Name = "bt_Select";
-			this.bt_Select.Size = new System.Drawing.Size(40, 40);
-			this.bt_Select.TabIndex = 3;
-			this.bt_Select.UseVisualStyleBackColor = true;
-			this.bt_Select.Click += new System.EventHandler(this.bt_Select_Click);
+			this.bt_Stop.ImageIndex = 4;
+			this.bt_Stop.ImageList = this.imgList_icon_affine;
+			this.bt_Stop.Location = new System.Drawing.Point(336, 34);
+			this.bt_Stop.Name = "bt_Stop";
+			this.bt_Stop.Size = new System.Drawing.Size(40, 40);
+			this.bt_Stop.TabIndex = 3;
+			this.bt_Stop.UseVisualStyleBackColor = true;
+			this.bt_Stop.Click += new System.EventHandler(this.bt_Stop_Click);
 			// 
 			// bt_Prism
 			// 
@@ -251,6 +252,7 @@
 			// 
 			// pnl_Transform
 			// 
+			this.pnl_Transform.Controls.Add(this.bt_Enter);
 			this.pnl_Transform.Controls.Add(this.label7);
 			this.pnl_Transform.Controls.Add(this.label8);
 			this.pnl_Transform.Controls.Add(this.label9);
@@ -273,9 +275,9 @@
 			this.pnl_Transform.Controls.Add(this.lb_Rotation);
 			this.pnl_Transform.Controls.Add(this.lb_Position);
 			this.pnl_Transform.Controls.Add(this.lb_Transform);
-			this.pnl_Transform.Location = new System.Drawing.Point(821, 40);
+			this.pnl_Transform.Location = new System.Drawing.Point(754, 30);
 			this.pnl_Transform.Name = "pnl_Transform";
-			this.pnl_Transform.Size = new System.Drawing.Size(373, 100);
+			this.pnl_Transform.Size = new System.Drawing.Size(434, 100);
 			this.pnl_Transform.TabIndex = 5;
 			// 
 			// label7
@@ -415,7 +417,6 @@
 			this.textBox_PosZ.TabIndex = 6;
 			this.textBox_PosZ.Text = "0";
 			this.textBox_PosZ.Click += new System.EventHandler(this.textBox_PosZ_Click);
-			this.textBox_PosZ.TextChanged += new System.EventHandler(this.textBox_PosZ_TextChanged);
 			this.textBox_PosZ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_PosZ_KeyPress);
 			// 
 			// textBox_PosY
@@ -426,7 +427,6 @@
 			this.textBox_PosY.TabIndex = 5;
 			this.textBox_PosY.Text = "0";
 			this.textBox_PosY.Click += new System.EventHandler(this.textBox_PosY_Click);
-			this.textBox_PosY.TextChanged += new System.EventHandler(this.textBox_PosY_TextChanged);
 			this.textBox_PosY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_PosY_KeyPress);
 			// 
 			// textBox_PosX
@@ -437,7 +437,6 @@
 			this.textBox_PosX.TabIndex = 4;
 			this.textBox_PosX.Text = "0";
 			this.textBox_PosX.Click += new System.EventHandler(this.textBox_PosX_Click);
-			this.textBox_PosX.TextChanged += new System.EventHandler(this.textBox_PosX_TextChanged);
 			this.textBox_PosX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_PosX_KeyPress);
 			// 
 			// lb_Scale
@@ -501,14 +500,15 @@
 			this.newToolStripMenuItem.Text = "&New";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
 			// 
-			// test
+			// bt_Enter
 			// 
-			this.test.Location = new System.Drawing.Point(1216, 40);
-			this.test.Multiline = true;
-			this.test.Name = "test";
-			this.test.Size = new System.Drawing.Size(123, 90);
-			this.test.TabIndex = 22;
-			this.test.Text = "0";
+			this.bt_Enter.Location = new System.Drawing.Point(352, 19);
+			this.bt_Enter.Name = "bt_Enter";
+			this.bt_Enter.Size = new System.Drawing.Size(70, 75);
+			this.bt_Enter.TabIndex = 22;
+			this.bt_Enter.Text = "Enter";
+			this.bt_Enter.UseVisualStyleBackColor = true;
+			this.bt_Enter.Click += new System.EventHandler(this.bt_Enter_Click);
 			// 
 			// Form1
 			// 
@@ -516,7 +516,6 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.ClientSize = new System.Drawing.Size(1366, 705);
-			this.Controls.Add(this.test);
 			this.Controls.Add(this.pnl_Transform);
 			this.Controls.Add(this.lb_SampleScene);
 			this.Controls.Add(this.lstBox_SampleScene);
@@ -551,7 +550,7 @@
 		private System.Windows.Forms.ImageList imgList_icon_affine;
 		private System.Windows.Forms.Button bt_Rotate;
 		private System.Windows.Forms.Button bt_Move;
-		private System.Windows.Forms.Button bt_Select;
+		private System.Windows.Forms.Button bt_Stop;
 		private System.Windows.Forms.ImageList imgList_icon_object;
 		private System.Windows.Forms.Button bt_Palette;
 		private System.Windows.Forms.ColorDialog colorDialog1;
@@ -582,7 +581,7 @@
 		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-		private System.Windows.Forms.TextBox test;
+		private System.Windows.Forms.Button bt_Enter;
 	}
 }
 

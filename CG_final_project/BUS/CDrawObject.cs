@@ -59,11 +59,9 @@ namespace BUS
 
 		// Ham cap nhat do doi cho obj
 		public void updateTranCoor(float _trX, float _trY, float _trZ) {
-
 			trCoor.trX += (_trX - trCoor.trX);
 			trCoor.trY += (_trY - trCoor.trY);
 			trCoor.trY += (_trZ - trCoor.trZ);
-
 		}
 
 		// Ham kiem tra co translate khong?
