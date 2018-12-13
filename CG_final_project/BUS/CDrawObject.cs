@@ -356,6 +356,7 @@ namespace BUS
 
                 gl.End();
                 gl.Flush();
+				gl.Disable(OpenGL.GL_TEXTURE_2D);
                 // Ve bien
                 drawBorder(gl, isSelected);
 
@@ -577,8 +578,9 @@ namespace BUS
 
                 gl.End();
                 gl.Flush();
+				gl.Disable(OpenGL.GL_TEXTURE_2D);
 
-                drawBorder(gl, isSelected);
+				drawBorder(gl, isSelected);
 
                 if (isTranslate())
                     gl.PopMatrix();
@@ -934,7 +936,7 @@ namespace BUS
 					obj = new CSquarePyramid(texture, texturePath);
 					break;
 				case TypeObject.TRIANGULAR_PRISM:
-					obj = new CTriangularPrism();
+					obj = new CTriangularPrism(texture, texturePath);
 					break;
 			}
 

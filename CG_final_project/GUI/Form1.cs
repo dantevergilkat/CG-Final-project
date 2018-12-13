@@ -21,6 +21,7 @@ namespace GUI
 
 	public partial class Form1 : Form
 	{
+		// ---------------------------------------Ho tro xu ly texture--------------------------------------------------
         bool isTexture = false; // Bien kiem tra xem co su dung texture hay khong
         string textureLink = ""; // Luu path dan toi file anh texture
         
@@ -305,6 +306,9 @@ namespace GUI
 			// Cap nhat toa doa cua scale
 			scale = new Point3D(listScale[indexCurrentObj]);
 
+			// Reset isTexture va textLink
+			isTexture = false;
+			textureLink = "";
 		}
 
 		private void bt_Palette_Click(object sender, EventArgs e)
@@ -445,6 +449,11 @@ namespace GUI
 			listPos.Clear();
 			listRota.Clear();
 			listScale.Clear();
+
+			// reset lai isTexture va path
+			isTexture = false;
+			textureLink = "";
+
 
 		}
 
