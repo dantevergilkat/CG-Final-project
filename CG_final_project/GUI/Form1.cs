@@ -68,9 +68,11 @@ namespace GUI
 			double u_x = cam.getU_X();
 			double u_y = cam.getU_Y();
 			double u_z = cam.getU_Z();
+            
+            // goc quay
+            double angle = cam.getAngle();
 
-
-			gl.LookAt(x, y, z,
+            gl.LookAt(x, y, z,
 					  1, 0, 1,
 					  u_x, u_y, u_z);
 
@@ -101,8 +103,9 @@ namespace GUI
 			}
 
 
-			// Draw object
-			drObj.draw(gl, indexCurrentObj);
+            // Draw object
+            if (angle != 90 && angle != 270)
+                drObj.draw(gl, indexCurrentObj);
 		}
 
 		private void openGLControl1_OpenGLInitialized(object sender, EventArgs e)
@@ -266,10 +269,18 @@ namespace GUI
 				else
 					cam.rightRotate();
 			}
+            else if (e.KeyValue == 90) // press Z
+            {
+                cam.further();
+            }
+            else if (e.KeyValue == 88 && cam.getDist() >= 1) // press X
+            {
+                cam.nearer();
+            }
 
-		}
+        }
 
-		private void textBox_PosX_Click(object sender, EventArgs e)
+        private void textBox_PosX_Click(object sender, EventArgs e)
 		{
 			textBox_PosX.SelectAll();
 		}

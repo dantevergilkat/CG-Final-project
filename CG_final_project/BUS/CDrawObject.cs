@@ -795,155 +795,169 @@ namespace BUS
 			return ret;
 		}
 	}
-	//==============================================================CAMERA===============================================================================
-	public class CameraRotation
-	{
-		// camera position
-		private double x = -4;
-		private double y = 4;
-		private double z = -4;
-		// view point
-		private double v_x = 1;
-		private double v_y = 0;
-		private double v_z = 1;
-		// vector up
-		private double u_x = 0;
-		private double u_y = 1;
-		private double u_z = 0;
-		// ePoint of perpendicular vector
-		private double p_x = 0;
-		private double p_y = 0;
-		private double p_z = 2;
+    //==============================================================CAMERA===============================================================================
+    public class CameraRotation
+    {
+        // camera position
+        private double x = -4;
+        private double y = 0;
+        private double z = -4;
+        // view point
+        private double v_x = 1;
+        private double v_y = 0;
+        private double v_z = 1;
+        // vector up
+        private double u_x = 0;
+        private double u_y = 1;
+        private double u_z = 0;
+        // ePoint of perpendicular vector
+        private double p_x = 0;
+        private double p_y = 0;
+        private double p_z = 2;
+        // khoang cach tu hinh chieu cua camera position den viewpoint
+        private double dist = Math.Sqrt(Math.Pow(-4 - 1, 2) + Math.Pow(-4 - 1, 2));
 
-		// flag for checking when we need to change y of vector up 
-		private int flag1 = 0;
-		private int flag2 = 0;
+        // flag for checking when we need to change y of vector up 
+        private int flag1 = 0;
+        private int flag2 = 0;
 
-		// Khai bao de su dung ham rotate
-		private MatrixManipulation matManip = new MatrixManipulation();
+        // angle
+        private int angle = 0;
 
-		public double getX()
-		{
-			return x;
-		}
-		public double getY()
-		{
-			return y;
-		}
-		public double getZ()
-		{
-			return z;
-		}
-		public double getV_X()
-		{
-			return v_x;
-		}
-		public double getV_Y()
-		{
-			return v_y;
-		}
-		public double getV_Z()
-		{
-			return v_z;
-		}
-		public double getU_X()
-		{
-			return u_x;
-		}
-		public double getU_Y()
-		{
-			return u_y;
-		}
-		public double getU_Z()
-		{
-			return u_z;
-		}
-		public void leftRotate()
-		{
-			//int[] newPos = new int[3];
-			double[] sPoint = new double[3] { v_x, v_y, v_z };
-			double[] ePoint = new double[3] { v_x, 1, v_z };
-			double[] p_ePoint = new double[3] { p_x, p_y, p_z };
+        // Khai bao de su dung ham rotate
+        private MatrixManipulation matManip = new MatrixManipulation();
 
-			double[] newVertice = new double[3];
-			double[] p_newVertice = new double[3];
+        public double getX()
+        {
+            return x;
+        }
+        public double getY()
+        {
+            return y;
+        }
+        public double getZ()
+        {
+            return z;
+        }
+        public double getV_X()
+        {
+            return v_x;
+        }
+        public double getV_Y()
+        {
+            return v_y;
+        }
+        public double getV_Z()
+        {
+            return v_z;
+        }
+        public double getU_X()
+        {
+            return u_x;
+        }
+        public double getU_Y()
+        {
+            return u_y;
+        }
+        public double getU_Z()
+        {
+            return u_z;
+        }
+        public double getDist()
+        {
+            return dist;
+        }
+        public double getAngle()
+        {
+            return angle;
+        }
+        public void nearer() // translate: vector(OA) = (k/(k-0.1)) * vector(OA')
+        {
+            x = ((dist - 0.2) / dist) * (x - v_x) + v_x;
+            y = ((dist - 0.2) / dist) * (y - v_y) + v_y;
+            z = ((dist - 0.2) / dist) * (z - v_z) + v_z;
+            dist--;
+        }
+        public void further() // translate: vector(OA) = (k/(k+0.1)) * vector(OA')
+        {
+            x = ((dist + 0.2) / dist) * (x - v_x) + v_x;
+            y = ((dist + 0.2) / dist) * (y - v_y) + v_y;
+            z = ((dist + 0.2) / dist) * (z - v_z) + v_z;
+            dist++;
+        }
+        public void leftRotate()
+        {
+            //int[] newPos = new int[3];
+            double[] sPoint = new double[3] { v_x, v_y, v_z };
+            double[] ePoint = new double[3] { v_x, 1, v_z };
+            double[] p_ePoint = new double[3] { p_x, p_y, p_z };
 
-			newVertice = matManip.verticeRotate(sPoint, ePoint, 1, x, y, z);
-			p_newVertice = matManip.verticeRotate(sPoint, ePoint, 1, p_x, p_y, p_z);
+            double[] newVertice = new double[3];
+            double[] p_newVertice = new double[3];
 
-			x = newVertice[0];
-			y = newVertice[1];
-			z = newVertice[2];
+            newVertice = matManip.verticeRotate(sPoint, ePoint, 1, x, y, z);
+            p_newVertice = matManip.verticeRotate(sPoint, ePoint, 1, p_x, p_y, p_z);
 
-			p_x = p_newVertice[0];
-			p_y = p_newVertice[1];
-			p_z = p_newVertice[2];
-		}
-		public void rightRotate()
-		{
-			double[] sPoint = new double[3] { v_x, v_y, v_z };
-			double[] ePoint = new double[3] { v_x, 1, v_z };
-			double[] p_ePoint = new double[3] { p_x, p_y, p_z };
+            x = newVertice[0];
+            y = newVertice[1];
+            z = newVertice[2];
 
-			double[] newVertice = new double[3];
-			double[] p_newVertice = new double[3];
+            p_x = p_newVertice[0];
+            p_y = p_newVertice[1];
+            p_z = p_newVertice[2];
+        }
+        public void rightRotate()
+        {
+            double[] sPoint = new double[3] { v_x, v_y, v_z };
+            double[] ePoint = new double[3] { v_x, 1, v_z };
+            double[] p_ePoint = new double[3] { p_x, p_y, p_z };
 
-			newVertice = matManip.verticeRotate(sPoint, ePoint, -1, x, y, z);
-			p_newVertice = matManip.verticeRotate(sPoint, ePoint, -1, p_x, p_y, p_z);
+            double[] newVertice = new double[3];
+            double[] p_newVertice = new double[3];
 
-			x = newVertice[0];
-			y = newVertice[1];
-			z = newVertice[2];
+            newVertice = matManip.verticeRotate(sPoint, ePoint, -1, x, y, z);
+            p_newVertice = matManip.verticeRotate(sPoint, ePoint, -1, p_x, p_y, p_z);
 
-			p_x = p_newVertice[0];
-			p_y = p_newVertice[1];
-			p_z = p_newVertice[2];
-		}
-		public void downRotate()
-		{
-			double[] sPoint = new double[3] { v_x, v_y, v_z };
-			double[] ePoint = new double[3] { p_x, p_y, p_z };
-			double[] newVertice = new double[3];
-			newVertice = matManip.verticeRotate(sPoint, ePoint, -0.5, x, y, z);//-0.5
-			double dist = Math.Sqrt(Math.Pow(newVertice[0] - v_x, 2) + Math.Pow(newVertice[2] - v_z, 2));
-			if (dist < 0.04 && flag1 == 0)//0.04
-			{
-				if ((newVertice[1] < 0 && newVertice[1] < y) || (newVertice[1] > 0 && newVertice[1] > y))
-				{
-					flag1 = 5;
-					u_y = -1 * u_y;
-				}
-			}
-			if (flag1 > 0)
-				flag1--;
-			x = newVertice[0];
-			y = newVertice[1];
-			z = newVertice[2];
+            x = newVertice[0];
+            y = newVertice[1];
+            z = newVertice[2];
 
-		}
-		public void upRotate()
-		{
-			double[] sPoint = new double[3] { v_x, v_y, v_z };
-			double[] ePoint = new double[3] { p_x, p_y, p_z };
-			//double[] newVertice = new double[3];
-			double[] newVertice;
-			newVertice = matManip.verticeRotate(sPoint, ePoint, 0.5, x, y, z);//0.5
-			double dist = Math.Sqrt(Math.Pow(newVertice[0] - v_x, 2) + Math.Pow(newVertice[2] - v_z, 2));
-			if (dist < 0.1 && flag2 == 0)//0.1
-			{
-				if ((newVertice[1] < 0 && newVertice[1] > y) || (newVertice[1] > 0 && newVertice[1] < y))
-				{
-					flag2 = 5;
-					u_y = -1 * u_y;
-				}
-			}
-			if (flag2 > 0)
-				flag2--;
-			x = newVertice[0];
-			y = newVertice[1];
-			z = newVertice[2];
-		}
-	}
+            p_x = p_newVertice[0];
+            p_y = p_newVertice[1];
+            p_z = p_newVertice[2];
+        }
+        public void downRotate()
+        {
+            double[] sPoint = new double[3] { v_x, v_y, v_z };
+            double[] ePoint = new double[3] { p_x, p_y, p_z };
+            double[] newVertice = new double[3];
+            newVertice = matManip.verticeRotate(sPoint, ePoint, -1, x, y, z);//-0.5
+            if (angle == 0)
+                angle = 360;
+            angle -= 1;
+            if (angle == 269 || angle == 89)
+                u_y *= -1;
+            x = newVertice[0];
+            y = newVertice[1];
+            z = newVertice[2];
+
+        }
+        public void upRotate()
+        {
+            double[] sPoint = new double[3] { v_x, v_y, v_z };
+            double[] ePoint = new double[3] { p_x, p_y, p_z };
+            double[] newVertice = new double[3];
+            newVertice = matManip.verticeRotate(sPoint, ePoint, 1, x, y, z);//0.5
+            if (angle == 360)
+                angle = 0;
+            angle += 1;
+            if (angle == 90 || angle == 271)
+                u_y *= -1;
+            x = newVertice[0];
+            y = newVertice[1];
+            z = newVertice[2];
+        }
+    }
 
 
 }
