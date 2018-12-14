@@ -406,9 +406,9 @@ namespace GUI
             }
 
 			// Cat nhat thong tin cho camera
-			textBox_Cam_PosX.Text = cam.getX().ToString();
-			textBox_Cam_PosY.Text = cam.getY().ToString();
-			textBox_Cam_PosZ.Text = cam.getZ().ToString();
+			textBox_Cam_PosX.Text = Math.Round(cam.getX(), 3).ToString();
+			textBox_Cam_PosY.Text = Math.Round(cam.getY(), 3).ToString();
+			textBox_Cam_PosZ.Text = Math.Round(cam.getZ(), 3).ToString();
 
 			textBox_VpX.Text = cam.getV_X().ToString();
 			textBox_VpY.Text = cam.getV_Y().ToString();
