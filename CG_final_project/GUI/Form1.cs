@@ -45,6 +45,7 @@ namespace GUI
 		// ------------------------------------Ho tro camera------------------------------------------------------
 		// Khoi tao doi tuong Camera
 		CameraRotation cam = new CameraRotation();
+		bool isChangedCam = false; // Kiem tra xem co thay doi cam hay khong
 
 		// Bien kiem tra co ve khong?
 		bool isDrawing = true;
@@ -274,7 +275,6 @@ namespace GUI
 			listPos.Add(new Point3D()); // Them toa position cho obj nay
 			listRota.Add(new Point3D()); // Them toa do rotation cho obj nay
 			listScale.Add(new Point3D(1, 1, 1)); // Them toa do scale cho obj nay
-
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
 			
 			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
@@ -301,7 +301,6 @@ namespace GUI
 			listPos.Add(new Point3D()); // Them toa position cho obj nay
 			listRota.Add(new Point3D()); // Them toa do rotation cho obj nay
 			listScale.Add(new Point3D(1, 1, 1)); // Them toa do scale cho obj nay
-
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
 			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
 			indexCurrentObj = count; // Luu index cua Obj vua moi ve
@@ -341,6 +340,8 @@ namespace GUI
 			textureLink = "";
 
 			isDrawing = true; // Cap nhat de ve
+
+			
 
 		}
 
@@ -403,6 +404,18 @@ namespace GUI
             {
                 cam.nearer();
             }
+
+			// Cat nhat thong tin cho camera
+			textBox_Cam_PosX.Text = cam.getX().ToString();
+			textBox_Cam_PosY.Text = cam.getY().ToString();
+			textBox_Cam_PosZ.Text = cam.getZ().ToString();
+
+			textBox_VpX.Text = cam.getV_X().ToString();
+			textBox_VpY.Text = cam.getV_Y().ToString();
+			textBox_VpZ.Text = cam.getV_Z().ToString();
+
+			textBox_View.Text = cam.getAngle().ToString();
+
 			isDrawing = true; // Cap nhat de ve
 		}
 
@@ -504,6 +517,19 @@ namespace GUI
 			textBox_ScaleX.Text = "1";
 			textBox_ScaleY.Text = "1";
 			textBox_ScaleZ.Text = "1";
+
+
+			// Gan tat cac ca textbox cua cam ve gia tri mac dinh ban dau
+			textBox_Cam_PosX.Text = "-4";
+			textBox_Cam_PosX.Text = "0";
+			textBox_Cam_PosX.Text = "-4";
+
+			textBox_VpX.Text = "1";
+			textBox_VpX.Text = "0";
+			textBox_VpX.Text = "1";
+
+			textBox_View.Text = "0";
+
 		}
 
 		private void bt_Enter_Click(object sender, EventArgs e)
@@ -764,6 +790,229 @@ namespace GUI
 		{
 			// Tat chuong trinh
 			Application.Exit();
+		}
+
+		private void bt_Cam_Enter_Click(object sender, EventArgs e)
+		{
+			bool success = true;
+			Point3D cam_pos = new Point3D();
+			success = float.TryParse(textBox_Cam_PosX.Text, out cam_pos.x);
+			success = float.TryParse(textBox_Cam_PosY.Text, out cam_pos.y);
+			success = float.TryParse(textBox_Cam_PosZ.Text, out cam_pos.z);
+
+			
+			if (success)
+			{
+				// Cat nhat toa do camera vao bien cam
+				cam.setPos(cam_pos.x, cam_pos.y, cam_pos.z);
+				// Cap nhat la co thuc hien bien doi tren camera
+				isChangedCam = true;
+			}
+
+			Point3D view_point = new Point3D();
+			success = float.TryParse(textBox_VpX.Text, out view_point.x);
+			success = float.TryParse(textBox_VpY.Text, out view_point.y);
+			success = float.TryParse(textBox_VpZ.Text, out view_point.z);
+
+			
+			if (success)
+			{
+				// Cat nhat viewpoint vao bien cam
+				cam.setPos(view_point.x, view_point.y, view_point.z);
+				// Cap nhat la co thuc hien bien doi tren camera
+				isChangedCam = true;
+			}
+
+			int angle;
+			success = int.TryParse(textBox_View.Text, out angle);
+			
+			if (success)
+			{
+				// Cat nhat angle vao bien cam
+				cam.setAngle(angle);
+				// Cap nhat la co thuc hien bien doi tren camera
+				isChangedCam = true;
+			}
+
+			isDrawing = true; // Cap nhat de ve
+		}
+
+		private void textBox_Cam_PosX_Click(object sender, EventArgs e)
+		{
+			textBox_Cam_PosX.SelectAll();
+		}
+
+		private void textBox_Cam_PosY_Click(object sender, EventArgs e)
+		{
+			textBox_Cam_PosY.SelectAll();
+		}
+
+		private void textBox_Cam_PosZ_Click(object sender, EventArgs e)
+		{
+			textBox_Cam_PosZ.SelectAll();
+		}
+
+		private void textBox_VpX_Click(object sender, EventArgs e)
+		{
+			textBox_VpX.SelectAll();
+		}
+
+		private void textBox_VpY_Click(object sender, EventArgs e)
+		{
+			textBox_VpY.SelectAll();
+		}
+
+		private void textBox_VpZ_Click(object sender, EventArgs e)
+		{
+			textBox_VpZ.SelectAll();
+		}
+
+		private void textBox_View_Click(object sender, EventArgs e)
+		{
+			textBox_View.SelectAll();
+		}
+
+		private void textBox_Cam_PosX_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Cam_Enter_Click(sender, e);
+			}
+		}
+
+		private void textBox_Cam_PosY_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Cam_Enter_Click(sender, e);
+			}
+		}
+
+		private void textBox_Cam_PosZ_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Cam_Enter_Click(sender, e);
+			}
+		}
+
+		private void textBox_VpX_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Cam_Enter_Click(sender, e);
+			}
+		}
+
+		private void textBox_VpY_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Cam_Enter_Click(sender, e);
+			}
+		}
+
+		private void textBox_VpZ_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Cam_Enter_Click(sender, e);
+			}
+		}
+
+		private void textBox_View_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Cam_Enter_Click(sender, e);
+			}
+		}
+
+		private void textBox_Cam_PosX_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+			{
+				e.Handled = true;
+			}
+			else
+			{
+				isChangedCam = true; // Cat nhat co thay doi cam
+			}
+		}
+
+		private void textBox_Cam_PosY_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+			{
+				e.Handled = true;
+			}
+			else
+			{
+				isChangedCam = true; // Cat nhat co thay doi cam
+			}
+		}
+
+		private void textBox_Cam_PosZ_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+			{
+				e.Handled = true;
+			}
+			else
+			{
+				isChangedCam = true; // Cat nhat co thay doi cam
+			}
+		}
+
+		private void textBox_VpX_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar != '0' && e.KeyChar != '1' && e.KeyChar != '.' && e.KeyChar != '-'
+				&& !char.IsControl(e.KeyChar))
+			{
+				e.Handled = true;
+			}
+			else
+			{
+				isChangedCam = true; // Cat nhat co thay doi cam
+			}
+		}
+
+		private void textBox_VpY_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar != '0' && e.KeyChar != '1' && e.KeyChar != '.' && e.KeyChar != '-'
+				&& !char.IsControl(e.KeyChar))
+			{
+				e.Handled = true;
+			}
+			else
+			{
+				isChangedCam = true; // Cat nhat co thay doi cam
+			}
+		}
+
+		private void textBox_VpZ_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar != '0' && e.KeyChar != '1' && e.KeyChar != '.' && e.KeyChar != '-' 
+				&& !char.IsControl(e.KeyChar))
+			{
+				e.Handled = true;
+			}
+			else
+			{
+				isChangedCam = true; // Cat nhat co thay doi cam
+			}
+		}
+
+		private void textBox_View_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
+			{
+				e.Handled = true;
+			}
+			else
+			{
+				isChangedCam = true; // Cat nhat co thay doi cam
+			}
 		}
 	}
 		

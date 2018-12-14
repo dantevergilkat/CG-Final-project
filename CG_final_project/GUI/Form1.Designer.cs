@@ -57,6 +57,7 @@
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.groupBox_Objects = new System.Windows.Forms.GroupBox();
 			this.groupBox_Color = new System.Windows.Forms.GroupBox();
 			this.groupBox_SampleScenes = new System.Windows.Forms.GroupBox();
@@ -74,24 +75,23 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.groupBox_Texture = new System.Windows.Forms.GroupBox();
 			this.groupBox_Camera = new System.Windows.Forms.GroupBox();
-			this.textBox_Cam_PosX = new System.Windows.Forms.TextBox();
-			this.lb_Cam_Pos = new System.Windows.Forms.Label();
-			this.lb_Cam_PosX = new System.Windows.Forms.Label();
-			this.lb_Cam_PosY = new System.Windows.Forms.Label();
-			this.textBox_Cam_PosY = new System.Windows.Forms.TextBox();
-			this.lb_Cam_PosZ = new System.Windows.Forms.Label();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.lb_View = new System.Windows.Forms.Label();
-			this.textBox_View = new System.Windows.Forms.TextBox();
+			this.bt_Cam_Enter = new System.Windows.Forms.Button();
 			this.lb_VpZ = new System.Windows.Forms.Label();
 			this.textBox_VpZ = new System.Windows.Forms.TextBox();
 			this.lb_VpY = new System.Windows.Forms.Label();
 			this.textBox_VpY = new System.Windows.Forms.TextBox();
 			this.lb_VpX = new System.Windows.Forms.Label();
-			this.lb_Viewport = new System.Windows.Forms.Label();
+			this.lb_Viewpoint = new System.Windows.Forms.Label();
 			this.textBox_VpX = new System.Windows.Forms.TextBox();
-			this.bt_Cam_Enter = new System.Windows.Forms.Button();
-			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.textBox_View = new System.Windows.Forms.TextBox();
+			this.lb_View = new System.Windows.Forms.Label();
+			this.lb_Cam_PosZ = new System.Windows.Forms.Label();
+			this.textBox_Cam_PosZ = new System.Windows.Forms.TextBox();
+			this.lb_Cam_PosY = new System.Windows.Forms.Label();
+			this.textBox_Cam_PosY = new System.Windows.Forms.TextBox();
+			this.lb_Cam_PosX = new System.Windows.Forms.Label();
+			this.lb_Cam_Pos = new System.Windows.Forms.Label();
+			this.textBox_Cam_PosX = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
 			this.menuStrip1.SuspendLayout();
 			this.groupBox_Objects.SuspendLayout();
@@ -366,9 +366,16 @@
 			// newToolStripMenuItem
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
 			this.newToolStripMenuItem.Text = "&New";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+			// 
+			// exitToolStripMenuItem
+			// 
+			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+			this.exitToolStripMenuItem.Text = "&Exit";
+			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
 			// groupBox_Objects
 			// 
@@ -562,12 +569,12 @@
 			this.groupBox_Camera.Controls.Add(this.lb_VpY);
 			this.groupBox_Camera.Controls.Add(this.textBox_VpY);
 			this.groupBox_Camera.Controls.Add(this.lb_VpX);
-			this.groupBox_Camera.Controls.Add(this.lb_Viewport);
+			this.groupBox_Camera.Controls.Add(this.lb_Viewpoint);
 			this.groupBox_Camera.Controls.Add(this.textBox_VpX);
 			this.groupBox_Camera.Controls.Add(this.textBox_View);
 			this.groupBox_Camera.Controls.Add(this.lb_View);
 			this.groupBox_Camera.Controls.Add(this.lb_Cam_PosZ);
-			this.groupBox_Camera.Controls.Add(this.textBox1);
+			this.groupBox_Camera.Controls.Add(this.textBox_Cam_PosZ);
 			this.groupBox_Camera.Controls.Add(this.lb_Cam_PosY);
 			this.groupBox_Camera.Controls.Add(this.textBox_Cam_PosY);
 			this.groupBox_Camera.Controls.Add(this.lb_Cam_PosX);
@@ -580,78 +587,15 @@
 			this.groupBox_Camera.TabStop = false;
 			this.groupBox_Camera.Text = "Camera";
 			// 
-			// textBox_Cam_PosX
+			// bt_Cam_Enter
 			// 
-			this.textBox_Cam_PosX.Location = new System.Drawing.Point(25, 44);
-			this.textBox_Cam_PosX.Name = "textBox_Cam_PosX";
-			this.textBox_Cam_PosX.Size = new System.Drawing.Size(42, 20);
-			this.textBox_Cam_PosX.TabIndex = 0;
-			// 
-			// lb_Cam_Pos
-			// 
-			this.lb_Cam_Pos.AutoSize = true;
-			this.lb_Cam_Pos.Location = new System.Drawing.Point(6, 22);
-			this.lb_Cam_Pos.Name = "lb_Cam_Pos";
-			this.lb_Cam_Pos.Size = new System.Drawing.Size(44, 13);
-			this.lb_Cam_Pos.TabIndex = 1;
-			this.lb_Cam_Pos.Text = "Position";
-			// 
-			// lb_Cam_PosX
-			// 
-			this.lb_Cam_PosX.AutoSize = true;
-			this.lb_Cam_PosX.Location = new System.Drawing.Point(5, 47);
-			this.lb_Cam_PosX.Name = "lb_Cam_PosX";
-			this.lb_Cam_PosX.Size = new System.Drawing.Size(14, 13);
-			this.lb_Cam_PosX.TabIndex = 2;
-			this.lb_Cam_PosX.Text = "X";
-			// 
-			// lb_Cam_PosY
-			// 
-			this.lb_Cam_PosY.AutoSize = true;
-			this.lb_Cam_PosY.Location = new System.Drawing.Point(71, 47);
-			this.lb_Cam_PosY.Name = "lb_Cam_PosY";
-			this.lb_Cam_PosY.Size = new System.Drawing.Size(14, 13);
-			this.lb_Cam_PosY.TabIndex = 4;
-			this.lb_Cam_PosY.Text = "Y";
-			// 
-			// textBox_Cam_PosY
-			// 
-			this.textBox_Cam_PosY.Location = new System.Drawing.Point(91, 44);
-			this.textBox_Cam_PosY.Name = "textBox_Cam_PosY";
-			this.textBox_Cam_PosY.Size = new System.Drawing.Size(42, 20);
-			this.textBox_Cam_PosY.TabIndex = 3;
-			// 
-			// lb_Cam_PosZ
-			// 
-			this.lb_Cam_PosZ.AutoSize = true;
-			this.lb_Cam_PosZ.Location = new System.Drawing.Point(137, 47);
-			this.lb_Cam_PosZ.Name = "lb_Cam_PosZ";
-			this.lb_Cam_PosZ.Size = new System.Drawing.Size(14, 13);
-			this.lb_Cam_PosZ.TabIndex = 6;
-			this.lb_Cam_PosZ.Text = "Z";
-			// 
-			// textBox1
-			// 
-			this.textBox1.Location = new System.Drawing.Point(157, 44);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(42, 20);
-			this.textBox1.TabIndex = 5;
-			// 
-			// lb_View
-			// 
-			this.lb_View.AutoSize = true;
-			this.lb_View.Location = new System.Drawing.Point(5, 129);
-			this.lb_View.Name = "lb_View";
-			this.lb_View.Size = new System.Drawing.Size(30, 13);
-			this.lb_View.TabIndex = 7;
-			this.lb_View.Text = "View";
-			// 
-			// textBox_View
-			// 
-			this.textBox_View.Location = new System.Drawing.Point(41, 126);
-			this.textBox_View.Name = "textBox_View";
-			this.textBox_View.Size = new System.Drawing.Size(158, 20);
-			this.textBox_View.TabIndex = 8;
+			this.bt_Cam_Enter.Location = new System.Drawing.Point(9, 161);
+			this.bt_Cam_Enter.Name = "bt_Cam_Enter";
+			this.bt_Cam_Enter.Size = new System.Drawing.Size(190, 27);
+			this.bt_Cam_Enter.TabIndex = 23;
+			this.bt_Cam_Enter.Text = "Enter";
+			this.bt_Cam_Enter.UseVisualStyleBackColor = true;
+			this.bt_Cam_Enter.Click += new System.EventHandler(this.bt_Cam_Enter_Click);
 			// 
 			// lb_VpZ
 			// 
@@ -668,6 +612,10 @@
 			this.textBox_VpZ.Name = "textBox_VpZ";
 			this.textBox_VpZ.Size = new System.Drawing.Size(42, 20);
 			this.textBox_VpZ.TabIndex = 14;
+			this.textBox_VpZ.Text = "1";
+			this.textBox_VpZ.Click += new System.EventHandler(this.textBox_VpZ_Click);
+			this.textBox_VpZ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_VpZ_KeyDown);
+			this.textBox_VpZ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_VpZ_KeyPress);
 			// 
 			// lb_VpY
 			// 
@@ -684,6 +632,10 @@
 			this.textBox_VpY.Name = "textBox_VpY";
 			this.textBox_VpY.Size = new System.Drawing.Size(42, 20);
 			this.textBox_VpY.TabIndex = 12;
+			this.textBox_VpY.Text = "0";
+			this.textBox_VpY.Click += new System.EventHandler(this.textBox_VpY_Click);
+			this.textBox_VpY.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_VpY_KeyDown);
+			this.textBox_VpY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_VpY_KeyPress);
 			// 
 			// lb_VpX
 			// 
@@ -694,14 +646,14 @@
 			this.lb_VpX.TabIndex = 11;
 			this.lb_VpX.Text = "X";
 			// 
-			// lb_Viewport
+			// lb_Viewpoint
 			// 
-			this.lb_Viewport.AutoSize = true;
-			this.lb_Viewport.Location = new System.Drawing.Point(6, 72);
-			this.lb_Viewport.Name = "lb_Viewport";
-			this.lb_Viewport.Size = new System.Drawing.Size(48, 13);
-			this.lb_Viewport.TabIndex = 10;
-			this.lb_Viewport.Text = "Viewport";
+			this.lb_Viewpoint.AutoSize = true;
+			this.lb_Viewpoint.Location = new System.Drawing.Point(6, 72);
+			this.lb_Viewpoint.Name = "lb_Viewpoint";
+			this.lb_Viewpoint.Size = new System.Drawing.Size(53, 13);
+			this.lb_Viewpoint.TabIndex = 10;
+			this.lb_Viewpoint.Text = "Viewpoint";
 			// 
 			// textBox_VpX
 			// 
@@ -709,22 +661,99 @@
 			this.textBox_VpX.Name = "textBox_VpX";
 			this.textBox_VpX.Size = new System.Drawing.Size(42, 20);
 			this.textBox_VpX.TabIndex = 9;
+			this.textBox_VpX.Text = "1";
+			this.textBox_VpX.Click += new System.EventHandler(this.textBox_VpX_Click);
+			this.textBox_VpX.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_VpX_KeyDown);
+			this.textBox_VpX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_VpX_KeyPress);
 			// 
-			// bt_Cam_Enter
+			// textBox_View
 			// 
-			this.bt_Cam_Enter.Location = new System.Drawing.Point(9, 161);
-			this.bt_Cam_Enter.Name = "bt_Cam_Enter";
-			this.bt_Cam_Enter.Size = new System.Drawing.Size(190, 27);
-			this.bt_Cam_Enter.TabIndex = 23;
-			this.bt_Cam_Enter.Text = "Enter";
-			this.bt_Cam_Enter.UseVisualStyleBackColor = true;
+			this.textBox_View.Location = new System.Drawing.Point(41, 126);
+			this.textBox_View.Name = "textBox_View";
+			this.textBox_View.Size = new System.Drawing.Size(158, 20);
+			this.textBox_View.TabIndex = 8;
+			this.textBox_View.Text = "0";
+			this.textBox_View.Click += new System.EventHandler(this.textBox_View_Click);
+			this.textBox_View.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_View_KeyDown);
+			this.textBox_View.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_View_KeyPress);
 			// 
-			// exitToolStripMenuItem
+			// lb_View
 			// 
-			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.exitToolStripMenuItem.Text = "&Exit";
-			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+			this.lb_View.AutoSize = true;
+			this.lb_View.Location = new System.Drawing.Point(5, 129);
+			this.lb_View.Name = "lb_View";
+			this.lb_View.Size = new System.Drawing.Size(30, 13);
+			this.lb_View.TabIndex = 7;
+			this.lb_View.Text = "View";
+			// 
+			// lb_Cam_PosZ
+			// 
+			this.lb_Cam_PosZ.AutoSize = true;
+			this.lb_Cam_PosZ.Location = new System.Drawing.Point(137, 47);
+			this.lb_Cam_PosZ.Name = "lb_Cam_PosZ";
+			this.lb_Cam_PosZ.Size = new System.Drawing.Size(14, 13);
+			this.lb_Cam_PosZ.TabIndex = 6;
+			this.lb_Cam_PosZ.Text = "Z";
+			// 
+			// textBox_Cam_PosZ
+			// 
+			this.textBox_Cam_PosZ.Location = new System.Drawing.Point(157, 44);
+			this.textBox_Cam_PosZ.Name = "textBox_Cam_PosZ";
+			this.textBox_Cam_PosZ.Size = new System.Drawing.Size(42, 20);
+			this.textBox_Cam_PosZ.TabIndex = 5;
+			this.textBox_Cam_PosZ.Text = "-4";
+			this.textBox_Cam_PosZ.Click += new System.EventHandler(this.textBox_Cam_PosZ_Click);
+			this.textBox_Cam_PosZ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Cam_PosZ_KeyDown);
+			this.textBox_Cam_PosZ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Cam_PosZ_KeyPress);
+			// 
+			// lb_Cam_PosY
+			// 
+			this.lb_Cam_PosY.AutoSize = true;
+			this.lb_Cam_PosY.Location = new System.Drawing.Point(71, 47);
+			this.lb_Cam_PosY.Name = "lb_Cam_PosY";
+			this.lb_Cam_PosY.Size = new System.Drawing.Size(14, 13);
+			this.lb_Cam_PosY.TabIndex = 4;
+			this.lb_Cam_PosY.Text = "Y";
+			// 
+			// textBox_Cam_PosY
+			// 
+			this.textBox_Cam_PosY.Location = new System.Drawing.Point(91, 44);
+			this.textBox_Cam_PosY.Name = "textBox_Cam_PosY";
+			this.textBox_Cam_PosY.Size = new System.Drawing.Size(42, 20);
+			this.textBox_Cam_PosY.TabIndex = 3;
+			this.textBox_Cam_PosY.Text = "0";
+			this.textBox_Cam_PosY.Click += new System.EventHandler(this.textBox_Cam_PosY_Click);
+			this.textBox_Cam_PosY.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Cam_PosY_KeyDown);
+			this.textBox_Cam_PosY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Cam_PosY_KeyPress);
+			// 
+			// lb_Cam_PosX
+			// 
+			this.lb_Cam_PosX.AutoSize = true;
+			this.lb_Cam_PosX.Location = new System.Drawing.Point(5, 47);
+			this.lb_Cam_PosX.Name = "lb_Cam_PosX";
+			this.lb_Cam_PosX.Size = new System.Drawing.Size(14, 13);
+			this.lb_Cam_PosX.TabIndex = 2;
+			this.lb_Cam_PosX.Text = "X";
+			// 
+			// lb_Cam_Pos
+			// 
+			this.lb_Cam_Pos.AutoSize = true;
+			this.lb_Cam_Pos.Location = new System.Drawing.Point(6, 22);
+			this.lb_Cam_Pos.Name = "lb_Cam_Pos";
+			this.lb_Cam_Pos.Size = new System.Drawing.Size(44, 13);
+			this.lb_Cam_Pos.TabIndex = 1;
+			this.lb_Cam_Pos.Text = "Position";
+			// 
+			// textBox_Cam_PosX
+			// 
+			this.textBox_Cam_PosX.Location = new System.Drawing.Point(25, 44);
+			this.textBox_Cam_PosX.Name = "textBox_Cam_PosX";
+			this.textBox_Cam_PosX.Size = new System.Drawing.Size(42, 20);
+			this.textBox_Cam_PosX.TabIndex = 0;
+			this.textBox_Cam_PosX.Text = "-4";
+			this.textBox_Cam_PosX.Click += new System.EventHandler(this.textBox_Cam_PosX_Click);
+			this.textBox_Cam_PosX.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Cam_PosX_KeyDown);
+			this.textBox_Cam_PosX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Cam_PosX_KeyPress);
 			// 
 			// Form_3D_Scenes
 			// 
@@ -809,7 +838,7 @@
 		private System.Windows.Forms.Label lb_Cam_Pos;
 		private System.Windows.Forms.TextBox textBox_Cam_PosX;
 		private System.Windows.Forms.Label lb_Cam_PosZ;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox textBox_Cam_PosZ;
 		private System.Windows.Forms.Label lb_Cam_PosY;
 		private System.Windows.Forms.TextBox textBox_Cam_PosY;
 		private System.Windows.Forms.Label lb_Cam_PosX;
@@ -818,7 +847,7 @@
 		private System.Windows.Forms.Label lb_VpY;
 		private System.Windows.Forms.TextBox textBox_VpY;
 		private System.Windows.Forms.Label lb_VpX;
-		private System.Windows.Forms.Label lb_Viewport;
+		private System.Windows.Forms.Label lb_Viewpoint;
 		private System.Windows.Forms.TextBox textBox_VpX;
 		private System.Windows.Forms.TextBox textBox_View;
 		private System.Windows.Forms.Label lb_View;

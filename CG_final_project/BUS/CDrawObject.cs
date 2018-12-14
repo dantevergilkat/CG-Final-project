@@ -1265,6 +1265,47 @@ namespace BUS
 		{
 			return angle;
 		}
+
+		public void setX(double _x)
+		{
+			x = _x;
+		}
+		public void setY(double _y)
+		{
+			y = _y;
+		}
+		public void setZ(double _z)
+		{
+			z = _z;
+		}
+		public void setVx(double _vx) {
+			v_x = _vx;
+		}
+		public void setVy(double _vy)
+		{
+			v_y = _vy;
+		}
+		public void setVz(double _vz)
+		{
+			v_z = _vz;
+		}
+
+		public void setAngle(int _angle) {
+			angle = _angle;
+		}
+
+		public void setPos(double _x, double _y, double _z) {
+			x = _x;
+			y = _y;
+			z = _z;
+		}
+
+		public void setViewPoint(double _vx, double _vy, double _vz) {
+			v_x = _vx;
+			v_y = _vy;
+			v_z = _vz;
+		}
+
 		public void nearer() // translate: vector(OA) = (k/(k-0.1)) * vector(OA')
 		{
 			x = ((dist - 0.2) / dist) * (x - v_x) + v_x;
@@ -1384,7 +1425,6 @@ namespace BUS
 			// Khai bao de su dung ham rotate
 			matManip = new MatrixManipulation();
 		}
-
 	}
 
 
