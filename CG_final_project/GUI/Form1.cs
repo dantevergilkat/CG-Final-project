@@ -247,7 +247,7 @@ namespace GUI
                 drObj.addObj(currentType, currentColor); // Them object vao list luu tru
             }
             int count = listObjName.Count(); // Lay so phan tu hien tai
-			listObjName.Add("Cube " + count.ToString()); // Them vao list quan ly
+			listObjName.Add("Cube " + "(" + count.ToString() + ")"); // Them vao list quan ly
 			listPos.Add(new Point3D()); // Them toa position cho obj nay
 			listRota.Add(new Point3D()); // Them toa do rotation cho obj nay
 			listScale.Add(new Point3D(1, 1, 1)); // Them toa do scale cho obj nay
@@ -271,7 +271,7 @@ namespace GUI
                 drObj.addObj(currentType, currentColor); // Them object vao list luu tru
             }
             int count = listObjName.Count(); // Lay so phan tu hien tai
-			listObjName.Add("Pyramid " + count.ToString()); // Them vao list quan ly
+			listObjName.Add("Pyramid " + "(" + count.ToString() + ")"); // Them vao list quan ly
 			listPos.Add(new Point3D()); // Them toa position cho obj nay
 			listRota.Add(new Point3D()); // Them toa do rotation cho obj nay
 			listScale.Add(new Point3D(1, 1, 1)); // Them toa do scale cho obj nay
@@ -297,7 +297,7 @@ namespace GUI
 				drObj.addObj(currentType, currentColor); // Them object vao list luu tru
 			}
 			int count = listObjName.Count(); // Lay so phan tu hien tai
-			listObjName.Add("Prism " + count.ToString()); // Them vao list quan ly
+			listObjName.Add("Prism " + "(" + count.ToString() + ")"); // Them vao list quan ly
 			listPos.Add(new Point3D()); // Them toa position cho obj nay
 			listRota.Add(new Point3D()); // Them toa do rotation cho obj nay
 			listScale.Add(new Point3D(1, 1, 1)); // Them toa do scale cho obj nay

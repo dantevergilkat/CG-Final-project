@@ -401,20 +401,18 @@ namespace BUS
 			//gl.PushMatrix();
 			//gl.Translate(-center.x, -center.y, -center.z); // Tinh tien nguoc tro lai tam cua no
 			// Thuc hien kiem tra xem co translate, rotate hay scale khong?
-			if (isTranslate())
-			{
-				gl.PushMatrix();
-				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
-			}
 			if (isRotate())
 			{
-				gl.PushMatrix();
+				//gl.PushMatrix();
 				// De rotate can thuc hien 3 buoc sau
 				// + Tinh tien ve tam O
 				// + thuc hien quay
 				// + Roi tinh nguoc tro lai tam cua no
 				// Luu y: Thu tu cac buoc phai lam nguoc lai 
 				// Quay quan Ox
+				gl.PushMatrix();
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien ve vi tri danh tinh tien
+				
 				gl.Translate(0, center.y, center.z);
 				gl.Rotate(rotaCoor.angleX, 1, 0, 0);
 				gl.Translate(0, -center.y, -center.z);
@@ -428,27 +426,30 @@ namespace BUS
 				gl.Translate(center.x, center.y, 0);
 				gl.Rotate(rotaCoor.angleZ, 0, 0, 1);
 				gl.Translate(-center.x, -center.y, 0);
+
+				gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ); // Tinh tien ve tam 0
+			}
+			if (isTranslate())
+			{
+				gl.PushMatrix();
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
 			}
 			if (isScale())
 			{
 				gl.PushMatrix();
 				gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
 			}
-
 			// Thuc hien ve doi tuong
 			drawObject(gl, isSelected);
 
 			if (isTranslate())
-			{
 				gl.PopMatrix();
-			}
 			if (isRotate())
 				gl.PopMatrix();
 			if (isScale())
 				gl.PopMatrix();
-
 			//gl.PopMatrix();
-
+			
 		}
 
 		public CCube() : base()
@@ -631,20 +632,18 @@ namespace BUS
 			//gl.Translate(-center.x, -center.y, -center.z); // Tinh tien nguoc tro lai tam cua no
 
 			// Thuc hien kiem tra xem co translate, rotate hay scale khong?
-			if (isTranslate())
-			{
-				gl.PushMatrix();
-				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
-			}
 			if (isRotate())
 			{
-				gl.PushMatrix();
+				//gl.PushMatrix();
 				// De rotate can thuc hien 3 buoc sau
 				// + Tinh tien ve tam O
 				// + thuc hien quay
 				// + Roi tinh nguoc tro lai tam cua no
 				// Luu y: Thu tu cac buoc phai lam nguoc lai 
 				// Quay quan Ox
+				gl.PushMatrix();
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien ve vi tri danh tinh tien
+
 				gl.Translate(0, center.y, center.z);
 				gl.Rotate(rotaCoor.angleX, 1, 0, 0);
 				gl.Translate(0, -center.y, -center.z);
@@ -659,21 +658,23 @@ namespace BUS
 				gl.Rotate(rotaCoor.angleZ, 0, 0, 1);
 				gl.Translate(-center.x, -center.y, 0);
 
-
+				gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ); // Tinh tien ve tam 0
+			}
+			if (isTranslate())
+			{
+				gl.PushMatrix();
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
 			}
 			if (isScale())
 			{
 				gl.PushMatrix();
 				gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
 			}
-
-			// Thuc hien ve
+			// Thuc hien ve doi tuong
 			drawObject(gl, isSelected);
 
 			if (isTranslate())
-			{
 				gl.PopMatrix();
-			}
 			if (isRotate())
 				gl.PopMatrix();
 			if (isScale())
@@ -886,20 +887,18 @@ namespace BUS
 			//gl.Translate(-center.x, -center.y, -center.z); // Tinh tien nguoc tro lai tam cua no
 
 			// Thuc hien kiem tra xem co translate, rotate hay scale khong?
-			if (isTranslate())
-			{
-				gl.PushMatrix();
-				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
-			}
 			if (isRotate())
 			{
-				gl.PushMatrix();
+				//gl.PushMatrix();
 				// De rotate can thuc hien 3 buoc sau
 				// + Tinh tien ve tam O
 				// + thuc hien quay
 				// + Roi tinh nguoc tro lai tam cua no
 				// Luu y: Thu tu cac buoc phai lam nguoc lai 
 				// Quay quan Ox
+				gl.PushMatrix();
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien ve vi tri danh tinh tien
+
 				gl.Translate(0, center.y, center.z);
 				gl.Rotate(rotaCoor.angleX, 1, 0, 0);
 				gl.Translate(0, -center.y, -center.z);
@@ -914,21 +913,23 @@ namespace BUS
 				gl.Rotate(rotaCoor.angleZ, 0, 0, 1);
 				gl.Translate(-center.x, -center.y, 0);
 
-
+				gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ); // Tinh tien ve tam 0
+			}
+			if (isTranslate())
+			{
+				gl.PushMatrix();
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
 			}
 			if (isScale())
 			{
 				gl.PushMatrix();
 				gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
 			}
-
-			// Thuc hien ve
+			// Thuc hien ve doi tuong
 			drawObject(gl, isSelected);
 
 			if (isTranslate())
-			{
 				gl.PopMatrix();
-			}
 			if (isRotate())
 				gl.PopMatrix();
 			if (isScale())
