@@ -53,7 +53,7 @@ namespace GUI
 		{
 			InitializeComponent();
 			this.KeyPreview = true;
-			this.AcceptButton = bt_Enter;
+			//this.AcceptButton = bt_Enter;
 		}
         public void SystemDraw(OpenGL gl)
         {
@@ -118,7 +118,7 @@ namespace GUI
 				OpenGL gl = openGLControl1.OpenGL;
 				// Clear vung nho dem
 				gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
-				// Ve he truc va mat phang day
+				// ===========================Ve he truc va mat phang day====================================
 				SystemDraw(gl);
 				//=================================CAMERA ROTATION============================================
 				// Camera rotation
@@ -647,6 +647,80 @@ namespace GUI
 			// Xu ly khi nguoi dung nhan Escape
 			if (e.KeyCode == Keys.Escape)
 				bt_Stop_Click(sender, e);
+		}
+
+		private void textBox_PosX_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter) {
+				bt_Enter_Click(sender, e);
+			}
+		}
+
+		private void textBox_PosY_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Enter_Click(sender, e);
+			}
+		}
+
+		private void textBox_PosZ_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Enter_Click(sender, e);
+			}
+		}
+
+		private void textBox_RotateX_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Enter_Click(sender, e);
+			}
+
+		}
+
+		private void textBox_RotateY_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Enter_Click(sender, e);
+			}
+
+		}
+
+		private void textBox_RotateZ_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Enter_Click(sender, e);
+			}
+
+		}
+
+		private void textBox_ScaleX_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Enter_Click(sender, e);
+			}
+		}
+
+		private void textBox_ScaleY_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Enter_Click(sender, e);
+			}
+		}
+
+		private void textBox_ScaleZ_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				bt_Enter_Click(sender, e);
+			}
 		}
 	}
 		
