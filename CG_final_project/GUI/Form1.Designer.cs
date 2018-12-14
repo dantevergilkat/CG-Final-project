@@ -1,6 +1,6 @@
 ﻿namespace GUI
 {
-	partial class Form1
+	partial class Form_3D_Scenes
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_3D_Scenes));
 			this.openGLControl1 = new SharpGL.OpenGLControl();
 			this.bt_Color = new System.Windows.Forms.Button();
 			this.bt_Palette = new System.Windows.Forms.Button();
@@ -67,11 +67,11 @@
 			this.lb_Rotation = new System.Windows.Forms.Label();
 			this.lb_Scale = new System.Windows.Forms.Label();
 			this.textBox_PosX = new System.Windows.Forms.TextBox();
+			this.label9 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
+			this.textBox_ScaleX = new System.Windows.Forms.TextBox();
 			this.textBox_RotateX = new System.Windows.Forms.TextBox();
 			this.label6 = new System.Windows.Forms.Label();
-			this.textBox_ScaleX = new System.Windows.Forms.TextBox();
-			this.label9 = new System.Windows.Forms.Label();
 			this.groupBox_Texture = new System.Windows.Forms.GroupBox();
 			((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
 			this.menuStrip1.SuspendLayout();
@@ -87,7 +87,7 @@
 			this.openGLControl1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
 			this.openGLControl1.DrawFPS = false;
 			this.openGLControl1.Location = new System.Drawing.Point(0, 133);
-			this.openGLControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.openGLControl1.Margin = new System.Windows.Forms.Padding(4);
 			this.openGLControl1.Name = "openGLControl1";
 			this.openGLControl1.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
 			this.openGLControl1.RenderContextType = SharpGL.RenderContextType.DIBSection;
@@ -380,7 +380,7 @@
 			// 
 			this.TextureButton.Image = ((System.Drawing.Image)(resources.GetObject("TextureButton.Image")));
 			this.TextureButton.Location = new System.Drawing.Point(16, 21);
-			this.TextureButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.TextureButton.Margin = new System.Windows.Forms.Padding(2);
 			this.TextureButton.Name = "TextureButton";
 			this.TextureButton.Size = new System.Drawing.Size(70, 70);
 			this.TextureButton.TabIndex = 10;
@@ -423,12 +423,12 @@
 			// label_Stop
 			// 
 			this.label_Stop.AutoSize = true;
-			this.label_Stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label_Stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label_Stop.Location = new System.Drawing.Point(445, 72);
 			this.label_Stop.Name = "label_Stop";
-			this.label_Stop.Size = new System.Drawing.Size(43, 20);
+			this.label_Stop.Size = new System.Drawing.Size(43, 13);
 			this.label_Stop.TabIndex = 23;
-			this.label_Stop.Text = "Stop";
+			this.label_Stop.Text = "Escape";
 			// 
 			// lb_Position
 			// 
@@ -467,6 +467,15 @@
 			this.textBox_PosX.Click += new System.EventHandler(this.textBox_PosX_Click);
 			this.textBox_PosX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_PosX_KeyPress);
 			// 
+			// label9
+			// 
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(87, 75);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(14, 13);
+			this.label9.TabIndex = 19;
+			this.label9.Text = "X";
+			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
@@ -475,6 +484,16 @@
 			this.label1.Size = new System.Drawing.Size(14, 13);
 			this.label1.TabIndex = 7;
 			this.label1.Text = "X";
+			// 
+			// textBox_ScaleX
+			// 
+			this.textBox_ScaleX.Location = new System.Drawing.Point(107, 72);
+			this.textBox_ScaleX.Name = "textBox_ScaleX";
+			this.textBox_ScaleX.Size = new System.Drawing.Size(57, 20);
+			this.textBox_ScaleX.TabIndex = 16;
+			this.textBox_ScaleX.Text = "1";
+			this.textBox_ScaleX.Click += new System.EventHandler(this.textBox_ScaleX_Click);
+			this.textBox_ScaleX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_ScaleX_KeyPress);
 			// 
 			// textBox_RotateX
 			// 
@@ -495,25 +514,6 @@
 			this.label6.TabIndex = 13;
 			this.label6.Text = "X";
 			// 
-			// textBox_ScaleX
-			// 
-			this.textBox_ScaleX.Location = new System.Drawing.Point(107, 72);
-			this.textBox_ScaleX.Name = "textBox_ScaleX";
-			this.textBox_ScaleX.Size = new System.Drawing.Size(57, 20);
-			this.textBox_ScaleX.TabIndex = 16;
-			this.textBox_ScaleX.Text = "1";
-			this.textBox_ScaleX.Click += new System.EventHandler(this.textBox_ScaleX_Click);
-			this.textBox_ScaleX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_ScaleX_KeyPress);
-			// 
-			// label9
-			// 
-			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(87, 75);
-			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(14, 13);
-			this.label9.TabIndex = 19;
-			this.label9.Text = "X";
-			// 
 			// groupBox_Texture
 			// 
 			this.groupBox_Texture.Controls.Add(this.TextureButton);
@@ -524,7 +524,7 @@
 			this.groupBox_Texture.TabStop = false;
 			this.groupBox_Texture.Text = "Texture";
 			// 
-			// Form1
+			// Form_3D_Scenes
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -538,9 +538,9 @@
 			this.Controls.Add(this.openGLControl1);
 			this.Controls.Add(this.menuStrip1);
 			this.MainMenuStrip = this.menuStrip1;
-			this.Name = "Form1";
+			this.Name = "Form_3D_Scenes";
 			this.Text = "3D Scenes";
-			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_3D_Scenes_KeyDown);
 			((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).EndInit();
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();

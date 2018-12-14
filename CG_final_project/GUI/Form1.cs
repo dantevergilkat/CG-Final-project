@@ -19,7 +19,7 @@ namespace GUI
 		SCALE
 	}
 
-	public partial class Form1 : Form
+	public partial class Form_3D_Scenes : Form
 	{
 		// ---------------------------------------Ho tro xu ly texture--------------------------------------------------
         bool isTexture = false; // Bien kiem tra xem co su dung texture hay khong
@@ -42,10 +42,14 @@ namespace GUI
 		List<Point3D> listPos = new List<Point3D>(); // Tao danh sach cac vi tri cua position
 		List<Point3D> listRota = new List<Point3D>(); // Tao danh sach cac goc quay cho cac doi tuong cua rotate
 		List<Point3D> listScale = new List<Point3D>(); // Tao danh sach cac toa do scale cho cac doi tuong cua scale 
+		// ------------------------------------Ho tro camera------------------------------------------------------
 		// Khoi tao doi tuong Camera
 		CameraRotation cam = new CameraRotation();
 
-		public Form1()
+		// Bien kiem tra co ve khong?
+		bool isDrawing = true;
+
+		public Form_3D_Scenes()
 		{
 			InitializeComponent();
 			this.KeyPreview = true;
@@ -53,18 +57,18 @@ namespace GUI
 		}
         public void SystemDraw(OpenGL gl)
         {
-            gl.ClearColor(0, 0, 0, 0);
-            gl.Color(1.0, 1.0, 1.0);
+            gl.ClearColor(128.0f / 255.0f, 128.0f / 255.0f, 128.0f / 255.0f, 100.0f / 255.0f); // dark gray
+            gl.Color(1.0f, 1.0f, 1.0f);
             gl.LineWidth(1.0f);
-            for (int i = -20; i <= 20; i++)
+            for (int i = -30; i <= 30; i++)
             {
                 gl.Begin(OpenGL.GL_LINES);               
                 // Vẽ song song với Oz
-                gl.Vertex(i, 0,20);
-                gl.Vertex(i, 0,-20);
+                gl.Vertex(i, 0, 30);
+                gl.Vertex(i, 0,-30);
                 // Vẽ song song với Ox
-                gl.Vertex(-20, 0,i);
-                gl.Vertex(20, 0,i);
+                gl.Vertex(-30, 0,i);
+                gl.Vertex(30, 0,i);
                 gl.End();
             }
             gl.Flush();
@@ -109,71 +113,77 @@ namespace GUI
         }
         private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
 		{
-			OpenGL gl = openGLControl1.OpenGL;
-			// Clear vung nho dem
-			gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
-
-            SystemDraw(gl);
-			//=================================CAMERA ROTATION============================================
-			// Camera rotation
-			gl.MatrixMode(OpenGL.GL_MODELVIEW);
-			gl.LoadIdentity();
-			/*gl.LookAt(rotate_x, rotate_y, rotate_z, // camera position (-4,4,-4)
-                      1, 0, 1, // look at
-                      0, 1, 0); // vector up*/
-			double x = cam.getX();
-			double y = cam.getY();
-			double z = cam.getZ();
-
-			double u_x = cam.getU_X();
-			double u_y = cam.getU_Y();
-			double u_z = cam.getU_Z();
-            
-            // goc quay
-            double angle = cam.getAngle();
-
-            gl.LookAt(x, y, z,
-					  1, 0, 1,
-					  u_x, u_y, u_z);
-
-			//============================================================================================
-
-			// Kiem tra khi nguoi dung select 1 doi tuong va co thay doi mau to khong
-			if (isChangedColor)
+			if (isDrawing)
 			{
-				// Doi mau nguoi chung luc click vao listbox
-				drObj.setColorOfOneObj(indexCurrentObj, currentColor);
-				isChangedColor = false; // reset lai
-			}
+				OpenGL gl = openGLControl1.OpenGL;
+				// Clear vung nho dem
+				gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
+				// Ve he truc va mat phang day
+				SystemDraw(gl);
+				//=================================CAMERA ROTATION============================================
+				// Camera rotation
+				gl.MatrixMode(OpenGL.GL_MODELVIEW);
+				gl.LoadIdentity();
+				/*gl.LookAt(rotate_x, rotate_y, rotate_z, // camera position (-4,4,-4)
+						  1, 0, 1, // look at
+						  0, 1, 0); // vector up*/
+				double x = cam.getX();
+				double y = cam.getY();
+				double z = cam.getZ();
 
-			if (isAffine)
-			{
-				switch (currentAffine)
+				double u_x = cam.getU_X();
+				double u_y = cam.getU_Y();
+				double u_z = cam.getU_Z();
+
+				// goc quay
+				double angle = cam.getAngle();
+
+				gl.LookAt(x, y, z,
+						  1, 0, 1,
+						  u_x, u_y, u_z);
+
+				//============================================================================================
+
+				// Kiem tra khi nguoi dung select 1 doi tuong va co thay doi mau to khong
+				if (isChangedColor)
 				{
-					case AFFINE.TRANSLATE:
-						drObj.updateTranCoor(indexCurrentObj, pos.x, pos.y, pos.z);
-						break;
-					case AFFINE.ROTATE:
-						drObj.updateRotaCoor(indexCurrentObj, rotation.x, rotation.y, rotation.z);
-						break;
-					case AFFINE.SCALE:
-						drObj.updateScaleCoor(indexCurrentObj, scale.x, scale.y, scale.z);
-						break;
+					// Doi mau nguoi chung luc click vao listbox
+					drObj.setColorOfOneObj(indexCurrentObj, currentColor);
+					isChangedColor = false; // reset lai
 				}
-				
+
+				if (isAffine)
+				{
+					switch (currentAffine)
+					{
+						case AFFINE.TRANSLATE:
+							drObj.updateTranCoor(indexCurrentObj, pos.x, pos.y, pos.z);
+							break;
+						case AFFINE.ROTATE:
+							drObj.updateRotaCoor(indexCurrentObj, rotation.x, rotation.y, rotation.z);
+							break;
+						case AFFINE.SCALE:
+							drObj.updateScaleCoor(indexCurrentObj, scale.x, scale.y, scale.z);
+							break;
+					}
+
+				}
+
+
+				// Draw object
+				if (angle != 90 && angle != 270)
+					drObj.draw(gl, indexCurrentObj);
+
+				// Reset lai isDrawing
+				isDrawing = false;
 			}
-
-
-            // Draw object
-            if (angle != 90 && angle != 270)
-                drObj.draw(gl, indexCurrentObj);
 		}
 
 		private void openGLControl1_OpenGLInitialized(object sender, EventArgs e)
 		{
 			OpenGL gl = openGLControl1.OpenGL;
-			// Set man hinh OpenGL la den
-			gl.ClearColor(0, 0, 0, 0);
+			// Set man hinh OpenGL la dark gray
+			gl.ClearColor(128.0f / 255.0f, 128.0f / 255.0f, 128.0f / 255.0f, 100.0f / 255.0f);
 		}
 
 		private void openGLControl1_Resized(object sender, EventArgs e)
@@ -226,6 +236,7 @@ namespace GUI
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
 			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
 			indexCurrentObj = count; // Luu index cua Obj vua moi ve
+			isDrawing = true; // Cap nhat de ve
 		}
 
 		private void bt_Pyramid_Click(object sender, EventArgs e)
@@ -251,7 +262,7 @@ namespace GUI
 			
 			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
 			indexCurrentObj = count; // Luu index cua Obj vua moi ve
-
+			isDrawing = true; // Cap nhat de ve
 		}
 
 		// Su kien nhan hinh lang tru
@@ -277,6 +288,7 @@ namespace GUI
 			lstBox_SampleScene.Items.Add(listObjName[count]); // Them item va in ra list box
 			lstBox_SampleScene.SelectedIndex = count; // In dam obj duoc ve tren listbox
 			indexCurrentObj = count; // Luu index cua Obj vua moi ve
+			isDrawing = true; // Cap nhat de ve
 		}
 
 		private void lstBox_SampleScene_SelectedIndexChanged(object sender, EventArgs e)
@@ -310,6 +322,9 @@ namespace GUI
 			// Reset isTexture va textLink
 			isTexture = false;
 			textureLink = "";
+
+			isDrawing = true; // Cap nhat de ve
+
 		}
 
 		private void bt_Palette_Click(object sender, EventArgs e)
@@ -322,6 +337,7 @@ namespace GUI
 				if (indexCurrentObj != -1)
 				{
 					isChangedColor = true;
+					isDrawing = true; // Cap nhat de ve
 				}
 			}
 		}
@@ -332,6 +348,7 @@ namespace GUI
 			if (indexCurrentObj != -1)
 			{
 				isChangedColor = true;
+				isDrawing = true; // Cap nhat de ve
 			}
 		}
 
@@ -369,10 +386,10 @@ namespace GUI
             {
                 cam.nearer();
             }
+			isDrawing = true; // Cap nhat de ve
+		}
 
-        }
-
-        private void textBox_PosX_Click(object sender, EventArgs e)
+		private void textBox_PosX_Click(object sender, EventArgs e)
 		{
 			textBox_PosX.SelectAll();
 		}
@@ -455,6 +472,8 @@ namespace GUI
 			isTexture = false;
 			textureLink = "";
 
+			// reset lai bien isDrawing
+			isDrawing = true;
 
 		}
 
@@ -493,7 +512,7 @@ namespace GUI
 				// Cap nhat la co thuc hien bien doi affine
 				isAffine = true;
 			}
-
+			isDrawing = true; // Cap nhat de ve
 		}
 
 		private void bt_Stop_Click(object sender, EventArgs e)
@@ -619,9 +638,17 @@ namespace GUI
             {
                 textureLink = myTextureLink.FileName;
                 textureLink = textureLink.Replace("\\", "\\\\");
-            }
-        }
-    }
+				isDrawing = true; // Cap nhat de ve
+			}
+		}
+
+		private void Form_3D_Scenes_KeyDown(object sender, KeyEventArgs e)
+		{
+			// Xu ly khi nguoi dung nhan Escape
+			if (e.KeyCode == Keys.Escape)
+				bt_Stop_Click(sender, e);
+		}
+	}
 		
 	
 }

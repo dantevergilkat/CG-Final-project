@@ -1143,16 +1143,16 @@ namespace BUS
         }
         public void nearer() // translate: vector(OA) = (k/(k-0.1)) * vector(OA')
         {
-            x = ((dist - 0.2) / dist) * (x - v_x) + v_x;
-            y = ((dist - 0.2) / dist) * (y - v_y) + v_y;
-            z = ((dist - 0.2) / dist) * (z - v_z) + v_z;
+            x = ((dist - 0.18) / dist) * (x - v_x) + v_x;
+            y = ((dist - 0.18) / dist) * (y - v_y) + v_y;
+            z = ((dist - 0.18) / dist) * (z - v_z) + v_z;
             dist--;
         }
         public void further() // translate: vector(OA) = (k/(k+0.1)) * vector(OA')
         {
-            x = ((dist + 0.2) / dist) * (x - v_x) + v_x;
-            y = ((dist + 0.2) / dist) * (y - v_y) + v_y;
-            z = ((dist + 0.2) / dist) * (z - v_z) + v_z;
+            x = ((dist + 0.18) / dist) * (x - v_x) + v_x;
+            y = ((dist + 0.18) / dist) * (y - v_y) + v_y;
+            z = ((dist + 0.18) / dist) * (z - v_z) + v_z;
             dist++;
         }
         public void leftRotate()
