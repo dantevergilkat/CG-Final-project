@@ -649,12 +649,20 @@ namespace GUI
 
         private void TextureButton_Click(object sender, EventArgs e)
         {
-            isTexture = true;
             OpenFileDialog myTextureLink = new OpenFileDialog();
             if (myTextureLink.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                textureLink = myTextureLink.FileName;
+				isTexture = true;
+				textureLink = myTextureLink.FileName;
                 textureLink = textureLink.Replace("\\", "\\\\");
+				if (indexCurrentObj != -1)
+				{
+					drObj.setTexture(indexCurrentObj, isTexture, textureLink); // Cap nhat texture cho obj nay
+																			   // Reset lai
+					isTexture = false;
+					textureLink = "";
+				}
+
 				isDrawing = true; // Cap nhat de ve
 			}
 		}
