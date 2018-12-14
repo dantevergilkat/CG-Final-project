@@ -274,160 +274,154 @@ namespace BUS
 			gl.LineWidth(1);
 		}
 
-		public override void draw(OpenGL gl, bool isSelected = false)
-		{
-			if(isTexture == false)
-            {
-				// Thuc hien kiem tra xem co translate, rotate hay scale khong?
-				if (isTranslate())
-				{
-					gl.PushMatrix();
-					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
-				}
-				if (isRotate())
-				{
-					gl.PushMatrix();
-					// Tinh tien ve tam O
-					gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
-					gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
-					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
-				}
-				if (isScale())
-				{
-					gl.PushMatrix();
-					gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
-				}
-
-
+		public void drawObject(OpenGL gl, bool isSelected) {
+			if (isTexture == false)
+			{
 				// Ve hinh lap phuong voi canh a bat ky
 				float a = 1.0f;
-                gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
-                gl.Begin(OpenGL.GL_QUADS);
-                gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Top)
-                gl.Vertex(a, 0.0f, 0.0f);    // Top Left Of The Quad (Top)
-                gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Top)
-                gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Top)
+				gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
+				gl.Begin(OpenGL.GL_QUADS);
+				gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Top)
+				gl.Vertex(a, 0.0f, 0.0f);    // Top Left Of The Quad (Top)
+				gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Top)
+				gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Top)
 
-                gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Bottom)
-                gl.Vertex(0.0f, a, 0.0f);    // Top Left Of The Quad (Bottom)
-                gl.Vertex(a, a, 0.0f);    // Bottom Left Of The Quad (Bottom)
-                gl.Vertex(a, 0.0f, 0.0f);    // Bottom Right Of The Quad (Bottom)
+				gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Bottom)
+				gl.Vertex(0.0f, a, 0.0f);    // Top Left Of The Quad (Bottom)
+				gl.Vertex(a, a, 0.0f);    // Bottom Left Of The Quad (Bottom)
+				gl.Vertex(a, 0.0f, 0.0f);    // Bottom Right Of The Quad (Bottom)
 
-                gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Front)
-                gl.Vertex(0.0f, a, 0.0f);    // Top Left Of The Quad (Front)
-                gl.Vertex(0.0f, a, a);    // Bottom Left Of The Quad (Front)
-                gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Front)
+				gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Front)
+				gl.Vertex(0.0f, a, 0.0f);    // Top Left Of The Quad (Front)
+				gl.Vertex(0.0f, a, a);    // Bottom Left Of The Quad (Front)
+				gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Front)
 
-                gl.Vertex(0.0f, a, a);    // Top Right Of The Quad (Back)
-                gl.Vertex(a, a, a);    // Top Left Of The Quad (Back)
-                gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Back)
-                gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Back)
+				gl.Vertex(0.0f, a, a);    // Top Right Of The Quad (Back)
+				gl.Vertex(a, a, a);    // Top Left Of The Quad (Back)
+				gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Back)
+				gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Back)
 
-                gl.Vertex(a, a, a);    // Top Right Of The Quad (Left)
-                gl.Vertex(a, a, 0.0f);    // Top Left Of The Quad (Left)
-                gl.Vertex(a, 0.0f, 0.0f);    // Bottom Left Of The Quad (Left)
-                gl.Vertex(a, 0.0f, a);    // Bottom Right Of The Quad (Left)
+				gl.Vertex(a, a, a);    // Top Right Of The Quad (Left)
+				gl.Vertex(a, a, 0.0f);    // Top Left Of The Quad (Left)
+				gl.Vertex(a, 0.0f, 0.0f);    // Bottom Left Of The Quad (Left)
+				gl.Vertex(a, 0.0f, a);    // Bottom Right Of The Quad (Left)
 
-                gl.Vertex(0.0f, a, 0.0f);    // Top Right Of The Quad (Right)
-                gl.Vertex(a, a, 0.0f);    // Top Left Of The Quad (Right)
-                gl.Vertex(a, a, a);    // Bottom Left Of The Quad (Right)
-                gl.Vertex(0.0f, a, a);    // Bottom 
+				gl.Vertex(0.0f, a, 0.0f);    // Top Right Of The Quad (Right)
+				gl.Vertex(a, a, 0.0f);    // Top Left Of The Quad (Right)
+				gl.Vertex(a, a, a);    // Bottom Left Of The Quad (Right)
+				gl.Vertex(0.0f, a, a);    // Bottom 
 
-                gl.End();
-                gl.Flush();
-                // Ve bien
-                drawBorder(gl, isSelected);
+				gl.End();
+				gl.Flush();
+				// Ve bien
+				drawBorder(gl, isSelected);
 				// Ve truc
 				drawAxis(gl, isSelected);
-
-				if (isTranslate())
-				{
-					gl.PopMatrix();
-				}
-				if (isRotate())
-					gl.PopMatrix();
-				if (isScale())
-					gl.PopMatrix();
 			}
-            else
-            {
-				// Thuc hien kiem tra xem co translate, rotate hay scale khong?
-				if (isTranslate())
-				{
-					gl.PushMatrix();
-					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
-				}
-				if (isRotate())
-				{
-					gl.PushMatrix();
-					// Tinh tien ve tam O
-					gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
-					gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
-					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
-				}
-				if (isScale())
-				{
-					gl.PushMatrix();
-					gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
-				}
-
+			else
+			{
 				// Enable texture
 				gl.Enable(OpenGL.GL_TEXTURE_2D);
-                // Create texture
-                Texture MyTexture = new Texture();
-                MyTexture.Create(gl, path);
-                MyTexture.Bind(gl);
-                // Ve hinh lap phuong voi canh a bat ky
-                float a = 1.0f;
-                gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
-                gl.Begin(OpenGL.GL_QUADS);
-                gl.TexCoord(0.0f, 0.0f); gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Top)
-                gl.TexCoord(1.0f, 0.0f); gl.Vertex(a, 0.0f, 0.0f);    // Top Left Of The Quad (Top)
-                gl.TexCoord(1.0f, 1.0f); gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Top)
-                gl.TexCoord(0.0f, 1.0f); gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Top)
+				// Create texture
+				Texture MyTexture = new Texture();
+				MyTexture.Create(gl, path);
+				MyTexture.Bind(gl);
+				// Ve hinh lap phuong voi canh a bat ky
+				float a = 1.0f;
+				gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
+				gl.Begin(OpenGL.GL_QUADS);
+				gl.TexCoord(0.0f, 0.0f); gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Top)
+				gl.TexCoord(1.0f, 0.0f); gl.Vertex(a, 0.0f, 0.0f);    // Top Left Of The Quad (Top)
+				gl.TexCoord(1.0f, 1.0f); gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Top)
+				gl.TexCoord(0.0f, 1.0f); gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Top)
 
-                gl.TexCoord(0.0f, 0.0f); gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Bottom)
-                gl.TexCoord(1.0f, 0.0f); gl.Vertex(0.0f, a, 0.0f);    // Top Left Of The Quad (Bottom)
-                gl.TexCoord(1.0f, 1.0f); gl.Vertex(a, a, 0.0f);    // Bottom Left Of The Quad (Bottom)
-                gl.TexCoord(0.0f, 1.0f); gl.Vertex(a, 0.0f, 0.0f);    // Bottom Right Of The Quad (Bottom)
+				gl.TexCoord(0.0f, 0.0f); gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Bottom)
+				gl.TexCoord(1.0f, 0.0f); gl.Vertex(0.0f, a, 0.0f);    // Top Left Of The Quad (Bottom)
+				gl.TexCoord(1.0f, 1.0f); gl.Vertex(a, a, 0.0f);    // Bottom Left Of The Quad (Bottom)
+				gl.TexCoord(0.0f, 1.0f); gl.Vertex(a, 0.0f, 0.0f);    // Bottom Right Of The Quad (Bottom)
 
-                gl.TexCoord(0.0f, 0.0f); gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Front)
-                gl.TexCoord(1.0f, 0.0f); gl.Vertex(0.0f, a, 0.0f);    // Top Left Of The Quad (Front)
-                gl.TexCoord(1.0f, 1.0f); gl.Vertex(0.0f, a, a);    // Bottom Left Of The Quad (Front)
-                gl.TexCoord(0.0f, 1.0f); gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Front)
+				gl.TexCoord(0.0f, 0.0f); gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Front)
+				gl.TexCoord(1.0f, 0.0f); gl.Vertex(0.0f, a, 0.0f);    // Top Left Of The Quad (Front)
+				gl.TexCoord(1.0f, 1.0f); gl.Vertex(0.0f, a, a);    // Bottom Left Of The Quad (Front)
+				gl.TexCoord(0.0f, 1.0f); gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Front)
 
-                gl.TexCoord(0.0f, 0.0f); gl.Vertex(0.0f, a, a);    // Top Right Of The Quad (Back)
-                gl.TexCoord(1.0f, 0.0f); gl.Vertex(a, a, a);    // Top Left Of The Quad (Back)
-                gl.TexCoord(1.0f, 1.0f); gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Back)
-                gl.TexCoord(0.0f, 1.0f); gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Back)
+				gl.TexCoord(0.0f, 0.0f); gl.Vertex(0.0f, a, a);    // Top Right Of The Quad (Back)
+				gl.TexCoord(1.0f, 0.0f); gl.Vertex(a, a, a);    // Top Left Of The Quad (Back)
+				gl.TexCoord(1.0f, 1.0f); gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Back)
+				gl.TexCoord(0.0f, 1.0f); gl.Vertex(0.0f, 0.0f, a);    // Bottom Right Of The Quad (Back)
 
-                gl.TexCoord(0.0f, 0.0f); gl.Vertex(a, a, a);    // Top Right Of The Quad (Left)
-                gl.TexCoord(1.0f, 0.0f); gl.Vertex(a, a, 0.0f);    // Top Left Of The Quad (Left)
-                gl.TexCoord(1.0f, 1.0f); gl.Vertex(a, 0.0f, 0.0f);    // Bottom Left Of The Quad (Left)
-                gl.TexCoord(0.0f, 1.0f); gl.Vertex(a, 0.0f, a);    // Bottom Right Of The Quad (Left)
+				gl.TexCoord(0.0f, 0.0f); gl.Vertex(a, a, a);    // Top Right Of The Quad (Left)
+				gl.TexCoord(1.0f, 0.0f); gl.Vertex(a, a, 0.0f);    // Top Left Of The Quad (Left)
+				gl.TexCoord(1.0f, 1.0f); gl.Vertex(a, 0.0f, 0.0f);    // Bottom Left Of The Quad (Left)
+				gl.TexCoord(0.0f, 1.0f); gl.Vertex(a, 0.0f, a);    // Bottom Right Of The Quad (Left)
 
-                gl.TexCoord(0.0f, 0.0f); gl.Vertex(0.0f, a, 0.0f);    // Top Right Of The Quad (Right)
-                gl.TexCoord(1.0f, 0.0f); gl.Vertex(a, a, 0.0f);    // Top Left Of The Quad (Right)
-                gl.TexCoord(1.0f, 1.0f); gl.Vertex(a, a, a);    // Bottom Left Of The Quad (Right)
-                gl.TexCoord(0.0f, 1.0f); gl.Vertex(0.0f, a, a);    // Bottom 
+				gl.TexCoord(0.0f, 0.0f); gl.Vertex(0.0f, a, 0.0f);    // Top Right Of The Quad (Right)
+				gl.TexCoord(1.0f, 0.0f); gl.Vertex(a, a, 0.0f);    // Top Left Of The Quad (Right)
+				gl.TexCoord(1.0f, 1.0f); gl.Vertex(a, a, a);    // Bottom Left Of The Quad (Right)
+				gl.TexCoord(0.0f, 1.0f); gl.Vertex(0.0f, a, a);    // Bottom 
 
-                gl.End();
-                gl.Flush();
+				gl.End();
+				gl.Flush();
 				gl.Disable(OpenGL.GL_TEXTURE_2D);
-                // Ve bien
-                drawBorder(gl, isSelected);
+				// Ve bien
+				drawBorder(gl, isSelected);
 				// Ve truc
 				drawAxis(gl, isSelected);
+			}
+		}
 
-				if (isTranslate())
-                {
-                    gl.PopMatrix();
-                }
-				if (isRotate())
-					gl.PopMatrix();
-				if (isScale())
-					gl.PopMatrix();
-            }
+		public override void draw(OpenGL gl, bool isSelected = false)
+		{
+			//gl.PushMatrix();
+			//gl.Translate(-center.x, -center.y, -center.z); // Tinh tien nguoc tro lai tam cua no
+			// Thuc hien kiem tra xem co translate, rotate hay scale khong?
+			if (isTranslate())
+			{
+				gl.PushMatrix();
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
+			}
+			if (isRotate())
+			{
+				gl.PushMatrix();
+				// De rotate can thuc hien 3 buoc sau
+				// + Tinh tien ve tam O
+				// + thuc hien quay
+				// + Roi tinh nguoc tro lai tam cua no
+				// Luu y: Thu tu cac buoc phai lam nguoc lai 
+				// Quay quan Ox
+				gl.Translate(0, center.y, center.z);
+				gl.Rotate(rotaCoor.angleX, 1, 0, 0);
+				gl.Translate(0, -center.y, -center.z);
+
+				// Quay quanh Oy
+				gl.Translate(center.x, 0, center.z);
+				gl.Rotate(rotaCoor.angleY, 0, 1, 0);
+				gl.Translate(-center.x, 0, -center.z);
+
+				// Quanh quanh 0z
+				gl.Translate(center.x, center.y, 0);
+				gl.Rotate(rotaCoor.angleZ, 0, 0, 1);
+				gl.Translate(-center.x, -center.y, 0);
+			}
+			if (isScale())
+			{
+				gl.PushMatrix();
+				gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
+			}
+
+			drawObject(gl, isSelected);
+
+			if (isTranslate())
+			{
+				gl.PopMatrix();
+			}
+			if (isRotate())
+				gl.PopMatrix();
+			if (isScale())
+				gl.PopMatrix();
+
+			//gl.PopMatrix();
+
 		}
 
 		public CCube() : base()
@@ -500,28 +494,49 @@ namespace BUS
 
 		public override void draw(OpenGL gl, bool isSelected = false)
 		{
-			if(isTexture == false)
-            {
-				// Thuc hien kiem tra xem co translate, rotate hay scale khong?
-				if (isTranslate())
-				{
-					gl.PushMatrix();
-					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
-				}
-				if (isRotate())
-				{
-					gl.PushMatrix();
-					// Tinh tien ve tam O
-					gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
-					gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
-					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
-				}
-				if (isScale())
-				{
-					gl.PushMatrix();
-					gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
-				}
 
+			//gl.PushMatrix();
+			//gl.Translate(-center.x, -center.y, -center.z); // Tinh tien nguoc tro lai tam cua no
+
+			// Thuc hien kiem tra xem co translate, rotate hay scale khong?
+			if (isTranslate())
+			{
+				gl.PushMatrix();
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
+			}
+			if (isRotate())
+			{
+				gl.PushMatrix();
+				// De rotate can thuc hien 3 buoc sau
+				// + Tinh tien ve tam O
+				// + thuc hien quay
+				// + Roi tinh nguoc tro lai tam cua no
+				// Luu y: Thu tu cac buoc phai lam nguoc lai 
+				// Quay quan Ox
+				gl.Translate(0, center.y, center.z);
+				gl.Rotate(rotaCoor.angleX, 1, 0, 0);
+				gl.Translate(0, -center.y, -center.z);
+
+				// Quay quanh Oy
+				gl.Translate(center.x, 0, center.z);
+				gl.Rotate(rotaCoor.angleY, 0, 1, 0);
+				gl.Translate(-center.x, 0, -center.z);
+
+				// Quanh quanh 0z
+				gl.Translate(center.x, center.y, 0);
+				gl.Rotate(rotaCoor.angleZ, 0, 0, 1);
+				gl.Translate(-center.x, -center.y, 0);
+
+
+			}
+			if (isScale())
+			{
+				gl.PushMatrix();
+				gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
+			}
+
+			if (isTexture == false)
+            {
 				float a = 1.0f;
                 // Ve hinh chop deu day hinh vuong voi dinh S tuy y va canh day la a
                 float h = 1.0f;
@@ -566,36 +581,9 @@ namespace BUS
                 drawBorder(gl, isSelected);
 				// Ve truc
 				drawAxis(gl, isSelected);
-
-				if (isTranslate())
-					gl.PopMatrix();
-				if (isRotate())
-					gl.PopMatrix();
-				if (isScale())
-					gl.PopMatrix();
-
 			}
             else
             {
-				// Thuc hien kiem tra xem co translate, rotate hay scale khong?
-				if (isTranslate())
-				{
-					gl.PushMatrix();
-					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
-				}
-				if (isRotate())
-				{
-					gl.PushMatrix();
-					// Tinh tien ve tam O
-					gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
-					gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
-					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
-				}
-				if (isScale())
-				{
-					gl.PushMatrix();
-					gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
-				}
 				// Enable texture
 				gl.Enable(OpenGL.GL_TEXTURE_2D);
                 // Create texture
@@ -647,14 +635,19 @@ namespace BUS
 				drawBorder(gl, isSelected);
 				// Ve truc
 				drawAxis(gl, isSelected);
-
-				if (isTranslate())
-                    gl.PopMatrix();
-				if (isRotate())
-					gl.PopMatrix();
-				if (isScale())
-					gl.PopMatrix();
             }
+
+			if (isTranslate())
+			{
+				gl.PopMatrix();
+			}
+			if (isRotate())
+				gl.PopMatrix();
+			if (isScale())
+				gl.PopMatrix();
+
+			//gl.PopMatrix();
+
 		}
 
 		public CSquarePyramid() : base()
@@ -746,28 +739,47 @@ namespace BUS
 		// Class CTriangularPrism : CObject
 		public override void draw(OpenGL gl, bool isSelected = false)
 		{
+			//gl.PushMatrix();
+			//gl.Translate(-center.x, -center.y, -center.z); // Tinh tien nguoc tro lai tam cua no
+
+			// Thuc hien kiem tra xem co translate, rotate hay scale khong?
+			if (isTranslate())
+			{
+				gl.PushMatrix();
+				gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
+			}
+			if (isRotate())
+			{
+				gl.PushMatrix();
+				// De rotate can thuc hien 3 buoc sau
+				// + Tinh tien ve tam O
+				// + thuc hien quay
+				// + Roi tinh nguoc tro lai tam cua no
+				// Luu y: Thu tu cac buoc phai lam nguoc lai 
+				// Quay quan Ox
+				gl.Translate(0, center.y, center.z);
+				gl.Rotate(rotaCoor.angleX, 1, 0, 0);
+				gl.Translate(0, -center.y, -center.z);
+
+				// Quay quanh Oy
+				gl.Translate(center.x, 0, center.z);
+				gl.Rotate(rotaCoor.angleY, 0, 1, 0);
+				gl.Translate(-center.x, 0, -center.z);
+
+				// Quanh quanh 0z
+				gl.Translate(center.x, center.y, 0);
+				gl.Rotate(rotaCoor.angleZ, 0, 0, 1);
+				gl.Translate(-center.x, -center.y, 0);
+
+
+			}
+			if (isScale())
+			{
+				gl.PushMatrix();
+				gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
+			}
 			if (isTexture == false)
 			{
-				// Thuc hien kiem tra xem co translate, rotate hay scale khong?
-				if (isTranslate())
-				{
-					gl.PushMatrix();
-					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
-				}
-				if (isRotate())
-				{
-					gl.PushMatrix();
-					// Tinh tien ve tam O
-					gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
-					gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
-					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
-				}
-				if (isScale())
-				{
-					gl.PushMatrix();
-					gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
-				}
-
 				// Ve hinh tru co day la tam giac deu voi canh a tuy y
 				float a = 1.0f;
 				float h = 1.0f;
@@ -815,36 +827,9 @@ namespace BUS
 				drawBorder(gl, isSelected);
 				// Ve truc
 				drawAxis(gl, isSelected);
-
-
-				if (isTranslate())
-					gl.PopMatrix();
-				if (isRotate())
-					gl.PopMatrix();
-				if (isScale())
-					gl.PopMatrix();
 			}
 			else
 			{
-				// Thuc hien kiem tra xem co translate, rotate hay scale khong?
-				if (isTranslate())
-				{
-					gl.PushMatrix();
-					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ);
-				}
-				if (isRotate())
-				{
-					gl.PushMatrix();
-					// Tinh tien ve tam O
-					gl.Translate(-trCoor.trX, -trCoor.trY, -trCoor.trZ);
-					gl.Rotate(rotaCoor.angleX, rotaCoor.angleY, rotaCoor.angleZ); // Thuc hien xoay tai tam 0
-					gl.Translate(trCoor.trX, trCoor.trY, trCoor.trZ); // Tinh tien nguoc tro lai
-				}
-				if (isScale())
-				{
-					gl.PushMatrix();
-					gl.Scale(scaleCoor.sX, scaleCoor.sY, scaleCoor.sZ); // Thuc hien scale
-				}
 				// Enable texture
 				gl.Enable(OpenGL.GL_TEXTURE_2D);
 				// Create texture
@@ -898,14 +883,17 @@ namespace BUS
 				drawBorder(gl, isSelected);
 				// Ve truc
 				drawAxis(gl, isSelected);
-
-				if (isTranslate())
-					gl.PopMatrix();
-				if (isRotate())
-					gl.PopMatrix();
-				if (isScale())
-					gl.PopMatrix();
 			}
+			if (isTranslate())
+			{
+				gl.PopMatrix();
+			}
+			if (isRotate())
+				gl.PopMatrix();
+			if (isScale())
+				gl.PopMatrix();
+
+			//gl.PopMatrix();
 		}
 
 		public CTriangularPrism(bool texture = false, string texturePath = "") : base()
@@ -1217,16 +1205,16 @@ namespace BUS
         }
         public void nearer() // translate: vector(OA) = (k/(k-0.1)) * vector(OA')
         {
-            x = ((dist - 0.18) / dist) * (x - v_x) + v_x;
-            y = ((dist - 0.18) / dist) * (y - v_y) + v_y;
-            z = ((dist - 0.18) / dist) * (z - v_z) + v_z;
+            x = ((dist - 0.2) / dist) * (x - v_x) + v_x;
+            y = ((dist - 0.2) / dist) * (y - v_y) + v_y;
+            z = ((dist - 0.2) / dist) * (z - v_z) + v_z;
             dist--;
         }
         public void further() // translate: vector(OA) = (k/(k+0.1)) * vector(OA')
         {
-            x = ((dist + 0.18) / dist) * (x - v_x) + v_x;
-            y = ((dist + 0.18) / dist) * (y - v_y) + v_y;
-            z = ((dist + 0.18) / dist) * (z - v_z) + v_z;
+            x = ((dist + 0.2) / dist) * (x - v_x) + v_x;
+            y = ((dist + 0.2) / dist) * (y - v_y) + v_y;
+            z = ((dist + 0.2) / dist) * (z - v_z) + v_z;
             dist++;
         }
         public void leftRotate()

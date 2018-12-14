@@ -56,63 +56,74 @@ namespace GUI
 			//this.AcceptButton = bt_Enter;
 		}
 
-		// Draw axis and mesh surface
+		// Draw mesh surface
         public void SystemDraw(OpenGL gl)
         {
             gl.ClearColor(128.0f / 255.0f, 128.0f / 255.0f, 128.0f / 255.0f, 100.0f / 255.0f); // dark gray
             gl.Color(1.0f, 1.0f, 1.0f);
             gl.LineWidth(1.0f);
-            for (int i = -30; i <= 30; i++)
+			int nTiles = 30;
+
+			for (int i = -30; i <= 30; i++)
             {
                 gl.Begin(OpenGL.GL_LINES);               
                 // Vẽ song song với Oz
-                gl.Vertex(i, 0, 30);
-                gl.Vertex(i, 0,-30);
+                gl.Vertex(i, 0, nTiles);
+                gl.Vertex(i, 0,-nTiles);
                 // Vẽ song song với Ox
-                gl.Vertex(-30, 0,i);
-                gl.Vertex(30, 0,i);
+                gl.Vertex(-nTiles, 0,i);
+                gl.Vertex(nTiles, 0,i);
                 gl.End();
+				gl.Flush();
             }
-            gl.Flush();
+			#region Draw axis
+			//float a = 20.0f;
+			//float b = a - 1.0f;
 
-            gl.LineWidth(4.0f);
-            // Ve Ox
-            gl.Color(255.0 / 255.0, 0.0, 0.0);
-            gl.Begin(OpenGL.GL_LINES);
-            gl.Vertex(0, 0, 0);
-            gl.Vertex(10, 0, 0);
-            gl.End();
-            gl.Begin(OpenGL.GL_TRIANGLES);
-            gl.Vertex(9, 0, 2);
-            gl.Vertex(9, 0, -2);
-            gl.Vertex(10, 0, 0);
-            gl.End();
+			//         gl.LineWidth(4.0f);
+			//         // Ve Ox
+			//         gl.Color(255.0 / 255.0, 0.0, 0.0);
+			//         gl.Begin(OpenGL.GL_LINES);
+			//         gl.Vertex(0, 0, 0);
+			//         gl.Vertex(a, 0, 0);
+			//         gl.End();
+			//gl.Flush();
+			//         gl.Begin(OpenGL.GL_TRIANGLES);
+			//         gl.Vertex(b, 0, 1);
+			//         gl.Vertex(b, 0, -1);
+			//         gl.Vertex(a, 0, 0);
+			//         gl.End();
+			//gl.Flush();
 
-            // Ve Oy
-            gl.Color(0.0f, 255.0 / 255.0, 0.0);
-            gl.Begin(OpenGL.GL_LINES);
-            gl.Vertex(0, 0, 0);
-            gl.Vertex(0, 10, 0);
-            gl.End();
-            gl.Begin(OpenGL.GL_TRIANGLES);
-            gl.Vertex(-2, 9, 0);
-            gl.Vertex(2, 9, 0);
-            gl.Vertex(0, 10, 0);
-            gl.End();
+			//// Ve Oy
+			//gl.Color(0.0f, 255.0 / 255.0, 0.0);
+			//         gl.Begin(OpenGL.GL_LINES);
+			//         gl.Vertex(0, 0, 0);
+			//         gl.Vertex(0, a, 0);
+			//         gl.End();
+			//gl.Flush();
+			//gl.Begin(OpenGL.GL_TRIANGLES);
+			//         gl.Vertex(-1, b, 0);
+			//         gl.Vertex(1, b, 0);
+			//         gl.Vertex(0, a, 0);
+			//         gl.End();
+			//gl.Flush();
+			//// Ve Oz
+			//gl.Color(0.0f, 0.0f, 255.0 / 255.0);
+			//         gl.Begin(OpenGL.GL_LINES);
+			//         gl.Vertex(0, 0, 0);
+			//         gl.Vertex(0, 0, a);
+			//         gl.End();
+			//gl.Flush();
+			//gl.Begin(OpenGL.GL_TRIANGLES);
+			//         gl.Vertex(1, 0, b);
+			//         gl.Vertex(-1, 0, b);
+			//         gl.Vertex(0, 0, a);
+			//         gl.End();
+			//         gl.Flush();
 
-            // Ve Oz
-            gl.Color(0.0f, 0.0f, 255.0 / 255.0);
-            gl.Begin(OpenGL.GL_LINES);
-            gl.Vertex(0, 0, 0);
-            gl.Vertex(0, 0, 10);
-            gl.End();
-            gl.Begin(OpenGL.GL_TRIANGLES);
-            gl.Vertex(2, 0, 9);
-            gl.Vertex(-2, 0, 9);
-            gl.Vertex(0, 0, 10);
-            gl.End();
-            gl.Flush();
-			gl.LineWidth(1.0f); // Reset lai do day net ve
+			//gl.LineWidth(1.0f); // Reset lai do day net ve
+			#endregion
 		}
         private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
 		{
@@ -121,8 +132,10 @@ namespace GUI
 				OpenGL gl = openGLControl1.OpenGL;
 				// Clear vung nho dem
 				gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
+
 				// ===========================Ve he truc va mat phang day====================================
 				SystemDraw(gl);
+
 				//=================================CAMERA ROTATION============================================
 				// Camera rotation
 				gl.MatrixMode(OpenGL.GL_MODELVIEW);
@@ -187,6 +200,7 @@ namespace GUI
 			OpenGL gl = openGLControl1.OpenGL;
 			// Set man hinh OpenGL la dark gray
 			gl.ClearColor(128.0f / 255.0f, 128.0f / 255.0f, 128.0f / 255.0f, 100.0f / 255.0f);
+			
 		}
 
 		private void openGLControl1_Resized(object sender, EventArgs e)
