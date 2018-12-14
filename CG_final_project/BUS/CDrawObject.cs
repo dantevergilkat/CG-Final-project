@@ -18,14 +18,17 @@ namespace BUS
 		TRIANGULAR_PRISM
 	}
 
-	public struct Point3D {
+	public struct Point3D
+	{
 		public float x, y, z;
-		public Point3D(float _x = 0, float _y = 0, float _z = 0) {
+		public Point3D(float _x = 0, float _y = 0, float _z = 0)
+		{
 			x = _x;
 			y = _y;
 			z = _z;
 		}
-		public Point3D(Point3D src) {
+		public Point3D(Point3D src)
+		{
 			x = src.x;
 			y = src.y;
 			z = src.z;
@@ -33,9 +36,11 @@ namespace BUS
 	}
 
 	// Do doi
-	public struct STranslationCoor {
+	public struct STranslationCoor
+	{
 		public float trX, trY, trZ;
-		public STranslationCoor(float _trX = 0, float _trY = 0, float _trZ = 0) {
+		public STranslationCoor(float _trX = 0, float _trY = 0, float _trZ = 0)
+		{
 			trX = _trX;
 			trY = _trY;
 			trZ = _trZ;
@@ -43,7 +48,8 @@ namespace BUS
 	}
 
 	// Rotate
-	public struct SRotationCoor {
+	public struct SRotationCoor
+	{
 		public float angleX; // Degree of rotation around X-asis
 		public float angleY; // Degree of rotation around Y-asis
 		public float angleZ; // Degree of rotation around Z-asis
@@ -72,9 +78,9 @@ namespace BUS
 	// Bass class: Object
 	public abstract class CObject
 	{
-        protected bool isTexture; // Bien kiem tra ve texture
-        protected String path; // path den file ve texture
-        protected String name;
+		protected bool isTexture; // Bien kiem tra ve texture
+		protected String path; // path den file ve texture
+		protected String name;
 		protected Color colorUse; // Mau su dung
 		protected STranslationCoor trCoor; // Do doi translate
 		protected SRotationCoor rotaCoor; // Ho tro quay
@@ -86,57 +92,66 @@ namespace BUS
 			get; set;
 		}
 
-		public Color ColorUse {
+		public Color ColorUse
+		{
 			get { return colorUse; }
 			set { colorUse = value; }
 		}
 
-		public bool IsTexture {
+		public bool IsTexture
+		{
 			get { return isTexture; }
 			set { isTexture = value; }
 		}
 
-		public String Path {
+		public String Path
+		{
 			get { return path; }
 			set { path = value; }
 		}
 
 		// Ham cap nhat do doi cho obj
-		public void updateTranCoor(float _trX, float _trY, float _trZ) {
+		public void updateTranCoor(float _trX, float _trY, float _trZ)
+		{
 			trCoor.trX += (_trX - trCoor.trX);
 			trCoor.trY += (_trY - trCoor.trY);
 			trCoor.trZ += (_trZ - trCoor.trZ);
 		}
 
 		// Hap cap nhat cho phep quay
-		public void updateRotaCoor(float _angleX, float _angleY, float _angleZ) {
+		public void updateRotaCoor(float _angleX, float _angleY, float _angleZ)
+		{
 			rotaCoor.angleX += (_angleX - rotaCoor.angleX);
 			rotaCoor.angleY += (_angleY - rotaCoor.angleY);
 			rotaCoor.angleZ += (_angleZ - rotaCoor.angleZ);
 		}
 
-		public void updateScaleCoor(float _sX, float _sY, float _sZ) {
+		public void updateScaleCoor(float _sX, float _sY, float _sZ)
+		{
 			scaleCoor.sX += (_sX - scaleCoor.sX);
 			scaleCoor.sY += (_sY - scaleCoor.sY);
 			scaleCoor.sZ += (_sZ - scaleCoor.sZ);
 		}
 
 		// Ham kiem tra co translate khong?
-		public bool isTranslate() {
+		public bool isTranslate()
+		{
 			if (trCoor.trX != 0 || trCoor.trY != 0 || trCoor.trZ != 0)
 				return true;
 			return false;
 		}
 
 		// Ham kiem tra xem co rotate không?
-		public bool isRotate() {
+		public bool isRotate()
+		{
 			if (rotaCoor.angleX != 0 || rotaCoor.angleY != 0 || rotaCoor.angleZ != 0)
 				return true;
 			return false;
 		}
 
 		// Ham kiem tra xem co scale khong?
-		public bool isScale() {
+		public bool isScale()
+		{
 			if (scaleCoor.sX != 0 || scaleCoor.sY != 0 || scaleCoor.sZ != 0)
 				return true;
 			return false;
@@ -202,9 +217,9 @@ namespace BUS
 
 		public CObject(bool texture = false, string texturePath = "")
 		{
-            isTexture = texture; // Mac dinh k ve texture
-            path = texturePath; // Khong co duong link den file ve texture
-            colorUse = Color.White; // Mac dinh la mau trang
+			isTexture = texture; // Mac dinh k ve texture
+			path = texturePath; // Khong co duong link den file ve texture
+			colorUse = Color.White; // Mac dinh la mau trang
 			trCoor = new STranslationCoor();
 			rotaCoor = new SRotationCoor();
 			scaleCoor = new SScaleCoor();
@@ -284,7 +299,8 @@ namespace BUS
 			gl.LineWidth(1);
 		}
 
-		public void drawObject(OpenGL gl, bool isSelected) {
+		public void drawObject(OpenGL gl, bool isSelected)
+		{
 			if (isTexture == false)
 			{
 				// Ve hinh lap phuong voi canh a bat ky
@@ -443,9 +459,9 @@ namespace BUS
 
 		public CCube(bool texture = false, string texturePath = "") : base()
 		{
-            isTexture = texture;
-            path = texturePath;
-            name = "Cube";
+			isTexture = texture;
+			path = texturePath;
+			name = "Cube";
 			center = new Point3D(0.5f, 0.5f, 0.5f); // Tinh tam doi tuong
 		}
 	}
@@ -470,7 +486,7 @@ namespace BUS
 				gl.Color(255 / 255.0f, 128 / 255.0, 0);
 			}
 			else
-				gl.Color(224 / 255.0f, 224/255.0f, 224/255.0f);
+				gl.Color(224 / 255.0f, 224 / 255.0f, 224 / 255.0f);
 
 			gl.LineWidth(3);
 			// Ve bien
@@ -503,7 +519,8 @@ namespace BUS
 
 		}
 
-		public void drawObject(OpenGL gl, bool isSelected) {
+		public void drawObject(OpenGL gl, bool isSelected)
+		{
 			if (isTexture == false)
 			{
 				float a = 1.0f;
@@ -674,9 +691,9 @@ namespace BUS
 
 		public CSquarePyramid(bool texture = false, string texturePath = "") : base()
 		{
-            isTexture = texture;
-            path = texturePath;
-            name = "Square pyramid";
+			isTexture = texture;
+			path = texturePath;
+			name = "Square pyramid";
 			center = new Point3D(0.5f, 0.5f, 0.5f); // Tinh tam doi tuong
 		}
 	}
@@ -752,7 +769,8 @@ namespace BUS
 			gl.LineWidth(1);
 		}
 
-		public void drawObject(OpenGL gl, bool isSelected) {
+		public void drawObject(OpenGL gl, bool isSelected)
+		{
 			if (isTexture == false)
 			{
 				// Ve hinh tru co day la tam giac deu voi canh a tuy y
@@ -924,13 +942,13 @@ namespace BUS
 			isTexture = texture;
 			path = texturePath;
 			name = "Triangular prism";
-			center = new Point3D(0.5f, 0.5f, (float)Math.Pow(3.0, (double)(1.0/3.0)) / 3.0f); // Tam cua hinh lang tru la (0.5, 0.5, pow(3, 1.0f/3))
+			center = new Point3D(0.5f, 0.5f, (float)Math.Pow(3.0, (double)(1.0 / 3.0)) / 3.0f); // Tam cua hinh lang tru la (0.5, 0.5, pow(3, 1.0f/3))
 		}
 
 		public CTriangularPrism() : base()
 		{
 			name = "Triangular prism";
-			center = new Point3D(0.5f, 0.5f, (float)Math.Pow(3.0, (double)(1.0/3.0)) / 3.0f); // Tam cua hinh lang tru la (0.5, 0.5, pow(3, 1.0f/3))
+			center = new Point3D(0.5f, 0.5f, (float)Math.Pow(3.0, (double)(1.0 / 3.0)) / 3.0f); // Tam cua hinh lang tru la (0.5, 0.5, pow(3, 1.0f/3))
 		}
 	}
 
@@ -954,9 +972,10 @@ namespace BUS
 			}
 		}
 
-		public void draw(OpenGL gl, int idxSelected) {
+		public void draw(OpenGL gl, int idxSelected)
+		{
 
-			for(int i = 0; i < lst.Count(); i++)
+			for (int i = 0; i < lst.Count(); i++)
 			{
 				if (i != idxSelected)
 					lst[i].draw(gl);
@@ -965,12 +984,14 @@ namespace BUS
 			}
 		}
 
-		public int getLength() {
+		public int getLength()
+		{
 			return lst.Count();
 		}
 
 		// Ham cap nhat mau cho lst[idx]
-		public void setColorOfOneObj(int idx, Color color) {
+		public void setColorOfOneObj(int idx, Color color)
+		{
 			lst[idx].ColorUse = color;
 		}
 
@@ -1012,7 +1033,8 @@ namespace BUS
 		}
 
 		// Ham draw co truyen vao index cua obj duoc chon hien tai
-		public void draw(OpenGL gl, int idxSelected) {
+		public void draw(OpenGL gl, int idxSelected)
+		{
 			lstObj.draw(gl, idxSelected);
 		}
 
@@ -1039,17 +1061,20 @@ namespace BUS
 		}
 
 		// Ham lay do dai cua lstObj
-		public int getLength() {
+		public int getLength()
+		{
 			return lstObj.getLength();
 		}
 
 		// Ham cap nhat mau cho lst[idx]
-		public void setColorOfOneObj(int idx, Color color) {
+		public void setColorOfOneObj(int idx, Color color)
+		{
 			lstObj.setColorOfOneObj(idx, color);
 		}
 
 		// Ham cap nhat do doi cho lstObj[idx]
-		public void updateTranCoor(int idx, float trX, float trY, float trZ) {
+		public void updateTranCoor(int idx, float trX, float trY, float trZ)
+		{
 			lstObj.updateTranCoor(idx, trX, trY, trZ);
 		}
 
@@ -1066,7 +1091,8 @@ namespace BUS
 		}
 
 		// Ham setTexture
-		public void setTexture(int idx, bool isTexture = false, String path = "") {
+		public void setTexture(int idx, bool isTexture = false, String path = "")
+		{
 			lstObj.setTexture(idx, isTexture, path);
 		}
 
@@ -1163,169 +1189,203 @@ namespace BUS
 			return ret;
 		}
 	}
-    //==============================================================CAMERA===============================================================================
-    public class CameraRotation
-    {
-        // camera position
-        private double x = -4;
-        private double y = 0;
-        private double z = -4;
-        // view point
-        private double v_x = 1;
-        private double v_y = 0;
-        private double v_z = 1;
-        // vector up
-        private double u_x = 0;
-        private double u_y = 1;
-        private double u_z = 0;
-        // ePoint of perpendicular vector
-        private double p_x = 0;
-        private double p_y = 0;
-        private double p_z = 2;
-        // khoang cach tu hinh chieu cua camera position den viewpoint
-        private double dist = Math.Sqrt(Math.Pow(-4 - 1, 2) + Math.Pow(-4 - 1, 2));
+	//==============================================================CAMERA===============================================================================
+	public class CameraRotation
+	{
+		// camera position
+		private double x = -4;
+		private double y = 0;
+		private double z = -4;
+		// view point
+		private double v_x = 1;
+		private double v_y = 0;
+		private double v_z = 1;
+		// vector up
+		private double u_x = 0;
+		private double u_y = 1;
+		private double u_z = 0;
+		// ePoint of perpendicular vector
+		private double p_x = 0;
+		private double p_y = 0;
+		private double p_z = 2;
+		// khoang cach tu hinh chieu cua camera position den viewpoint
+		private double dist = Math.Sqrt(Math.Pow(-4 - 1, 2) + Math.Pow(-4 - 1, 2));
 
-        // flag for checking when we need to change y of vector up 
-        private int flag1 = 0;
-        private int flag2 = 0;
+		// flag for checking when we need to change y of vector up 
+		private int flag1 = 0;
+		private int flag2 = 0;
 
-        // angle
-        private int angle = 0;
+		// angle
+		private int angle = 0;
 
-        // Khai bao de su dung ham rotate
-        private MatrixManipulation matManip = new MatrixManipulation();
+		// Khai bao de su dung ham rotate
+		private MatrixManipulation matManip = new MatrixManipulation();
 
-        public double getX()
-        {
-            return x;
-        }
-        public double getY()
-        {
-            return y;
-        }
-        public double getZ()
-        {
-            return z;
-        }
-        public double getV_X()
-        {
-            return v_x;
-        }
-        public double getV_Y()
-        {
-            return v_y;
-        }
-        public double getV_Z()
-        {
-            return v_z;
-        }
-        public double getU_X()
-        {
-            return u_x;
-        }
-        public double getU_Y()
-        {
-            return u_y;
-        }
-        public double getU_Z()
-        {
-            return u_z;
-        }
-        public double getDist()
-        {
-            return dist;
-        }
-        public double getAngle()
-        {
-            return angle;
-        }
-        public void nearer() // translate: vector(OA) = (k/(k-0.1)) * vector(OA')
-        {
-            x = ((dist - 0.2) / dist) * (x - v_x) + v_x;
-            y = ((dist - 0.2) / dist) * (y - v_y) + v_y;
-            z = ((dist - 0.2) / dist) * (z - v_z) + v_z;
-            dist--;
-        }
-        public void further() // translate: vector(OA) = (k/(k+0.1)) * vector(OA')
-        {
-            x = ((dist + 0.2) / dist) * (x - v_x) + v_x;
-            y = ((dist + 0.2) / dist) * (y - v_y) + v_y;
-            z = ((dist + 0.2) / dist) * (z - v_z) + v_z;
-            dist++;
-        }
-        public void leftRotate()
-        {
-            //int[] newPos = new int[3];
-            double[] sPoint = new double[3] { v_x, v_y, v_z };
-            double[] ePoint = new double[3] { v_x, 1, v_z };
-            double[] p_ePoint = new double[3] { p_x, p_y, p_z };
+		public double getX()
+		{
+			return x;
+		}
+		public double getY()
+		{
+			return y;
+		}
+		public double getZ()
+		{
+			return z;
+		}
+		public double getV_X()
+		{
+			return v_x;
+		}
+		public double getV_Y()
+		{
+			return v_y;
+		}
+		public double getV_Z()
+		{
+			return v_z;
+		}
+		public double getU_X()
+		{
+			return u_x;
+		}
+		public double getU_Y()
+		{
+			return u_y;
+		}
+		public double getU_Z()
+		{
+			return u_z;
+		}
+		public double getDist()
+		{
+			return dist;
+		}
+		public double getAngle()
+		{
+			return angle;
+		}
+		public void nearer() // translate: vector(OA) = (k/(k-0.1)) * vector(OA')
+		{
+			x = ((dist - 0.2) / dist) * (x - v_x) + v_x;
+			y = ((dist - 0.2) / dist) * (y - v_y) + v_y;
+			z = ((dist - 0.2) / dist) * (z - v_z) + v_z;
+			dist--;
+		}
+		public void further() // translate: vector(OA) = (k/(k+0.1)) * vector(OA')
+		{
+			x = ((dist + 0.2) / dist) * (x - v_x) + v_x;
+			y = ((dist + 0.2) / dist) * (y - v_y) + v_y;
+			z = ((dist + 0.2) / dist) * (z - v_z) + v_z;
+			dist++;
+		}
+		public void leftRotate()
+		{
+			//int[] newPos = new int[3];
+			double[] sPoint = new double[3] { v_x, v_y, v_z };
+			double[] ePoint = new double[3] { v_x, 1, v_z };
+			double[] p_ePoint = new double[3] { p_x, p_y, p_z };
 
-            double[] newVertice = new double[3];
-            double[] p_newVertice = new double[3];
+			double[] newVertice = new double[3];
+			double[] p_newVertice = new double[3];
 
-            newVertice = matManip.verticeRotate(sPoint, ePoint, 1, x, y, z);
-            p_newVertice = matManip.verticeRotate(sPoint, ePoint, 1, p_x, p_y, p_z);
+			newVertice = matManip.verticeRotate(sPoint, ePoint, 1, x, y, z);
+			p_newVertice = matManip.verticeRotate(sPoint, ePoint, 1, p_x, p_y, p_z);
 
-            x = newVertice[0];
-            y = newVertice[1];
-            z = newVertice[2];
+			x = newVertice[0];
+			y = newVertice[1];
+			z = newVertice[2];
 
-            p_x = p_newVertice[0];
-            p_y = p_newVertice[1];
-            p_z = p_newVertice[2];
-        }
-        public void rightRotate()
-        {
-            double[] sPoint = new double[3] { v_x, v_y, v_z };
-            double[] ePoint = new double[3] { v_x, 1, v_z };
-            double[] p_ePoint = new double[3] { p_x, p_y, p_z };
+			p_x = p_newVertice[0];
+			p_y = p_newVertice[1];
+			p_z = p_newVertice[2];
+		}
+		public void rightRotate()
+		{
+			double[] sPoint = new double[3] { v_x, v_y, v_z };
+			double[] ePoint = new double[3] { v_x, 1, v_z };
+			double[] p_ePoint = new double[3] { p_x, p_y, p_z };
 
-            double[] newVertice = new double[3];
-            double[] p_newVertice = new double[3];
+			double[] newVertice = new double[3];
+			double[] p_newVertice = new double[3];
 
-            newVertice = matManip.verticeRotate(sPoint, ePoint, -1, x, y, z);
-            p_newVertice = matManip.verticeRotate(sPoint, ePoint, -1, p_x, p_y, p_z);
+			newVertice = matManip.verticeRotate(sPoint, ePoint, -1, x, y, z);
+			p_newVertice = matManip.verticeRotate(sPoint, ePoint, -1, p_x, p_y, p_z);
 
-            x = newVertice[0];
-            y = newVertice[1];
-            z = newVertice[2];
+			x = newVertice[0];
+			y = newVertice[1];
+			z = newVertice[2];
 
-            p_x = p_newVertice[0];
-            p_y = p_newVertice[1];
-            p_z = p_newVertice[2];
-        }
-        public void downRotate()
-        {
-            double[] sPoint = new double[3] { v_x, v_y, v_z };
-            double[] ePoint = new double[3] { p_x, p_y, p_z };
-            double[] newVertice = new double[3];
-            newVertice = matManip.verticeRotate(sPoint, ePoint, -1, x, y, z);//-0.5
-            if (angle == 0)
-                angle = 360;
-            angle -= 1;
-            if (angle == 269 || angle == 89)
-                u_y *= -1;
-            x = newVertice[0];
-            y = newVertice[1];
-            z = newVertice[2];
+			p_x = p_newVertice[0];
+			p_y = p_newVertice[1];
+			p_z = p_newVertice[2];
+		}
+		public void downRotate()
+		{
+			double[] sPoint = new double[3] { v_x, v_y, v_z };
+			double[] ePoint = new double[3] { p_x, p_y, p_z };
+			double[] newVertice = new double[3];
+			newVertice = matManip.verticeRotate(sPoint, ePoint, -1, x, y, z);//-0.5
+			if (angle == 0)
+				angle = 360;
+			angle -= 1;
+			if (angle == 269 || angle == 89)
+				u_y *= -1;
+			x = newVertice[0];
+			y = newVertice[1];
+			z = newVertice[2];
 
-        }
-        public void upRotate()
-        {
-            double[] sPoint = new double[3] { v_x, v_y, v_z };
-            double[] ePoint = new double[3] { p_x, p_y, p_z };
-            double[] newVertice = new double[3];
-            newVertice = matManip.verticeRotate(sPoint, ePoint, 1, x, y, z);//0.5
-            if (angle == 360)
-                angle = 0;
-            angle += 1;
-            if (angle == 90 || angle == 271)
-                u_y *= -1;
-            x = newVertice[0];
-            y = newVertice[1];
-            z = newVertice[2];
-        }
-    }
+		}
+		public void upRotate()
+		{
+			double[] sPoint = new double[3] { v_x, v_y, v_z };
+			double[] ePoint = new double[3] { p_x, p_y, p_z };
+			double[] newVertice = new double[3];
+			newVertice = matManip.verticeRotate(sPoint, ePoint, 1, x, y, z);//0.5
+			if (angle == 360)
+				angle = 0;
+			angle += 1;
+			if (angle == 90 || angle == 271)
+				u_y *= -1;
+			x = newVertice[0];
+			y = newVertice[1];
+			z = newVertice[2];
+
+		}
+
+		public CameraRotation()
+		{
+			// camera position
+			x = -4;
+			y = 0;
+			z = -4;
+			// view point
+			v_x = 1;
+			v_y = 0;
+			v_z = 1;
+			// vector up
+			u_x = 0;
+			u_y = 1;
+			u_z = 0;
+			// ePoint of perpendicular vector
+			p_x = 0;
+			p_y = 0;
+			p_z = 2;
+			// khoang cach tu hinh chieu cua camera position den viewpoint
+			dist = Math.Sqrt(Math.Pow(-4 - 1, 2) + Math.Pow(-4 - 1, 2));
+
+			// flag for checking when we need to change y of vector up 
+			flag1 = 0;
+			flag2 = 0;
+
+			// angle
+			angle = 0;
+
+			// Khai bao de su dung ham rotate
+			matManip = new MatrixManipulation();
+		}
+
+	}
 
 
 }

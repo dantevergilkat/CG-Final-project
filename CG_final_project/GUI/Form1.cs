@@ -471,11 +471,11 @@ namespace GUI
 			isChangedColor = false; // Su dung de doi mau obj khi da selected
 			isAffine = false; // Bien kiem tra xem nguoi dung chon 1 trong cac affine
 			pos = new Point3D();
-			Point3D rotation;
-			Point3D scale;
+			rotation = new Point3D();
+			scale = new Point3D();
 
 			// Khoi tao doi tuong Camera
-			CameraRotation cam = new CameraRotation();
+			cam = new CameraRotation();
 
 			// Xoa listBox Sample Scene
 			lstBox_SampleScene.Items.Clear();
@@ -492,6 +492,18 @@ namespace GUI
 			// reset lai bien isDrawing
 			isDrawing = true;
 
+			// Gan tat cac textbox trong Transform ve gia tri mac dinh ban dau
+			textBox_PosX.Text = "0";
+			textBox_PosY.Text = "0";
+			textBox_PosZ.Text = "0";
+
+			textBox_RotateX.Text = "0";
+			textBox_RotateY.Text = "0";
+			textBox_RotateZ.Text = "0";
+
+			textBox_ScaleX.Text = "1";
+			textBox_ScaleY.Text = "1";
+			textBox_ScaleZ.Text = "1";
 		}
 
 		private void bt_Enter_Click(object sender, EventArgs e)
