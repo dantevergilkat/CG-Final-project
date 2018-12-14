@@ -79,6 +79,7 @@ namespace BUS
 		protected STranslationCoor trCoor; // Do doi translate
 		protected SRotationCoor rotaCoor; // Ho tro quay
 		protected SScaleCoor scaleCoor; // Ho tro scale
+		protected Point3D center; // Tam cua doi tuong
 
 		public abstract String Name
 		{
@@ -133,7 +134,59 @@ namespace BUS
 
 		// Ham ve bien
 		public abstract void drawBorder(OpenGL gl, bool isSelected);
+		// Ham ve truc
+		public void drawAxis(OpenGL gl, bool isSelected)
+		{
+			if (isSelected == false)
+				return;
 
+			float a = 1.6f;
+			float b = a - 0.2f;
+
+			gl.LineWidth(4.0f);
+			// Ve Ox
+			gl.Color(255.0 / 255.0, 0.0, 0.0);
+			gl.Begin(OpenGL.GL_LINES);
+			gl.Vertex(center.x, center.y, center.z);
+			gl.Vertex(a, center.y, center.z);
+			gl.End();
+			gl.Flush();
+			gl.Begin(OpenGL.GL_TRIANGLES);
+			gl.Vertex(b, center.y, center.z + 0.15);
+			gl.Vertex(b, center.y, center.z - 0.15);
+			gl.Vertex(a, center.y, center.z);
+			gl.End();
+			gl.Flush();
+
+			// Ve Oy
+			gl.Color(0.0f, 255.0 / 255.0, 0.0);
+			gl.Begin(OpenGL.GL_LINES);
+			gl.Vertex(center.x, center.y, center.z);
+			gl.Vertex(center.x, a, center.z);
+			gl.End();
+			gl.Flush();
+			gl.Begin(OpenGL.GL_TRIANGLES);
+			gl.Vertex(center.x - 0.15f, b, center.z);
+			gl.Vertex(center.x + 0.15f, b, center.z);
+			gl.Vertex(center.x, a, center.y);
+			gl.End();
+			gl.Flush();
+
+			// Ve Oz
+			gl.Color(0.0f, 0.0f, 255.0 / 255.0);
+			gl.Begin(OpenGL.GL_LINES);
+			gl.Vertex(center.x, center.y, center.z);
+			gl.Vertex(center.x, center.y, a);
+			gl.End();
+			gl.Flush();
+			gl.Begin(OpenGL.GL_TRIANGLES);
+			gl.Vertex(center.x + 0.15f, center.y, b);
+			gl.Vertex(center.x - 0.15f, center.y, b);
+			gl.Vertex(center.x, center.y, a);
+			gl.End();
+			gl.Flush();
+			gl.LineWidth(1.0f); // Reset lai do day net ve
+		}
 		// Ham ve hinh
 		public abstract void draw(OpenGL gl, bool isSelected = false);
 
@@ -143,6 +196,8 @@ namespace BUS
             path = texturePath; // Khong co duong link den file ve texture
             colorUse = Color.White; // Mac dinh la mau trang
 			trCoor = new STranslationCoor();
+			rotaCoor = new SRotationCoor();
+			scaleCoor = new SScaleCoor();
 		}
 
 	}
@@ -282,6 +337,8 @@ namespace BUS
                 gl.Flush();
                 // Ve bien
                 drawBorder(gl, isSelected);
+				// Ve truc
+				drawAxis(gl, isSelected);
 
 				if (isTranslate())
 				{
@@ -359,8 +416,10 @@ namespace BUS
 				gl.Disable(OpenGL.GL_TEXTURE_2D);
                 // Ve bien
                 drawBorder(gl, isSelected);
+				// Ve truc
+				drawAxis(gl, isSelected);
 
-                if (isTranslate())
+				if (isTranslate())
                 {
                     gl.PopMatrix();
                 }
@@ -374,6 +433,7 @@ namespace BUS
 		public CCube() : base()
 		{
 			name = "Cube";
+			center = new Point3D(0.5f, 0.5f, 0.5f); // Tinh tam doi tuong
 		}
 
 		public CCube(bool texture = false, string texturePath = "") : base()
@@ -381,6 +441,7 @@ namespace BUS
             isTexture = texture;
             path = texturePath;
             name = "Cube";
+			center = new Point3D(0.5f, 0.5f, 0.5f); // Tinh tam doi tuong
 		}
 	}
 
@@ -436,7 +497,6 @@ namespace BUS
 			gl.PointSize(1.0f);
 
 		}
-
 
 		public override void draw(OpenGL gl, bool isSelected = false)
 		{
@@ -502,7 +562,10 @@ namespace BUS
                 gl.End();
                 gl.Flush();
 
+				// Ve bien
                 drawBorder(gl, isSelected);
+				// Ve truc
+				drawAxis(gl, isSelected);
 
 				if (isTranslate())
 					gl.PopMatrix();
@@ -579,10 +642,13 @@ namespace BUS
                 gl.End();
                 gl.Flush();
 				gl.Disable(OpenGL.GL_TEXTURE_2D);
-
+				
+				// Ve bien
 				drawBorder(gl, isSelected);
+				// Ve truc
+				drawAxis(gl, isSelected);
 
-                if (isTranslate())
+				if (isTranslate())
                     gl.PopMatrix();
 				if (isRotate())
 					gl.PopMatrix();
@@ -594,6 +660,7 @@ namespace BUS
 		public CSquarePyramid() : base()
 		{
 			name = "Square pyramid";
+			center = new Point3D(0.5f, 0.5f, 0.5f); // Tinh tam doi tuong
 		}
 
 		public CSquarePyramid(bool texture = false, string texturePath = "") : base()
@@ -601,6 +668,7 @@ namespace BUS
             isTexture = texture;
             path = texturePath;
             name = "Square pyramid";
+			center = new Point3D(0.5f, 0.5f, 0.5f); // Tinh tam doi tuong
 		}
 	}
 
@@ -675,7 +743,6 @@ namespace BUS
 			gl.LineWidth(1);
 		}
 
-
 		// Class CTriangularPrism : CObject
 		public override void draw(OpenGL gl, bool isSelected = false)
 		{
@@ -746,6 +813,9 @@ namespace BUS
 
 				// Ve bien
 				drawBorder(gl, isSelected);
+				// Ve truc
+				drawAxis(gl, isSelected);
+
 
 				if (isTranslate())
 					gl.PopMatrix();
@@ -826,6 +896,8 @@ namespace BUS
 				gl.Disable(OpenGL.GL_TEXTURE_2D);
 				// Ve bien
 				drawBorder(gl, isSelected);
+				// Ve truc
+				drawAxis(gl, isSelected);
 
 				if (isTranslate())
 					gl.PopMatrix();
@@ -841,11 +913,13 @@ namespace BUS
 			isTexture = texture;
 			path = texturePath;
 			name = "Triangular prism";
+			center = new Point3D(0.5f, 0.5f, (float)Math.Pow(3.0, (double)(1.0/3.0)) / 3.0f); // Tam cua hinh lang tru la (0.5, 0.5, pow(3, 1.0f/3))
 		}
 
 		public CTriangularPrism() : base()
 		{
 			name = "Triangular prism";
+			center = new Point3D(0.5f, 0.5f, (float)Math.Pow(3.0, (double)(1.0/3.0)) / 3.0f); // Tam cua hinh lang tru la (0.5, 0.5, pow(3, 1.0f/3))
 		}
 	}
 

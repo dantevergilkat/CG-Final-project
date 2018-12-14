@@ -55,6 +55,8 @@ namespace GUI
 			this.KeyPreview = true;
 			//this.AcceptButton = bt_Enter;
 		}
+
+		// Draw axis and mesh surface
         public void SystemDraw(OpenGL gl)
         {
             gl.ClearColor(128.0f / 255.0f, 128.0f / 255.0f, 128.0f / 255.0f, 100.0f / 255.0f); // dark gray
@@ -72,8 +74,8 @@ namespace GUI
                 gl.End();
             }
             gl.Flush();
-            gl.LineWidth(4.0f);
 
+            gl.LineWidth(4.0f);
             // Ve Ox
             gl.Color(255.0 / 255.0, 0.0, 0.0);
             gl.Begin(OpenGL.GL_LINES);
@@ -110,7 +112,8 @@ namespace GUI
             gl.Vertex(0, 0, 10);
             gl.End();
             gl.Flush();
-        }
+			gl.LineWidth(1.0f); // Reset lai do day net ve
+		}
         private void openGLControl1_OpenGLDraw(object sender, SharpGL.RenderEventArgs args)
 		{
 			if (isDrawing)
@@ -721,6 +724,12 @@ namespace GUI
 			{
 				bt_Enter_Click(sender, e);
 			}
+		}
+
+		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			// Tat chuong trinh
+			Application.Exit();
 		}
 	}
 		

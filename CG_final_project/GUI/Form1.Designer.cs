@@ -90,7 +90,8 @@
 			this.lb_VpX = new System.Windows.Forms.Label();
 			this.lb_Viewport = new System.Windows.Forms.Label();
 			this.textBox_VpX = new System.Windows.Forms.TextBox();
-			this.button1 = new System.Windows.Forms.Button();
+			this.bt_Cam_Enter = new System.Windows.Forms.Button();
+			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.openGLControl1)).BeginInit();
 			this.menuStrip1.SuspendLayout();
 			this.groupBox_Objects.SuspendLayout();
@@ -356,7 +357,8 @@
 			// fileToolStripMenuItem
 			// 
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem});
+            this.newToolStripMenuItem,
+            this.exitToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.fileToolStripMenuItem.Text = "&File";
@@ -554,7 +556,7 @@
 			// 
 			// groupBox_Camera
 			// 
-			this.groupBox_Camera.Controls.Add(this.button1);
+			this.groupBox_Camera.Controls.Add(this.bt_Cam_Enter);
 			this.groupBox_Camera.Controls.Add(this.lb_VpZ);
 			this.groupBox_Camera.Controls.Add(this.textBox_VpZ);
 			this.groupBox_Camera.Controls.Add(this.lb_VpY);
@@ -708,14 +710,21 @@
 			this.textBox_VpX.Size = new System.Drawing.Size(42, 20);
 			this.textBox_VpX.TabIndex = 9;
 			// 
-			// button1
+			// bt_Cam_Enter
 			// 
-			this.button1.Location = new System.Drawing.Point(9, 161);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(190, 27);
-			this.button1.TabIndex = 23;
-			this.button1.Text = "Enter";
-			this.button1.UseVisualStyleBackColor = true;
+			this.bt_Cam_Enter.Location = new System.Drawing.Point(9, 161);
+			this.bt_Cam_Enter.Name = "bt_Cam_Enter";
+			this.bt_Cam_Enter.Size = new System.Drawing.Size(190, 27);
+			this.bt_Cam_Enter.TabIndex = 23;
+			this.bt_Cam_Enter.Text = "Enter";
+			this.bt_Cam_Enter.UseVisualStyleBackColor = true;
+			// 
+			// exitToolStripMenuItem
+			// 
+			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.exitToolStripMenuItem.Text = "&Exit";
+			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
 			// Form_3D_Scenes
 			// 
@@ -813,7 +822,8 @@
 		private System.Windows.Forms.TextBox textBox_VpX;
 		private System.Windows.Forms.TextBox textBox_View;
 		private System.Windows.Forms.Label lb_View;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button bt_Cam_Enter;
+		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
 	}
 }
 
