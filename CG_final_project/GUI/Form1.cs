@@ -77,51 +77,51 @@ namespace GUI
                 gl.End();
 				gl.Flush();
             }
-			#region Draw axis
+			#region Draw global axis
 			//float a = 20.0f;
 			//float b = a - 1.0f;
 
-			//         gl.LineWidth(4.0f);
-			//         // Ve Ox
-			//         gl.Color(255.0 / 255.0, 0.0, 0.0);
-			//         gl.Begin(OpenGL.GL_LINES);
-			//         gl.Vertex(0, 0, 0);
-			//         gl.Vertex(a, 0, 0);
-			//         gl.End();
+			//gl.LineWidth(4.0f);
+			//// Ve Ox
+			//gl.Color(255.0 / 255.0, 0.0, 0.0);
+			//gl.Begin(OpenGL.GL_LINES);
+			//gl.Vertex(0, 0, 0);
+			//gl.Vertex(a, 0, 0);
+			//gl.End();
 			//gl.Flush();
-			//         gl.Begin(OpenGL.GL_TRIANGLES);
-			//         gl.Vertex(b, 0, 1);
-			//         gl.Vertex(b, 0, -1);
-			//         gl.Vertex(a, 0, 0);
-			//         gl.End();
+			//gl.Begin(OpenGL.GL_TRIANGLES);
+			//gl.Vertex(b, 0, 1);
+			//gl.Vertex(b, 0, -1);
+			//gl.Vertex(a, 0, 0);
+			//gl.End();
 			//gl.Flush();
 
 			//// Ve Oy
 			//gl.Color(0.0f, 255.0 / 255.0, 0.0);
-			//         gl.Begin(OpenGL.GL_LINES);
-			//         gl.Vertex(0, 0, 0);
-			//         gl.Vertex(0, a, 0);
-			//         gl.End();
+			//gl.Begin(OpenGL.GL_LINES);
+			//gl.Vertex(0, 0, 0);
+			//gl.Vertex(0, a, 0);
+			//gl.End();
 			//gl.Flush();
 			//gl.Begin(OpenGL.GL_TRIANGLES);
-			//         gl.Vertex(-1, b, 0);
-			//         gl.Vertex(1, b, 0);
-			//         gl.Vertex(0, a, 0);
-			//         gl.End();
+			//gl.Vertex(-1, b, 0);
+			//gl.Vertex(1, b, 0);
+			//gl.Vertex(0, a, 0);
+			//gl.End();
 			//gl.Flush();
 			//// Ve Oz
 			//gl.Color(0.0f, 0.0f, 255.0 / 255.0);
-			//         gl.Begin(OpenGL.GL_LINES);
-			//         gl.Vertex(0, 0, 0);
-			//         gl.Vertex(0, 0, a);
-			//         gl.End();
+			//gl.Begin(OpenGL.GL_LINES);
+			//gl.Vertex(0, 0, 0);
+			//gl.Vertex(0, 0, a);
+			//gl.End();
 			//gl.Flush();
 			//gl.Begin(OpenGL.GL_TRIANGLES);
-			//         gl.Vertex(1, 0, b);
-			//         gl.Vertex(-1, 0, b);
-			//         gl.Vertex(0, 0, a);
-			//         gl.End();
-			//         gl.Flush();
+			//gl.Vertex(1, 0, b);
+			//gl.Vertex(-1, 0, b);
+			//gl.Vertex(0, 0, a);
+			//gl.End();
+			//gl.Flush();
 
 			//gl.LineWidth(1.0f); // Reset lai do day net ve
 			#endregion
@@ -141,9 +141,10 @@ namespace GUI
 				// Camera rotation
 				gl.MatrixMode(OpenGL.GL_MODELVIEW);
 				gl.LoadIdentity();
-				/*gl.LookAt(rotate_x, rotate_y, rotate_z, // camera position (-4,4,-4)
+                /*gl.LookAt(rotate_x, rotate_y, rotate_z, // camera position (-4,4,-4)
 						  1, 0, 1, // look at
 						  0, 1, 0); // vector up*/
+                cam.calDist();
 				double x = cam.getX();
 				double y = cam.getY();
 				double z = cam.getZ();
@@ -199,8 +200,11 @@ namespace GUI
 		private void openGLControl1_OpenGLInitialized(object sender, EventArgs e)
 		{
 			OpenGL gl = openGLControl1.OpenGL;
-			// Set man hinh OpenGL la dark gray
-			gl.ClearColor(128.0f / 255.0f, 128.0f / 255.0f, 128.0f / 255.0f, 100.0f / 255.0f);
+			
+			//cam.setPosAndViewpoint(10, 9, 5, 1, 1);
+
+            // Set man hinh OpenGL la dark gray
+            gl.ClearColor(128.0f / 255.0f, 128.0f / 255.0f, 128.0f / 255.0f, 100.0f / 255.0f);
 			
 		}
 
@@ -795,20 +799,13 @@ namespace GUI
 		private void bt_Cam_Enter_Click(object sender, EventArgs e)
 		{
 			bool success = true;
+			// Cap nhat cam position
 			Point3D cam_pos = new Point3D();
 			success = float.TryParse(textBox_Cam_PosX.Text, out cam_pos.x);
 			success = float.TryParse(textBox_Cam_PosY.Text, out cam_pos.y);
 			success = float.TryParse(textBox_Cam_PosZ.Text, out cam_pos.z);
 
-			
-			if (success)
-			{
-				// Cat nhat toa do camera vao bien cam
-				cam.setPos(cam_pos.x, cam_pos.y, cam_pos.z);
-				// Cap nhat la co thuc hien bien doi tren camera
-				isChangedCam = true;
-			}
-
+			// Cap nhat viewpoint
 			Point3D view_point = new Point3D();
 			success = float.TryParse(textBox_VpX.Text, out view_point.x);
 			success = float.TryParse(textBox_VpY.Text, out view_point.y);
@@ -817,12 +814,13 @@ namespace GUI
 			
 			if (success)
 			{
-				// Cat nhat viewpoint vao bien cam
-				cam.setPos(view_point.x, view_point.y, view_point.z);
+				// Goi ham setPosAndViewpoint de cap nhat position va viewpoint cua cam
+				cam.setPosAndViewpoint(cam_pos.x, cam_pos.y, cam_pos.z, view_point.x, view_point.y);
 				// Cap nhat la co thuc hien bien doi tren camera
 				isChangedCam = true;
 			}
 
+			// Cap nhat goc nhin
 			int angle;
 			success = int.TryParse(textBox_View.Text, out angle);
 			
@@ -966,8 +964,7 @@ namespace GUI
 
 		private void textBox_VpX_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (e.KeyChar != '0' && e.KeyChar != '1' && e.KeyChar != '.' && e.KeyChar != '-'
-				&& !char.IsControl(e.KeyChar))
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
 			{
 				e.Handled = true;
 			}
@@ -979,8 +976,7 @@ namespace GUI
 
 		private void textBox_VpY_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (e.KeyChar != '0' && e.KeyChar != '1' && e.KeyChar != '.' && e.KeyChar != '-'
-				&& !char.IsControl(e.KeyChar))
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
 			{
 				e.Handled = true;
 			}
@@ -992,8 +988,7 @@ namespace GUI
 
 		private void textBox_VpZ_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (e.KeyChar != '0' && e.KeyChar != '1' && e.KeyChar != '.' && e.KeyChar != '-' 
-				&& !char.IsControl(e.KeyChar))
+			if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != '.')
 			{
 				e.Handled = true;
 			}

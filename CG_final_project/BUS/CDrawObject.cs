@@ -307,6 +307,7 @@ namespace BUS
 				float a = 1.0f;
 				gl.Color(colorUse.R / 255.0, colorUse.G / 255.0, colorUse.B / 255.0);
 				gl.Begin(OpenGL.GL_QUADS);
+				
 				gl.Vertex(0.0f, 0.0f, 0.0f);    // Top Right Of The Quad (Top)
 				gl.Vertex(a, 0.0f, 0.0f);    // Top Left Of The Quad (Top)
 				gl.Vertex(a, 0.0f, a);    // Bottom Left Of The Quad (Top)
@@ -1210,7 +1211,7 @@ namespace BUS
 		private double p_y = 0;
 		private double p_z = 2;
 		// khoang cach tu hinh chieu cua camera position den viewpoint
-		private double dist = Math.Sqrt(Math.Pow(-4 - 1, 2) + Math.Pow(-4 - 1, 2));
+		private double dist = 0;
 
 		// flag for checking when we need to change y of vector up 
 		private int flag1 = 0;
@@ -1290,12 +1291,34 @@ namespace BUS
 		{
 			v_z = _vz;
 		}
+        public void calDist()
+        {
+            dist = Math.Sqrt(Math.Pow(x - v_x, 2) + Math.Pow(y - v_y, 2) + Math.Pow(z - v_z, 2));
+        }
 
-		public void setAngle(int _angle) {
+        public void setAngle(int _angle) {
 			angle = _angle;
 		}
+        public void setPosAndViewpoint(double _x, double _z, double _y, double _v_x, double _v_z)
+        {
+            x = _x;
+            y = _y;
+            z = _z;
+            v_x = _v_x;
+            v_y = _y;
+            v_z = _v_z;
+            double a = v_x - x, b = v_z - z, c = v_y - y;
+            double numerator = (-1) * ((a * a) / b) * v_x + (-1) * a * c + (-1) * b * x;
+            double denominator = (-1) * b - ((a * a) / b);
+            if (denominator < 0)
+                p_x = (numerator / denominator) - 1;
+            else
+                p_x = (numerator / denominator) + 1;
+            p_z = (-1) * (a / b) * (p_x - v_x) + v_z;
+            p_y = _y;
+        }
 
-		public void setPos(double _x, double _y, double _z) {
+        public void setPos(double _x, double _y, double _z) {
 			x = _x;
 			y = _y;
 			z = _z;
@@ -1325,7 +1348,7 @@ namespace BUS
 		{
 			//int[] newPos = new int[3];
 			double[] sPoint = new double[3] { v_x, v_y, v_z };
-			double[] ePoint = new double[3] { v_x, 1, v_z };
+			double[] ePoint = new double[3] { v_x, v_y + 1, v_z };
 			double[] p_ePoint = new double[3] { p_x, p_y, p_z };
 
 			double[] newVertice = new double[3];
@@ -1345,7 +1368,7 @@ namespace BUS
 		public void rightRotate()
 		{
 			double[] sPoint = new double[3] { v_x, v_y, v_z };
-			double[] ePoint = new double[3] { v_x, 1, v_z };
+			double[] ePoint = new double[3] { v_x, v_y + 1, v_z };
 			double[] p_ePoint = new double[3] { p_x, p_y, p_z };
 
 			double[] newVertice = new double[3];
